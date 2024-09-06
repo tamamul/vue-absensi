@@ -6,9 +6,11 @@
 		<!-- Content Area -->
 		<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 			<!-- Navbar -->
-			<Navbar></Navbar>
+			<!-- <Navbar></Navbar> -->
 			<!-- Main Content Area -->
-			<RouteView></RouteView>
+			<div class="grid grid-cols-12 gap-5 m-5">
+				<RouterView></RouterView>
+			</div>
 		</div>
 	</div>
 </template>

@@ -24,17 +24,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    --p-primary-50: var(--p-blue-50);
-    --p-primary-100: var(--p-blue-100);
-    --p-primary-200: var(--p-blue-200);
-    --p-primary-300: var(--p-blue-300);
-    --p-primary-400: var(--p-blue-400);
-    --p-primary-500: var(--p-blue-500);
-    --p-primary-600: var(--p-blue-600);
-    --p-primary-700: var(--p-blue-700);
-    --p-primary-800: var(--p-blue-800);
-    --p-primary-900: var(--p-blue-900);
-    --p-primary-950: var(--p-blue-950);
+    --p-primary-50: var(--p-emerald-50);
+    --p-primary-100: var(--p-emerald-100);
+    --p-primary-200: var(--p-emerald-200);
+    --p-primary-300: var(--p-emerald-300);
+    --p-primary-400: var(--p-emerald-400);
+    --p-primary-500: var(--p-emerald-500);
+    --p-primary-600: var(--p-emerald-600);
+    --p-primary-700: var(--p-emerald-700);
+    --p-primary-800: var(--p-emerald-800);
+    --p-primary-900: var(--p-emerald-900);
+    --p-primary-950: var(--p-emerald-950);
     
     --p-surface-0: #ffffff;
     --p-surface-50: #f8fafc;
@@ -66,10 +66,10 @@
     --p-text-muted-color: var(--p-surface-500);
     --p-text-hover-muted-color: var(--p-surface-600);
 
-    --p-button-primary-background: var(--p-primary-900);
-    --p-button-primary-hover-background: var(--p-primary-950);
-    --p-button-primary-border-border: var(--p-primary-900);
-    --p-button-primary-hover-border: var(--p-primary-950);
+    --p-button-primary-background: var(--p-primary-500);
+    --p-button-primary-hover-background: var(--p-primary-600);
+    --p-button-primary-border-border: var(--p-primary-500);
+    --p-button-primary-hover-border: var(--p-primary-600);
 
     --surface-ground: var(--p-surface-200);
     --code-background: var(--p-surface-900);

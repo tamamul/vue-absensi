@@ -6,6 +6,7 @@
 		<div class="h-full">
 		</div>
 	</div>
+	<!-- <Button :icon="darkIcon" @click="darkToggle"></Button> -->
 </template>
 
 <script>
@@ -40,13 +41,13 @@ export default {
 	},
 	computed: {
 		// checkDark () {
-			// this.getLocalStorage === 'light' ? this.darkIcon[0] : this.darkIcon[1]
-			// if (this.getLocalStorage == 'light'){
-			// 	return this.darkIcon
-			// } else {
-			// 	this.darkIcon = 'pi pi-moon'
-			// 	return this.darkIcon
-			// }
+		// 	this.getLocalStorage === 'light' ? this.darkIcon[0] : this.darkIcon[1]
+		// 	if (this.getLocalStorage == 'light'){
+		// 		return this.darkIcon
+		// 	} else {
+		// 		this.darkIcon = 'pi pi-moon'
+		// 		return this.darkIcon
+		// 	}
 		// }
 	}
 };

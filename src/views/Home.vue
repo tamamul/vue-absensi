@@ -1,29 +1,48 @@
 <template>
-    <Card class="m-6 mt-0">
-        <template #title>Kanban Kw</template>
+      <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
+        <template #title>Testing</template>
         <template #content>
-            <PickList :model="products" dataKey="id" breakpoint="1400px" scrollHeight="20rem">
-                <template #option="{ option , selected }">
-                    <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" :src="'https://primefaces.org/cdn/primevue/images/product/' + option.image" :alt="option.name" />
-                        <div class="flex-1 flex flex-col">
-                            <span class="font-medium text-sm">{{ option.name }}</span>
-                            <span :class="['text-sm', { 'text-surface-500 dark:text-surface-400': !selected, 'text-inherit': selected }]">{{ option.category }}</span>
-                        </div>
-                        <span class="font-bold">${{ option.price }}</span>
-                    </div>
-                </template>
-            </PickList>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde aliquid fugit temporibus harum voluptatibus placeat officia expedita sint impedit! Architecto eius consectetur reiciendis veniam officia incidunt optio ut rerum laborum.</p>
+        </template>
+    </Card>
+    <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
+        <template #title>Testing</template>
+        <template #content>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde aliquid fugit temporibus harum voluptatibus placeat officia expedita sint impedit! Architecto eius consectetur reiciendis veniam officia incidunt optio ut rerum laborum.</p>
+        </template>
+    </Card>
+    <Card class="shadow-md col-span-12 lg:col-span-12 xl:col-span-6">
+        <template #title>Testing</template>
+        <template #content>
+            <DataTable :value="products" tableStyle="min-width: 50rem">
+                <Column field="id" header="Code"></Column>
+                <Column field="photo" header="photo">
+                    <template #body>
+                        <img :src="photo" alt="">
+                    </template>
+                </Column>
+                <Column field="nama" header="Category">
+                </Column>
+                <Column field="totalHadir" header="Quantity"></Column>
+            </DataTable>
         </template>
     </Card>
 </template>
 
 <script>
-// import { ProductService } from '@/service/ProductService'
+
 export default {
     data() {
         return {
-        }
+            products: [
+                {
+                    id: 1,
+                    photo: "https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png",
+                    nama: "siti",
+                    totalHadir: 2,
+                }
+            ]
+        };
     },
-}
+};
 </script>

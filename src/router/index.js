@@ -9,8 +9,8 @@ const router = createRouter({
 			component: () => import('../views/Home.vue')
 		},
 		{
-			path: '/pegawai',
-			name: 'pegawai',
+			path: '/pegawai/daftar',
+			name: 'daftar-pegawai',
 			component: () => import('../views/Pegawai.vue')
 		},
 	]
