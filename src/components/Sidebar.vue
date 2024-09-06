@@ -1,37 +1,44 @@
 <template>
-    <!-- Sidebar -->
+    <aside
+        class="w-[250px] absolute left-0 top-0 z-50 flex h-screen flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0">
 
-        <!-- Sidebar Menu -->
-        <Menu :model="items" class="rounded-none w-[250px] p-3 border-none shadow-md">
-            <template #start>
-            </template>
-            <template #submenulabel="{ item }">
-                <span class="text-primary font-bold">{{ item.label }}</span>
-            </template>
-            <template #item="{ item, props }">
-                <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                    <a v-ripple :href="href" v-bind="props.action" @click="navigate" class="bg-blue-50">
-                        <span :class="item.icon" />
-                        <span class="ml-2">{{ item.label }}</span>
-                    </a>
-                </router-link>
-                <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-                    <span :class="item.icon" />
-                    <span class="ml-2">{{ item.label }}</span>
-                </a>
-            </template>
-            <template #end>
-                <button v-ripple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" class="mr-2" shape="circle" />
-                    <span class="inline-flex flex-col items-start">
-                        <span class="font-bold">Amy Elsner</span>
-                        <span class="text-sm">Admin</span>
-                    </span>
-                </button>
-            </template>
-        </Menu>
-    <!-- </div> -->
+        <!-- Sidebar Header -->
+        <div class="flex p-6 items-center gap-2">
+            <img src="../assets/app-logo.png" alt="" class="w-[60px]">
+            <h1 class="font-nunito text-xl font-semibold">Celebes</h1>
+        </div>
 
+        <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-5 px-4 py-4">
+                <!-- Menu Group -->
+                <div>
+                    <h3 class="mb-4 ml-4 font-bold text-lg font-nunito">Menu</h3>
+
+                    <ul class="mb-6 flex flex-col gap-2">
+                        <!-- Menu Item -->
+                        <li>
+                            <RouterLink :to="router" v-slot="{ href, navigate }">
+                                <i class="pi pi-home"></i>
+                                Dashboard
+                            </RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink :to="router" v-slot="{ href, navigate }">
+                                <i class="pi pi-home"></i>
+                                Dashboard
+                            </RouterLink>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Other Group -->
+                <div></div>
+            </nav>
+
+        </div>
+    </aside>
 </template>
 
 <script>
@@ -52,7 +59,7 @@ export default {
                         {
                             label: 'Dashboard',
                             icon: 'pi pi-home',
-                            route: '/'
+                            href: '/'
                         }
                     ]
                 },
@@ -62,17 +69,17 @@ export default {
                         {
                             label: 'List Pegawai',
                             icon: 'pi pi-list',
-                            route: '/pegawai/list'
+                            href: '/pegawai/list'
                         },
                         {
                             label: 'Tambah Pegawai',
                             icon: 'pi pi-user-plus',
-                            route: '/pegawai/tambah'
+                            href: '/pegawai/tambah'
                         },
                         {
                             label: 'Gaji Pegawai',
                             icon: 'pi pi-wallet',
-                            route: '/pegawai/gaji'
+                            href: '/pegawai/gaji'
                         },
                     ]
                 },
@@ -82,7 +89,7 @@ export default {
                         {
                             label: 'Settings',
                             icon: 'pi pi-cog',
-                            route: '/theming/unstyled'
+                            href: '/theming/unstyled'
                         }
                     ]
                 },
