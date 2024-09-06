@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-@layer tailwind-base, primevue, tailwind-utilities;
+@layer tailwind-base, primevue, tailwind-utilities, custom-class;
 
 @layer tailwind-base {
     @tailwind base;
@@ -11,9 +11,26 @@
     @tailwind utilities;
 }
 
-.font-nunito{
-    font-family: "Nunito", Arial, sans-serif;
+@layer custom-class {
+    .text-def {
+        @apply text-[#334155];
+    }
+
+    .text-primary {
+        color: var(--p-primary-500);
+    }
+
+    .font-nunito {
+        font-family: "Nunito", Arial, sans-serif;
+    }
+
+    .sidebar-active {
+        /* @apply bg-gray-200; */
+        @apply font-semibold text-primary;
+    }
 }
+
+
 
 :root {
     font-family: Arial, sans-serif;

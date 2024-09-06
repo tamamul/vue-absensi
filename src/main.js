@@ -11,7 +11,6 @@ import Lara from '@primevue/themes/lara';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css'
-// import '@primevue/resources/primevue.min.css';
 
 const app = createApp(App);
 
@@ -23,7 +22,7 @@ app.use(PrimeVue, {
             darkModeSelector: '.dark',
             cssLayer: {
                 name: 'primevue',
-                order: 'tailwind-base, primevue, tailwind-utilities'
+                order: 'tailwind-base, primevue, tailwind-utilities, custom-class, '
             }
         }
     },

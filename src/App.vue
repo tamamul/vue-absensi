@@ -3,7 +3,7 @@
 	<div class="flex h-screen overflow-hidden bg-[#F1F5F9]">
 
 		<!-- Sidebar -->
-		<SidebarElite :visible="visible"></SidebarElite>
+		<Sidebar :visible="visible"></Sidebar>
 
 		<!-- Content Area -->
 		<div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
