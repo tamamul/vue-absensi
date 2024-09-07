@@ -2,12 +2,13 @@
     <aside
         :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
         class="absolute left-0 top-0 z-50 flex h-screen flex-col overflow-y-hidden bg-white duration-300 ease-linear lg:static lg:translate-x-0 w-72 shadow-md text-def">
+
         <!-- ? Sidebar Header -->
         <div class="flex items-center justify-between gap-2 px-6 py-5 lg:py-6">
-            <a href="/" class="flex gap-2 items-center font-semibold text-xl">
+            <RouterLink to="/" class="flex gap-2 items-center font-semibold text-xl icon-nav">
                 <img src="../assets/app-logo.png" alt="Logo" class="w-12" />
                 Absensi Qr Code
-            </a>
+            </RouterLink>
 
             <button class="block lg:hidden" :class="{'lg:block' : sidebarToggle}" @click="$emit('toggleSidebar')">
                 <i class="pi pi-arrow-left text-lg"></i>
@@ -55,7 +56,7 @@ export default {
         return {
             sidebarItems: [
                 {
-                    label: 'HOME',
+                    label: 'Home',
                     items: [
                         {
                             label: 'Dashboard',
@@ -75,7 +76,7 @@ export default {
                         {
                             label: 'External',
                             icon: 'pi pi-home',
-                            route: '/theming/unstyled'
+                            route: '/pegawai/gaji'
                         }
                     ]
                 },
@@ -91,4 +92,8 @@ export default {
 </script>
 
 <style>
+    .icon-nav {
+        color: #334155;
+        @apply font-medium
+    }
 </style>
