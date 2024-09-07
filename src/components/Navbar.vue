@@ -65,7 +65,7 @@
                         <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
                             <li>
                                 <a href="profile.html"
-                                    class="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                                    class="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:color-primary lg:text-base">
                                     <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -80,7 +80,7 @@
                             </li>
                             <li>
                                 <a href="messages.html"
-                                    class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                                    class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:color-primary lg:text-base">
                                     <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -92,7 +92,7 @@
                             </li>
                             <li>
                                 <a href="settings.html"
-                                    class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                                    class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:color-primary lg:text-base">
                                     <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -107,7 +107,7 @@
                             </li>
                         </ul>
                         <button
-                            class="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                            class="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:color-primary lg:text-base">
                             <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
