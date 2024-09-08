@@ -34,7 +34,6 @@ export default {
 			this.sidebarToggle = !this.sidebarToggle;
 			// console.log('halo')
 		}
-			
 	}	
 }
 </script>

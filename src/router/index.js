@@ -11,7 +11,17 @@ const router = createRouter({
 		{
 			path: '/pegawai/daftar',
 			name: 'daftar-pegawai',
-			component: () => import('../views/Pegawai.vue')
+			component: () => import('../views/Pegawai/Pegawai.vue')
+		},
+		{
+			path: '/user/profile',
+			name: 'user-profile',
+			component: () => import('../views/Pegawai/Pegawai.vue')
+		},
+		{
+			path: '/user/settings',
+			name: 'user-settings',
+			component: () => import('../views/Pegawai/Pegawai.vue')
 		},
 	]
 })

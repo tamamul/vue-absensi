@@ -1,0 +1,22 @@
+{
+    "employees": [
+        {
+            "id": 1,
+            "nama": "Arrayyan",
+            "no_telp": "6285157879722",
+            "foto": "reza.png",
+            "tanggal_lahir": "30/10/2005",
+            "alamat": "JL. Pendidikan Blok B5 No. 8"
+        }
+    ],
+    "comments": [
+        {
+            "id": 1,
+            "body": "some comment",
+            "postId": 1
+        }
+    ],
+    "profile": {
+        "name": "typicode"
+    }
+}
