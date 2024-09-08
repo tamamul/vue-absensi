@@ -19,17 +19,84 @@
     "profile": {
         "name": "typicode"
     },
-    "kanban" :{
-      "list1": [
-            { "name": "John", "id": 1},
-            { "name": "Joao", "id": 2},
-            { "name": "Jean", "id": 3},
-            { "name": "Gerard", "id": 4}
+    "kanban": {
+        "list1": [
+            {
+                "name": "Mengembangkan fitur aplikasi baru",
+                "deskripsi": "John bertanggung jawab atas manajemen proyek dan pengembangan fitur utama.",
+                "id": 1
+            },
+            {
+                "name": "Mendesain antarmuka pengguna (UI/UX)",
+                "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
+                "id": 2
+            },
+            {
+                "name": "Mengintegrasikan API dan pengembangan backend",
+                "deskripsi": "Jean fokus pada pengembangan sistem backend dan integrasi layanan API.",
+                "id": 3
+            },
+            {
+                "name": "Melakukan uji coba dan debugging aplikasi",
+                "deskripsi": "Gerard melakukan pengujian untuk menemukan bug dan memastikan aplikasi berjalan lancar.",
+                "id": 4
+            }
         ],
-      "list2": [
-            { "name": "Juan", "id": 5},
-            { "name": "Edgard", "id": 6},
-            { "name": "Johnson", "id": 7}
+        "list2": [
+            {
+                "name": "Membuat laporan keamanan jaringan",
+                "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
+                "id": 5
+            },
+            {
+                "name": "Mengembangkan modul baru aplikasi",
+                "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
+                "id": 6
+            },
+            {
+                "name": "Menulis dokumentasi teknis",
+                "deskripsi": "Johnson bertugas membuat dokumentasi lengkap untuk setiap fitur dan update.",
+                "id": 7
+            }
+        ],
+        "list3": [
+            {
+                "name": "Memperbaiki jaringan yang bermasalah",
+                "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
+                "id": 8
+            },
+            {
+                "name": "Mengganti perangkat keras (hardware)",
+                "deskripsi": "Keran biasanya menangani masalah perangkat keras, termasuk penggantian.",
+                "id": 9
+            },
+            {
+                "name": "Menyusun laporan bulanan",
+                "deskripsi": "Dita menyusun dan mengelola laporan bulanan terkait aktivitas IT.",
+                "id": 10
+            },
+            {
+                "name": "Mengelola inventaris IT",
+                "deskripsi": "Nenek bertanggung jawab atas pengelolaan dan pemeliharaan inventaris IT.",
+                "id": 11
+            }
+        ],
+        "list4": [
+            {
+                "name": "Melakukan pelatihan keamanan IT",
+                "deskripsi": "Dapin bertugas memberikan pelatihan terkait keamanan IT kepada tim.",
+                "id": 12
+            },
+            {
+                "name": "Memantau sistem dan jaringan",
+                "deskripsi": "Ryan memantau sistem dan jaringan untuk mendeteksi potensi masalah.",
+                "id": 13
+            },
+            {
+                "name": "Menangani keluhan teknis pengguna",
+                "deskripsi": "Padail fokus pada penyelesaian masalah teknis yang dilaporkan oleh pengguna.",
+                "id": 14
+            }
         ]
     }
 }

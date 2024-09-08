@@ -6,6 +6,7 @@ import router from './router'
 
 import './style.css'
 
+// * PRIMEVUE
 import PrimeVue from 'primevue/config';
 import Lara from '@primevue/themes/lara';
 import ConfirmationService from 'primevue/confirmationservice';
