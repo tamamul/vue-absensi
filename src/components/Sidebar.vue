@@ -80,6 +80,16 @@ export default {
                         }
                     ]
                 },
+                {
+                    label: 'Produktifitas',
+                    items: [
+                        {
+                            label: 'Kanban',
+                            icon: 'pi pi-list',
+                            route: '/kanban'
+                        },
+                    ]
+                },
             ]
         }
     },

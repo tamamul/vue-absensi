@@ -23,6 +23,11 @@ const router = createRouter({
 			name: 'user-settings',
 			component: () => import('../views/Pegawai/Pegawai.vue')
 		},
+		{
+			path: '/kanban/',
+			name: 'kanban',
+			component: () => import('../views/Kanban.vue')
+		},
 	]
 })
 
