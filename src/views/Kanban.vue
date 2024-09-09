@@ -15,7 +15,7 @@
         <!-- // TODO Card To do's  -->
         <template #content>
             <draggable 
-                v-model="kanban.list1" 
+                v-model="kanban.todo" 
                 group="tasks" 
                 @start="drag=true" 
                 @end="drag=false" 
@@ -47,7 +47,7 @@
         <template #title>In Progress</template>
         <template #content>
             <draggable 
-                v-model="kanban.list2" 
+                v-model="kanban.inProgress" 
                 group="tasks" 
                 @start="drag=true" 
                 @end="drag=false" 
@@ -79,7 +79,7 @@
         <template #title>Trial Error</template>    
         <template #content>         
             <draggable 
-                v-model="kanban.list3" 
+                v-model="kanban.trialError" 
                 group="tasks" 
                 @start="drag=true" 
                 @end="drag=false" 
@@ -111,7 +111,7 @@
         <template #title>Completed</template>    
         <template #content>         
             <draggable 
-                v-model="kanban.list4" 
+                v-model="kanban.completed" 
                 group="tasks" 
                 @start="drag=true" 
                 @end="drag=false" 
@@ -171,10 +171,10 @@ export default {
             visible: false,
             drag: false,
             kanban: {
-                list1: [],
-                list2: [],
-                list3: [],
-                list4: []
+                todo: [],
+                inProgress: [],
+                trialError: [],
+                completed: []
             },
             formKanban: {
                 name: '',
@@ -210,16 +210,32 @@ export default {
         },
 
         // ? Push To Object List 1
-        add() {
-            this.kanban.list1.push({ 
-                id: Date.now(),
-                name: this.formKanban.name, 
-                deskripsi: this.formKanban.deskripsi 
-            });
-            this.visible = false;
-            this.formKanban.name = '';
-            this.formKanban.deskripsi = '';
-            this.$toast.add({ severity: 'success', summary: `Menambahkan tugas baru`, detail: 'Tugas telah ditambah', life: 3000 });
+        async add() {
+            try {
+                this.kanban.todo.push({ 
+                    id: Date.now(),
+                    name: this.formKanban.name, 
+                    deskripsi: this.formKanban.deskripsi 
+                });
+                this.visible = false;
+                this.formKanban.name = '';
+                this.formKanban.deskripsi = '';
+                this.$toast.add({ severity: 'success', summary: `Menambahkan tugas baru`, detail: 'Tugas telah ditambah', life: 3000 });
+
+                const response = await fetch("http://localhost:3000/kanban", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.kanban)
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                this.$toast.add({ severity: 'error', summary: 'Tugas gagal ditambahkan', detail: 'Network response was not ok', life: 3000 });
+            }
         },
 
         // ? Update all objects kanban
@@ -235,19 +251,20 @@ export default {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const data = await response.json();
-                this.$toast.add({ severity: 'success', summary: 'Update', detail: 'Data Updated', life: 3000 });
+                // const data = await response.json();
+                this.$toast.add({ severity: 'success', summary: 'Update', detail: 'Data berhasil di update', life: 3000 });
             } catch (error) {
                 console.error('Error:', error);
-                this.$toast.add({ severity: 'error', summary: 'Update Failed', detail: 'Data Update Failed', life: 3000 });
+                this.$toast.add({ severity: 'error', summary: 'Update Gagal', detail: 'Network response was not ok', life: 3000 });
             }
         },
+
         toggle(event) {
             this.$refs.menu.toggle(event);
         }
     },
     mounted() {
-        // ? Run getKanban run load
+        // ? onload getKanban
         this.getKanban()
     },
 }

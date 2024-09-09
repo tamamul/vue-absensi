@@ -20,11 +20,11 @@
     "name": "typicode"
   },
   "kanban": {
-    "list1": [
+    "todo": [
       {
-        "name": "Mengembangkan fitur aplikasi baru",
-        "deskripsi": "John bertanggung jawab atas manajemen proyek dan pengembangan fitur utama.",
-        "id": 1
+        "id": 1725848534800,
+        "name": "tes 123",
+        "deskripsi": "test"
       },
       {
         "id": 1725842742683,
@@ -45,13 +45,23 @@
         "id": 1725847439072,
         "name": "asd",
         "deskripsi": "adsdsa"
+      },
+      {
+        "id": 1725856612208,
+        "name": "test",
+        "deskripsi": "harusnya bisa"
       }
     ],
-    "list2": [
+    "inProgress": [
       {
         "name": "Mengembangkan modul baru aplikasi",
         "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
         "id": 6
+      },
+      {
+        "name": "Membuat laporan keamanan jaringan",
+        "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
+        "id": 5
       },
       {
         "name": "Mendesain antarmuka pengguna (UI/UX)",
@@ -59,9 +69,9 @@
         "id": 2
       },
       {
-        "id": 1725848534800,
-        "name": "tes 123",
-        "deskripsi": "test"
+        "id": 1725855065751,
+        "name": "absen",
+        "deskripsi": "hjbjhb"
       },
       {
         "name": "Menulis dokumentasi teknis",
@@ -69,16 +79,16 @@
         "id": 7
       }
     ],
-    "list3": [
+    "trialError": [
       {
         "name": "Memperbaiki jaringan yang bermasalah",
         "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
         "id": 8
       },
       {
-        "name": "Membuat laporan keamanan jaringan",
-        "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
-        "id": 5
+        "name": "Mengembangkan fitur aplikasi baru",
+        "deskripsi": "John bertanggung jawab atas manajemen proyek dan pengembangan fitur utama.",
+        "id": 1
       },
       {
         "name": "Mengganti perangkat keras (hardware)",
@@ -96,7 +106,7 @@
         "id": 11
       }
     ],
-    "list4": [
+    "completed": [
       {
         "name": "Melakukan pelatihan keamanan IT",
         "deskripsi": "Dapin bertugas memberikan pelatihan terkait keamanan IT kepada tim.",
