@@ -12,7 +12,7 @@
     <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
         <template #title>To do's</template>
 
-        <!-- // TODO Card To do's  -->
+        <!-- Card To do's  -->
         <template #content>
             <draggable 
                 v-model="kanban.todo" 
@@ -42,9 +42,10 @@
         </template>
     </Card>
 
-    <!-- // ? Card In Progress  -->
+    <!-- Card In Progress  -->
     <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
         <template #title>In Progress</template>
+
         <template #content>
             <draggable 
                 v-model="kanban.inProgress" 
@@ -74,9 +75,10 @@
         </template>
     </Card>
 
-    <!-- // ! Card Trial error  -->
+    <!-- Card Trial error  -->
     <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
         <template #title>Trial Error</template>    
+
         <template #content>         
             <draggable 
                 v-model="kanban.trialError" 
@@ -106,9 +108,10 @@
         </template>
     </Card>
 
-    <!-- // * Card Coompleted  -->
+    <!-- Card Coompleted  -->
     <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
         <template #title>Completed</template>    
+
         <template #content>         
             <draggable 
                 v-model="kanban.completed" 
@@ -138,7 +141,7 @@
         </template>
     </Card>
 
-    <!-- // ? Modal untuk upload task baru -->
+    <!-- Modal untuk upload task baru -->
     <Dialog v-model:visible="visible" modal header="Tambahkan Tugas" :style="{ width: '32rem' }">
         <span class="text-surface-500 dark:text-surface-400 block mb-8">Tambahkan list tugas untuk bulan ini.</span>
         <div class="flex items-center gap-4 mb-4">
@@ -151,11 +154,11 @@
         </div>
         <div class="flex justify-end gap-2">
             <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-            <Button type="button" label="Save" @click="add()"></Button>
+            <Button type="button" label="Save" @click="postTask()"></Button>
         </div>
     </Dialog>
 
-    <!-- // ? Roti -->
+    <!-- Roti -->
     <Toast />
 </template>
 
@@ -168,14 +171,24 @@ export default {
     },
     data() {
         return {
-            visible: false,
-            drag: false,
+            // ? Data kanban yang di fetch dari di getKanban()
             kanban: {
-                todo: [],
-                inProgress: [],
-                trialError: [],
-                completed: []
+                todo        : [],
+                inProgress  : [],
+                trialError  : [],
+                completed   : []
             },
+
+            // ? Untuk Tracking kanban yang di klik
+            currentElement  : '',
+            currentTask     : null,
+            editingTaskId   : null,
+            editingElement  : null,
+
+            // ? Menampilkan modal tambah aplikasi
+            visible: false,
+
+            // ? Form untuk tambah task
             formKanban: {
                 name: '',
                 deskripsi: ''
@@ -210,10 +223,9 @@ export default {
         },
 
         // ? Push To Object List 1
-        async add() {
+        async postTask() {
             try {
                 this.kanban.todo.push({ 
-                    id: Date.now(),
                     name: this.formKanban.name, 
                     deskripsi: this.formKanban.deskripsi 
                 });

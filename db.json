@@ -22,15 +22,27 @@
   "kanban": {
     "todo": [
       {
-        "id": 1725848534800,
-        "name": "tes 123",
-        "deskripsi": "test"
+        "name": "Mendesain antarmuka pengguna (UI/UX)",
+        "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
+        "id": 2
       },
       {
-        "id": 1725842742683,
-        "name": "dasdsa",
-        "deskripsi": "sadsad"
+        "name": "Memperbaiki jaringan yang bermasalah",
+        "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
+        "id": 8
       },
+      {
+        "name": "Mengembangkan modul baru aplikasi",
+        "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
+        "id": 6
+      },
+      {
+        "name": "Menulis dokumentasi teknis",
+        "deskripsi": "Johnson bertugas membuat dokumentasi lengkap untuk setiap fitur dan update.",
+        "id": 7
+      }
+    ],
+    "inProgress": [
       {
         "name": "Melakukan uji coba dan debugging aplikasi",
         "deskripsi": "Gerard melakukan pengujian untuk menemukan bug dan memastikan aplikasi berjalan lancar.",
@@ -42,49 +54,12 @@
         "id": 3
       },
       {
-        "id": 1725847439072,
-        "name": "asd",
-        "deskripsi": "adsdsa"
-      },
-      {
-        "id": 1725856612208,
-        "name": "test",
-        "deskripsi": "harusnya bisa"
-      }
-    ],
-    "inProgress": [
-      {
-        "name": "Mengembangkan modul baru aplikasi",
-        "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
-        "id": 6
-      },
-      {
         "name": "Membuat laporan keamanan jaringan",
         "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
         "id": 5
-      },
-      {
-        "name": "Mendesain antarmuka pengguna (UI/UX)",
-        "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
-        "id": 2
-      },
-      {
-        "id": 1725855065751,
-        "name": "absen",
-        "deskripsi": "hjbjhb"
-      },
-      {
-        "name": "Menulis dokumentasi teknis",
-        "deskripsi": "Johnson bertugas membuat dokumentasi lengkap untuk setiap fitur dan update.",
-        "id": 7
       }
     ],
     "trialError": [
-      {
-        "name": "Memperbaiki jaringan yang bermasalah",
-        "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
-        "id": 8
-      },
       {
         "name": "Mengembangkan fitur aplikasi baru",
         "deskripsi": "John bertanggung jawab atas manajemen proyek dan pengembangan fitur utama.",

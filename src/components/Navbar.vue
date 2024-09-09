@@ -35,7 +35,7 @@
             <div class="flex items-center gap-3">
                 <div class="relative">
 
-                    <button class="flex items-center gap-4" @click="toggleDropdown">
+                    <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
                         <span class="hidden text-right lg:block">
                             <span class="block text-sm font-medium text-black">Arrayyan</span>
                             <span class="block text-xs font-medium">Frontend Developer</span>
@@ -50,24 +50,7 @@
                         <i :class="{'rotate-180' : dropdownOpen}" class="hidden fill-current sm:block transition-all ease-in-out pi pi-angle-down"></i>
                     </button>
 
-                    <!-- Dropdown User Menu -->
-                    <div v-show="dropdownOpen" class="absolute right-0 mt-4 flex w-62 flex-col rounded-sm border bg-white shadow-md">
-                        <ul class="flex flex-col gap-5 border-b px-6 py-7">
-                            <li v-for="item in userItems" :key="item.route">
-                                <RouterLink :to="item.route" class="font-medium flex items-center gap-3">
-                                    <i :class="item.icon" class="text-lg"></i>
-                                    {{item.label}}
-                                </RouterLink>
-                            </li>
-                        </ul>
-
-                        <!-- Logout -->
-                        <button class="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:color-primary lg:text-base">
-                            <i class="pi pi-sign-out"></i>
-                            Log Out
-                        </button>
-                    </div>
-
+                    <TieredMenu ref="menu" id="overlay_tmenu" :model="userItems" popup />
                 </div>
             </div>
 
@@ -84,20 +67,28 @@ export default {
             userItems: [
                 {
                     label: 'Profile',
-                    route: '/profile',
+                    route: '/',
                     icon: 'pi pi-user'
                 },
                 {
                     label: 'Settings',
-                    route: '/settings',
+                    route: '/',
                     icon: 'pi pi-cog'
-                }
+                },
+                {
+                    separator: true
+                },
+                {
+                    label: 'Logout',
+                    route: '/',
+                    icon: 'pi pi-sign-out'
+                },
             ]
         }
     },
     methods: {
-        toggleDropdown() {
-            this.dropdownOpen = !this.dropdownOpen;
+        toggleDropdown(event) {
+            this.$refs.menu.toggle(event);
         }
     },
 }
