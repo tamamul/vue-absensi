@@ -57,7 +57,13 @@
                 <template #item="{element}">
                     <Card class="shadow-md border-l-blue-500 border-l-8">
                         <template #title>
-                            {{element.name}}
+                            <div class="grid grid-cols-12 gap-5">
+                                <div class="col-span-10">{{element.name}}</div>
+                                <div class="col-span-2">
+                                    <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
+                                    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                </div>
+                            </div>
                         </template>
                         <template #content>
                             {{element.deskripsi}}
@@ -83,7 +89,13 @@
                 <template #item="{element}">
                     <Card class="shadow-md border-l-red-700 border-l-8">
                         <template #title>
-                            {{element.name}}
+                            <div class="grid grid-cols-12 gap-5">
+                                <div class="col-span-10">{{element.name}}</div>
+                                <div class="col-span-2">
+                                    <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
+                                    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                </div>
+                            </div>
                         </template>
                         <template #content>
                             {{element.deskripsi}}
@@ -109,7 +121,13 @@
                 <template #item="{element}">
                     <Card class="shadow-md border-l-lime-300 border-l-8">
                         <template #title>
-                            {{element.name}}
+                            <div class="grid grid-cols-12 gap-5">
+                                <div class="col-span-10">{{element.name}}</div>
+                                <div class="col-span-2">
+                                    <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
+                                    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                </div>
+                            </div>
                         </template>
                         <template #content>
                             {{element.deskripsi}}
@@ -181,13 +199,14 @@ export default {
     },
     methods: {
         // ? Get kanban
-        getKanban() {
-            const gettingData = async () => {
+        async getKanban() {
+            try {
                 const response = await fetch("http://localhost:3000/kanban");
                 const kanban = await response.json();
-                this.kanban = kanban
+                this.kanban = kanban  
+            } catch (error) {
+                console.error('Error:', error);
             }
-            gettingData();
         },
 
         // ? Push To Object List 1
