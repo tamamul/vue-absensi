@@ -1,5 +1,3 @@
-// TODO buat sesuatu (text) untuk tasks yang done
-
 <template>
     <div class="col-span-12 flex items-center gap-14">
         <h2 class="font-medium text-3xl text-def">Daftar Tugas Bulan Ini</h2>
@@ -107,11 +105,11 @@
         <span class="text-surface-500 dark:text-surface-400 block mb-8">Tambahkan list tugas untuk bulan ini.</span>
         <div class="flex items-center gap-4 mb-4">
             <label for="nama" class="font-semibold w-24">Judul Tugas</label>
-            <InputText id="nama" class="flex-auto" autocomplete="off" v-model="nama" />
+            <InputText id="nama" class="flex-auto" autocomplete="off" v-model="formKanban.name" />
         </div>
         <div class="flex items-center gap-4 mb-8">
             <label for="deskripsi" class="font-semibold w-24">Deskripsi</label>
-            <InputText id="deskripsi" class="flex-auto" autocomplete="off" v-model="deskripsi" />
+            <InputText id="deskripsi" class="flex-auto" autocomplete="off" v-model="formKanban.deskripsi" />
         </div>
         <div class="flex justify-end gap-2">
             <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
@@ -131,7 +129,12 @@ export default {
         return {
             visible: false,
             drag: false,
-            kanban: [],
+            kanban: {
+                list1: [],
+                list2: [],
+                list3: [],
+                list4: []
+            },
             formKanban: {
                 name: '',
                 deskripsi: ''
@@ -176,6 +179,7 @@ export default {
         }
     },
     methods: {
+        // ? Get kanban
         getKanban() {
             const gettingData = async () => {
                 const response = await fetch("http://localhost:3000/kanban");
@@ -188,8 +192,33 @@ export default {
             this.$refs.menu.toggle(event);
         },
         add() {
-            this.kanban.list1.push(this.formKanban);
-            this.visible = false
+            this.kanban.list1.push({ 
+                id: Date.now(),
+                name: this.formKanban.name, 
+                deskripsi: this.formKanban.deskripsi 
+            });
+            this.visible = false;
+            this.formKanban.name = '';
+            this.formKanban.deskripsi = '';
+        },
+        async update() {
+            try {
+                const response = await fetch("http://localhost:3000/kanban", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.kanban)
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                this.$toast.add({ severity: 'success', summary: 'Update', detail: 'Data Updated', life: 3000 });
+            } catch (error) {
+                console.error('Error:', error);
+                this.$toast.add({ severity: 'error', summary: 'Update Failed', detail: 'Data Update Failed', life: 3000 });
+            }
         }
     },
     mounted() {
@@ -199,5 +228,4 @@ export default {
 </script>
 
 <style>
-
 </style>
