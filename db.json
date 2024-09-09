@@ -27,14 +27,14 @@
         "id": 1
       },
       {
-        "name": "Membuat laporan keamanan jaringan",
-        "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
-        "id": 5
+        "id": 1725842742683,
+        "name": "dasdsa",
+        "deskripsi": "sadsad"
       },
       {
-        "name": "Mendesain antarmuka pengguna (UI/UX)",
-        "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
-        "id": 2
+        "name": "Melakukan uji coba dan debugging aplikasi",
+        "deskripsi": "Gerard melakukan pengujian untuk menemukan bug dan memastikan aplikasi berjalan lancar.",
+        "id": 4
       },
       {
         "name": "Mengintegrasikan API dan pengembangan backend",
@@ -42,21 +42,26 @@
         "id": 3
       },
       {
-        "name": "Melakukan uji coba dan debugging aplikasi",
-        "deskripsi": "Gerard melakukan pengujian untuk menemukan bug dan memastikan aplikasi berjalan lancar.",
-        "id": 4
+        "id": 1725847439072,
+        "name": "asd",
+        "deskripsi": "adsdsa"
       }
     ],
     "list2": [
       {
-        "id": 1725842742683,
-        "name": "dasdsa",
-        "deskripsi": "sadsad"
-      },
-      {
         "name": "Mengembangkan modul baru aplikasi",
         "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
         "id": 6
+      },
+      {
+        "name": "Mendesain antarmuka pengguna (UI/UX)",
+        "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
+        "id": 2
+      },
+      {
+        "id": 1725848534800,
+        "name": "tes 123",
+        "deskripsi": "test"
       },
       {
         "name": "Menulis dokumentasi teknis",
@@ -69,6 +74,11 @@
         "name": "Memperbaiki jaringan yang bermasalah",
         "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
         "id": 8
+      },
+      {
+        "name": "Membuat laporan keamanan jaringan",
+        "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
+        "id": 5
       },
       {
         "name": "Mengganti perangkat keras (hardware)",
