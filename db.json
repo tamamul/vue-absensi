@@ -19,291 +19,425 @@
   "profile": {
     "name": "typicode"
   },
+  "workspaces": {
+    "absensi": [
+      {
+        "frontend": {
+          "todo": [
+            {
+              "id": 1,
+              "nama": "Membuat layout",
+              "deskripsi": null,
+              "deadline": "2024/09/11",
+              "check_list": [
+                {
+                  "nama": "Navbar",
+                  "selesai": false,
+                  "id_checklist": 1
+                },
+                {
+                  "nama": "Sidebar",
+                  "selesai": false,
+                  "id_checklist": 2
+                },
+                {
+                  "nama": "wrapper content",
+                  "selesai": false,
+                  "id_checklist": 3
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "nama": "Membuat menu pegawai (CRUD)",
+              "deskripsi": null,
+              "deadline": null,
+              "check_list": [
+                {
+                  "nama": "tambah pegawai",
+                  "selesai": false,
+                  "id_checklist": 4
+                },
+                {
+                  "nama": "edit pegawai",
+                  "selesai": false,
+                  "id_checklist": 5
+                },
+                {
+                  "nama": "hapus pegawai",
+                  "selesai": false,
+                  "id_checklist": 6
+                },
+                {
+                  "nama": "gaji pegawai",
+                  "selesai": false,
+                  "id_checklist": 7
+                }
+              ]
+            }
+          ],
+          "in_progress": [
+            {
+              "id": 1,
+              "nama": "Membuat Kanban",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ],
+          "in_review": [
+            {
+              "id": 1,
+              "nama": "auth",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ],
+          "done": [
+            {
+              "id": 1,
+              "nama": "auth",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ]
+        },
+        "backend": {
+          "todo": [
+            {
+              "id": 1,
+              "nama": "Membuat layout",
+              "deskripsi": null,
+              "deadline": "2024/09/11",
+              "check_list": [
+                {
+                  "nama": "Navbar",
+                  "selesai": false,
+                  "id_checklist": 8
+                },
+                {
+                  "nama": "Sidebar",
+                  "selesai": false,
+                  "id_checklist": 9
+                },
+                {
+                  "nama": "wrapper content",
+                  "selesai": false,
+                  "id_checklist": 10
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "nama": "Membuat menu pegawai (CRUD)",
+              "deskripsi": null,
+              "deadline": null,
+              "check_list": [
+                {
+                  "nama": "tambah pegawai",
+                  "selesai": false,
+                  "id_checklist": 11
+                },
+                {
+                  "nama": "edit pegawai",
+                  "selesai": false,
+                  "id_checklist": 12
+                },
+                {
+                  "nama": "hapus pegawai",
+                  "selesai": false,
+                  "id_checklist": 13
+                },
+                {
+                  "nama": "gaji pegawai",
+                  "selesai": false,
+                  "id_checklist": 14
+                }
+              ]
+            }
+          ],
+          "in_progress": [
+            {
+              "id": 1,
+              "nama": "Membuat Kanban",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ],
+          "in_review": [
+            {
+              "id": 1,
+              "nama": "auth",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ],
+          "done": [
+            {
+              "id": 1,
+              "nama": "auth",
+              "deskripsi": "ya begitulah",
+              "deadline": "2024/09/11",
+              "check_list": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "frontend": {
+    "todo": [
+      {
+        "id": 1,
+        "nama": "Membuat Kanban",
+        "deskripsi": "Bismillah",
+        "deadline": "2024/09/11",
+        "check_list": null
+      },
+      {
+        "id": 1,
+        "nama": "Membuat layout",
+        "deskripsi": null,
+        "deadline": "2024/09/11",
+        "check_list": [
+          {
+            "nama": "Navbar",
+            "selesai": false,
+            "id_checklist": 1
+          },
+          {
+            "nama": "Sidebar",
+            "selesai": false,
+            "id_checklist": 2
+          },
+          {
+            "nama": "wrapper content",
+            "selesai": false,
+            "id_checklist": 3
+          }
+        ]
+      }
+    ],
+    "in_progress": [
+      {
+        "id": 2,
+        "nama": "Membuat menu pegawai (CRUD)",
+        "deskripsi": null,
+        "deadline": null,
+        "check_list": [
+          {
+            "nama": "tambah pegawai",
+            "selesai": false,
+            "id_checklist": 4
+          },
+          {
+            "nama": "edit pegawai",
+            "selesai": false,
+            "id_checklist": 5
+          },
+          {
+            "nama": "hapus pegawai",
+            "selesai": false,
+            "id_checklist": 6
+          },
+          {
+            "nama": "gaji pegawai",
+            "selesai": false,
+            "id_checklist": 7
+          }
+        ]
+      }
+    ],
+    "in_review": [
+      {
+        "id": 1,
+        "nama": "layout",
+        "deskripsi": "daftar layout",
+        "deadline": "2024/09/11",
+        "check_list": null
+      }
+    ],
+    "done": [
+      {
+        "id": 1,
+        "nama": "auth",
+        "deskripsi": "ya begitulah",
+        "deadline": "2024/09/11",
+        "check_list": null
+      }
+    ]
+  },
+  "backend": {
+    "todo": [
+      {
+        "id": 1,
+        "nama": "Membuat layout",
+        "deskripsi": null,
+        "deadline": "2024/09/11",
+        "check_list": [
+          {
+            "nama": "Navbar",
+            "selesai": false,
+            "id_checklist": 8
+          },
+          {
+            "nama": "Sidebar",
+            "selesai": false,
+            "id_checklist": 9
+          },
+          {
+            "nama": "wrapper content",
+            "selesai": false,
+            "id_checklist": 10
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "nama": "Membuat menu pegawai (CRUD)",
+        "deskripsi": null,
+        "deadline": null,
+        "check_list": [
+          {
+            "nama": "tambah pegawai",
+            "selesai": false,
+            "id_checklist": 11
+          },
+          {
+            "nama": "edit pegawai",
+            "selesai": false,
+            "id_checklist": 12
+          },
+          {
+            "nama": "hapus pegawai",
+            "selesai": false,
+            "id_checklist": 13
+          },
+          {
+            "nama": "gaji pegawai",
+            "selesai": false,
+            "id_checklist": 14
+          }
+        ]
+      }
+    ],
+    "in_progress": [
+      {
+        "id": 1,
+        "nama": "Membuat Kanban",
+        "deskripsi": "ya begitulah",
+        "deadline": "2024/09/11",
+        "check_list": null
+      }
+    ],
+    "in_review": [
+      {
+        "id": 1,
+        "nama": "auth",
+        "deskripsi": "ya begitulah",
+        "deadline": "2024/09/11",
+        "check_list": null
+      }
+    ],
+    "done": [
+      {
+        "id": 1,
+        "nama": "auth",
+        "deskripsi": "ya begitulah",
+        "deadline": "2024/09/11",
+        "check_list": null
+      }
+    ]
+  },
   "kanban": {
     "todo": [
       {
-        "name": "Mendesain antarmuka pengguna (UI/UX)",
-        "deskripsi": "Joao bertugas dalam desain dan pengalaman pengguna aplikasi.",
-        "list": [
+        "id": 2,
+        "nama": "Membuat menu pegawai (CRUD)",
+        "deskripsi": null,
+        "deadline": null,
+        "check_list": [
           {
-            "tugas": "daftar tugas",
-            "key": 101,
-            "is_done": true
+            "nama": "tambah pegawai",
+            "selesai": false,
+            "id_checklist": 4
           },
           {
-            "tugas": "daftar tugas1",
-            "key": 102,
-            "is_done": false
-          }
-        ],
-        "id": 2
-      },
-      {
-        "name": "Mengembangkan modul baru aplikasi",
-        "deskripsi": "Edgard bekerja pada pengembangan modul tambahan untuk aplikasi internal.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 103,
-            "is_done": false
+            "nama": "edit pegawai",
+            "selesai": false,
+            "id_checklist": 5
           },
           {
-            "tugas": "daftar tugas1",
-            "key": 104,
-            "is_done": false
-          }
-        ],
-        "id": 6
-      },
-      {
-        "name": "Memperbaiki jaringan yang bermasalah",
-        "deskripsi": "Air bocor sering kali memperbaiki masalah teknis terkait jaringan.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 105,
-            "is_done": false
+            "nama": "hapus pegawai",
+            "selesai": false,
+            "id_checklist": 6
           },
           {
-            "tugas": "daftar tugas1",
-            "key": 106,
-            "is_done": false
+            "nama": "gaji pegawai",
+            "selesai": false,
+            "id_checklist": 7
           }
-        ],
-        "id": 8
-      },
-      {
-        "name": "Menulis dokumentasi teknis",
-        "deskripsi": "Johnson bertugas membuat dokumentasi lengkap untuk setiap fitur dan update.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 107,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 108,
-            "is_done": false
-          }
-        ],
-        "id": 7
+        ]
       }
     ],
-    "inProgress": [
+    "in_progress": [
       {
-        "name": "bisa langsung",
-        "deskripsi": "bisa",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 109,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 110,
-            "is_done": false
-          }
-        ],
-        "id": 230985732980567
+        "id": 1,
+        "nama": "Membuat Kanban",
+        "deskripsi": "Bismillah",
+        "deadline": "2024/09/11",
+        "check_list": null
       },
       {
-        "name": "Melakukan uji coba dan debugging aplikasi",
-        "deskripsi": "Gerard melakukan pengujian untuk menemukan bug dan memastikan aplikasi berjalan lancar.",
-        "list": [
+        "id": 1,
+        "nama": "Membuat layout",
+        "deskripsi": null,
+        "deadline": "2024/09/11",
+        "check_list": [
           {
-            "tugas": "daftar tugas",
-            "key": 201,
-            "is_done": false
+            "nama": "Navbar",
+            "selesai": false,
+            "id_checklist": 1
           },
           {
-            "tugas": "daftar tugas1",
-            "key": 202,
-            "is_done": false
-          }
-        ],
-        "id": 4
-      },
-      {
-        "name": "Mengintegrasikan API dan pengembangan backend",
-        "deskripsi": "Jean fokus pada pengembangan sistem backend dan integrasi layanan API.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 203,
-            "is_done": false
+            "nama": "Sidebar",
+            "selesai": false,
+            "id_checklist": 2
           },
           {
-            "tugas": "daftar tugas1",
-            "key": 204,
-            "is_done": false
+            "nama": "wrapper content",
+            "selesai": false,
+            "id_checklist": 3
           }
-        ],
-        "id": 3
-      },
-      {
-        "name": "Membuat laporan keamanan jaringan",
-        "deskripsi": "Juan bertanggung jawab atas pemantauan dan analisis keamanan jaringan.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 205,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 206,
-            "is_done": false
-          }
-        ],
-        "id": 5
-      },
-      {
-        "name": "bagaimana kalau misalnya tugas nya panjang sekali dan bentuk bttun nya akan seperti apa",
-        "deskripsi": "mari kita coba",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 207,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 208,
-            "is_done": false
-          }
-        ],
-        "id": 6524352
+        ]
       }
     ],
-    "trialError": [
+    "in_review": [
       {
-        "name": "Mengembangkan fitur aplikasi baru",
-        "deskripsi": "John bertanggung jawab atas manajemen proyek dan pengembangan fitur utama.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 301,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 302,
-            "is_done": false
-          }
-        ],
-        "id": 1
-      },
-      {
-        "name": "Mengganti perangkat keras (hardware)",
-        "deskripsi": "Keran biasanya menangani masalah perangkat keras, termasuk penggantian.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 303,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 304,
-            "is_done": false
-          }
-        ],
-        "id": 9
-      },
-      {
-        "name": "Menyusun laporan bulanan",
-        "deskripsi": "Dita menyusun dan mengelola laporan bulanan terkait aktivitas IT.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 305,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 306,
-            "is_done": false
-          }
-        ],
-        "id": 10
-      },
-      {
-        "name": "Mengelola inventaris IT",
-        "deskripsi": "Nenek bertanggung jawab atas pengelolaan dan pemeliharaan inventaris IT.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 307,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 308,
-            "is_done": false
-          }
-        ],
-        "id": 11
+        "id": 1,
+        "nama": "layout",
+        "deskripsi": "daftar layout",
+        "deadline": "2024/09/11",
+        "check_list": null
       }
     ],
-    "completed": [
+    "done": [
       {
-        "name": "Melakukan pelatihan keamanan IT",
-        "deskripsi": "Dapin bertugas memberikan pelatihan terkait keamanan IT kepada tim.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 401,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 402,
-            "is_done": false
-          }
-        ],
-        "id": 12
-      },
-      {
-        "name": "Memantau sistem dan jaringan",
-        "deskripsi": "Ryan memantau sistem dan jaringan untuk mendeteksi potensi masalah.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 403,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 404,
-            "is_done": false
-          }
-        ],
-        "id": 13
-      },
-      {
-        "name": "Menangani keluhan teknis pengguna",
-        "deskripsi": "Padail fokus pada penyelesaian masalah teknis yang dilaporkan oleh pengguna.",
-        "list": [
-          {
-            "tugas": "daftar tugas",
-            "key": 405,
-            "is_done": false
-          },
-          {
-            "tugas": "daftar tugas1",
-            "key": 406,
-            "is_done": false
-          }
-        ],
-        "id": 14
+        "id": 1,
+        "nama": "auth",
+        "deskripsi": "ya begitulah",
+        "deadline": "2024/09/11",
+        "check_list": null
       }
     ]
   },
   "users": [
     {
-      "id_user": 1,
+      "id": 1,
       "email": "muh.mahatma@gmail.com",
       "password": "@123456@",
       "avatar": "admin.jpg",
@@ -314,7 +448,7 @@
       "updated_at": "2024-09-12T08:30:00"
     },
     {
-      "id_user": 2,
+      "id": 2,
       "email": "mahatmaaa3010@gmail.com",
       "password": "@123456@",
       "avatar": "user.jpg",

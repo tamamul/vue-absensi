@@ -94,9 +94,14 @@ export default {
                     label: 'Produktifitas',
                     items: [
                         {
+                            label: 'Workspaces',
+                            icon: 'pi pi-briefcase',
+                            route: '/produktifitas/workspaces'
+                        },
+                        {
                             label: 'Kanban',
                             icon: 'pi pi-list',
-                            route: '/kanban'
+                            route: '/produktifitas/kanban'
                         },
                     ]
                 },

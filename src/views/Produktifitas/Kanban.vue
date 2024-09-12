@@ -9,28 +9,28 @@
             </div>
         </div>
 
-        <!-- Kanban cards -->
-        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
+        <!-- frontend cards -->
+        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3 h-full">
             <template #title>To do's</template>
 
             <!-- Card To do's  -->
             <template #content>
                 <draggable 
-                    v-model="kanban.todo" 
+                    v-model="frontend.todo" 
                     group="tasks" 
                     @start="drag=true" 
                     @end="drag=false" 
-                    item-key="id"
+                    item-key="id h-full"
                     class="flex flex-col gap-5"
                 >
                     <template #item="{element}">
                         <Card class="shadow-md border-l-yellow-500 border-l-8">
                             <template #title>
                                 <div class="grid grid-cols-12 gap-5">
-                                    <div class="col-span-10 font-medium">{{element.name}}</div>
+                                    <div class="col-span-10 font-medium text-lg">{{element.nama}}</div>
                                     <div class="col-span-2">
-                                        <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
-                                        <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                        <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" text aria-haspopup="true" aria-controls="overlay_menu" />
+                                        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                                     </div>
                                 </div>
                             </template>
@@ -40,7 +40,7 @@
                                         {{element.deskripsi}}
                                     </p>
                                     <div v-for="item in element.list" :key="item.key" class="flex gap-3">
-                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <Checkbox v-model="item.is_done" inputId="item.key" binary />
                                         <label :for="item.key">{{item.tugas}}</label>
                                     </div>
                                 </div>
@@ -52,26 +52,26 @@
         </Card>
 
         <!-- Card In Progress  -->
-        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
+        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3 h-full">
             <template #title>In Progress</template>
 
             <template #content>
                 <draggable 
-                    v-model="kanban.inProgress" 
+                    v-model="frontend.in_progress" 
                     group="tasks" 
                     @start="drag=true" 
                     @end="drag=false" 
                     item-key="id"
-                    class="flex flex-col gap-5"
+                    class="flex flex-col gap-5 h-full"
                 >
                     <template #item="{element}">
                         <Card class="shadow-md border-l-blue-500 border-l-8">
                             <template #title>
                                 <div class="grid grid-cols-12 gap-5">
-                                    <div class="col-span-10 font-medium">{{element.name}}</div>
+                                    <div class="col-span-10 font-medium text-lg">{{element.nama}}</div>
                                     <div class="col-span-2">
-                                        <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
-                                        <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                        <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" text aria-haspopup="true" aria-controls="overlay_menu" />
+                                        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                                     </div>
                                 </div>
                             </template>
@@ -81,7 +81,7 @@
                                         {{element.deskripsi}}
                                     </p>
                                     <div v-for="item in element.list" :key="item.key" class="flex gap-3">
-                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <Checkbox v-model="item.is_done" inputId="item.key" binary />
                                         <label :for="item.key">{{item.tugas}}</label>
                                     </div>
                                 </div>
@@ -93,26 +93,26 @@
         </Card>
 
         <!-- Card Trial error  -->
-        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
+        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3 h-full">
             <template #title>Trial Error</template>    
 
             <template #content>         
                 <draggable 
-                    v-model="kanban.trialError" 
+                    v-model="frontend.in_review" 
                     group="tasks" 
                     @start="drag=true" 
                     @end="drag=false" 
                     item-key="id"
-                    class="flex flex-col gap-5"
+                    class="flex flex-col gap-5 h-full"
                 >
                     <template #item="{element}">
                         <Card class="shadow-md border-l-red-700 border-l-8">
                             <template #title>
                                 <div class="grid grid-cols-12 gap-5">
-                                    <div class="col-span-10 font-medium">{{element.name}}</div>
+                                    <div class="col-span-10 font-medium text-lg">{{element.nama}}</div>
                                     <div class="col-span-2">
-                                        <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
-                                        <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                        <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" text aria-haspopup="true" aria-controls="overlay_menu" />
+                                        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                                     </div>
                                 </div>
                             </template>
@@ -122,7 +122,7 @@
                                         {{element.deskripsi}}
                                     </p>
                                     <div v-for="item in element.list" :key="item.key" class="flex gap-3">
-                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <Checkbox v-model="item.is_done" inputId="item.key" binary />
                                         <label :for="item.key">{{item.tugas}}</label>
                                     </div>
                                 </div>
@@ -134,26 +134,26 @@
         </Card>
 
         <!-- Card Coompleted  -->
-        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3">
-            <template #title>Completed</template>    
+        <Card class="shadow-md col-span-12 lg:col-span-6 xl:col-span-3 h-full">
+            <template #title>done</template>    
 
             <template #content>         
                 <draggable 
-                    v-model="kanban.completed" 
+                    v-model="frontend.done" 
                     group="tasks" 
                     @start="drag=true" 
                     @end="drag=false" 
                     item-key="id"
-                    class="flex flex-col gap-5"
+                    class="flex flex-col gap-5 h-full"
                 >
                     <template #item="{element}">
                         <Card class="shadow-md border-l-lime-300 border-l-8">
                             <template #title>
                                 <div class="grid grid-cols-12 gap-5">
-                                    <div class="col-span-10 font-medium">{{element.name}}</div>
+                                    <div class="col-span-10 font-medium text-lg">{{element.nama}}</div>
                                     <div class="col-span-2">
-                                        <Button type="button" icon="pi pi-ellipsis-h" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu" text severity="secondary" />
-                                        <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+                                        <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" text aria-haspopup="true" aria-controls="overlay_menu" />
+                                        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                                     </div>
                                 </div>
                             </template>
@@ -163,7 +163,7 @@
                                         {{element.deskripsi}}
                                     </p>
                                     <div v-for="item in element.list" :key="item.key" class="flex gap-3">
-                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <Checkbox v-model="item.is_done" inputId="item.key" binary />
                                         <label :for="item.key">{{item.tugas}}</label>
                                     </div>
                                 </div>
@@ -179,11 +179,11 @@
             <span class="text-surface-500 dark:text-surface-400 block mb-8">Tambahkan list tugas untuk bulan ini.</span>
             <div class="flex items-center gap-4 mb-4">
                 <label for="nama" class="font-semibold w-24">Judul Tugas</label>
-                <InputText id="nama" class="flex-auto" autocomplete="off" v-model="formKanban.name" />
+                <InputText id="nama" class="flex-auto" autocomplete="off" v-model="formFrontend.nama" />
             </div>
             <div class="flex items-center gap-4 mb-8">
                 <label for="deskripsi" class="font-semibold w-24">Deskripsi</label>
-                <InputText id="deskripsi" class="flex-auto" autocomplete="off" v-model="formKanban.deskripsi" />
+                <InputText id="deskripsi" class="flex-auto" autocomplete="off" v-model="formFrontend.deskripsi" />
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
@@ -192,7 +192,7 @@
         </Dialog>
 
         <!-- Roti -->
-        <Toast />
+        <!-- <Toast /> -->
     </Layout>
 </template>
 
@@ -205,30 +205,24 @@ export default {
     },
     data() {
         return {
-            // ? Data kanban yang di fetch dari di getKanban()
-            kanban: {
+            // ? Data frontend yang di fetch dari di getFrontend()
+            frontend: {
                 todo        : [],
-                inProgress  : [],
-                trialError  : [],
-                completed   : []
+                in_progress : [],
+                in_review   : [],
+                done        : []
             },
-
-            // ? Untuk Tracking kanban yang di klik
-            currentElement  : '',
-            currentTask     : null,
-            editingTaskId   : null,
-            editingElement  : null,
 
             // ? Menampilkan modal tambah aplikasi
             visible: false,
 
             // ? Form untuk tambah task
-            formKanban: {
-                name: '',
+            formFrontend: {
+                nama: '',
                 deskripsi: ''
             },
 
-            // ? menu popup untuk edit or delete kanban
+            // ? menu popup untuk edit or delete frontend
             items: [
                 {
                     label: 'Edit',
@@ -245,12 +239,12 @@ export default {
         }
     },
     methods: {
-        // ? Get kanban
-        async getKanban() {
+        // ? Get frontend
+        async getFrontend() {
             try {
-                const response = await fetch("http://localhost:3000/kanban");
-                const kanban = await response.json();
-                this.kanban = kanban  
+                const response = await fetch("http://localhost:3000/frontend");
+                const frontend = await response.json();
+                this.frontend = frontend  
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -259,21 +253,21 @@ export default {
         // ? Push To Object List 1
         async postTask() {
             try {
-                this.kanban.todo.push({ 
-                    name: this.formKanban.name, 
-                    deskripsi: this.formKanban.deskripsi 
+                this.frontend.todo.push({ 
+                    nama: this.formFrontend.nama, 
+                    deskripsi: this.formFrontend.deskripsi 
                 });
                 this.visible = false;
-                this.formKanban.name = '';
-                this.formKanban.deskripsi = '';
+                this.formFrontend.nama = '';
+                this.formFrontend.deskripsi = '';
                 this.$toast.add({ severity: 'success', summary: `Menambahkan tugas baru`, detail: 'Tugas telah ditambah', life: 3000 });
 
-                const response = await fetch("http://localhost:3000/kanban", {
+                const response = await fetch("http://localhost:3000/frontend", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(this.kanban)
+                    body: JSON.stringify(this.frontend)
                 });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -284,15 +278,15 @@ export default {
             }
         },
 
-        // ? Update all objects kanban
+        // ? Update all objects frontend
         async update() {
             try {
-                const response = await fetch("http://localhost:3000/kanban", {
+                const response = await fetch("http://localhost:3000/frontend", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(this.kanban)
+                    body: JSON.stringify(this.frontend)
                 });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -310,8 +304,9 @@ export default {
         }
     },
     mounted() {
-        // ? onload getKanban
-        this.getKanban()
+        // ? onload getFrontend
+        this.getFrontend()
+        // console.log(this.frontend)
     },
 }
 </script>

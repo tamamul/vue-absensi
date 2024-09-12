@@ -38,9 +38,19 @@ const routes = [
 		component: () => import('../views/Pegawai/Pegawai.vue')
 	},
 	{
-		path: '/kanban/',
+		path: '/produktifitas/workspaces',
+		name: 'workspaces',
+		component: () => import('../views/Produktifitas/Workspaces.vue')
+	},
+	{
+		path: '/produktifitas/kanban/',
 		name: 'kanban',
 		component: () => import('../views/Produktifitas/Kanban.vue')
+	},
+	{
+		path: '/produktifitas/frontend/',
+		name: 'frontend',
+		component: () => import('../views/Produktifitas/Frontend.vue')
 	},
 ]
 
