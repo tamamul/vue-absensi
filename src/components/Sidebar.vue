@@ -74,8 +74,8 @@ export default {
                             route: '/pegawai/daftar'
                         },
                         {
-                            label: 'External',
-                            icon: 'pi pi-home',
+                            label: 'Gaji',
+                            icon: 'pi pi-wallet',
                             route: '/pegawai/gaji'
                         }
                     ]

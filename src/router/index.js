@@ -14,6 +14,11 @@ const router = createRouter({
 			component: () => import('../views/Pegawai/Pegawai.vue')
 		},
 		{
+			path: '/pegawai/gaji',
+			name: 'gaji-pegawai',
+			component: () => import('../views/Pegawai/Gaji.vue')
+		},
+		{
 			path: '/user/profile',
 			name: 'user-profile',
 			component: () => import('../views/Pegawai/Pegawai.vue')
@@ -26,7 +31,7 @@ const router = createRouter({
 		{
 			path: '/kanban/',
 			name: 'kanban',
-			component: () => import('../views/Kanban.vue')
+			component: () => import('../views/Produktifitas/Kanban.vue')
 		},
 	]
 })
