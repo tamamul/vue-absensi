@@ -50,7 +50,21 @@
                         <i :class="{'rotate-180' : dropdownOpen}" class="hidden fill-current sm:block transition-all ease-in-out pi pi-angle-down"></i>
                     </button>
 
-                    <TieredMenu ref="menu" id="overlay_tmenu" :model="userItems" popup />
+                    <TieredMenu ref="menu" id="overlay_tmenu" :model="userItems" popup >
+                        <template #item="{ item, props, hasSubmenu }">
+                            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                                <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                                    <span :class="item.icon" />
+                                    <span class="ml-2">{{ item.label }}</span>
+                                </a>
+                            </router-link>
+                            <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+                                <span :class="item.icon" />
+                                <span class="ml-2">{{ item.label }}</span>
+                                <span v-if="hasSubmenu" class="pi pi-angle-right ml-auto" />
+                            </a>
+                        </template>
+                    </TieredMenu>
                 </div>
             </div>
 
@@ -67,22 +81,59 @@ export default {
             userItems: [
                 {
                     label: 'Profile',
-                    route: '/',
-                    icon: 'pi pi-user'
+                    icon: 'pi pi-user',
+                    route: '/profile'
                 },
                 {
                     label: 'Settings',
-                    route: '/',
-                    icon: 'pi pi-cog'
+                    icon: 'pi pi-cog',
+                    route: '/settings'
                 },
                 {
                     separator: true
                 },
                 {
                     label: 'Logout',
-                    route: '/',
-                    icon: 'pi pi-sign-out'
+                    icon: 'pi pi-sign-out',
+                    route: '/login'
                 },
+            ],
+            items: [
+                {
+                    label: 'Router',
+                    icon: 'pi pi-palette',
+                    items: [
+                        {
+                            label: 'Styled',
+                            route: '/theming/styled'
+                        },
+                        {
+                            label: 'Unstyled',
+                            route: '/theming/unstyled'
+                        }
+                    ]
+                },
+                {
+                    label: 'Programmatic',
+                    icon: 'pi pi-link',
+                    command: () => {
+                        this.$router.push('/introduction');
+                    }
+                },
+                {
+                    label: 'External',
+                    icon: 'pi pi-home',
+                    items: [
+                        {
+                            label: 'Vue.js',
+                            url: 'https://vuejs.org/'
+                        },
+                        {
+                            label: 'Vite.js',
+                            url: 'https://vuejs.org/'
+                        }
+                    ]
+                }
             ]
         }
     },

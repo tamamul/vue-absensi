@@ -117,7 +117,7 @@ export default {
     methods: {
         getEmployees() {
             const fetchEmployees = async () => {
-                const endpoint = await fetch("http://localhost:3000/employees");
+                const endpoint = await fetch("http://localhost:3000/kanban");
                 const data = await endpoint.json()
                 console.log(data)
                 this.employees = (data)

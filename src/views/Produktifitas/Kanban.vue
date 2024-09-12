@@ -35,7 +35,15 @@
                                 </div>
                             </template>
                             <template #content>
-                                {{element.deskripsi}}
+                                <div class="flex flex-col gap-3">
+                                    <p>
+                                        {{element.deskripsi}}
+                                    </p>
+                                    <div v-for="item in element.list" :key="item.key" class="flex gap-3">
+                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <label :for="item.key">{{item.tugas}}</label>
+                                    </div>
+                                </div>
                             </template>
                         </Card>
                     </template>
@@ -68,7 +76,15 @@
                                 </div>
                             </template>
                             <template #content>
-                                {{element.deskripsi}}
+                                <div class="flex flex-col gap-3">
+                                    <p>
+                                        {{element.deskripsi}}
+                                    </p>
+                                    <div v-for="item in element.list" :key="item.key" class="flex gap-3">
+                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <label :for="item.key">{{item.tugas}}</label>
+                                    </div>
+                                </div>
                             </template>
                         </Card>
                     </template>
@@ -101,7 +117,15 @@
                                 </div>
                             </template>
                             <template #content>
-                                {{element.deskripsi}}
+                                <div class="flex flex-col gap-3">
+                                    <p>
+                                        {{element.deskripsi}}
+                                    </p>
+                                    <div v-for="item in element.list" :key="item.key" class="flex gap-3">
+                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <label :for="item.key">{{item.tugas}}</label>
+                                    </div>
+                                </div>
                             </template>
                         </Card>
                     </template>
@@ -134,7 +158,15 @@
                                 </div>
                             </template>
                             <template #content>
-                                {{element.deskripsi}}
+                                <div class="flex flex-col gap-3">
+                                    <p>
+                                        {{element.deskripsi}}
+                                    </p>
+                                    <div v-for="item in element.list" :key="item.key" class="flex gap-3">
+                                        <Checkbox v-model="item.is_done" inputId="item.key" indeterminate binary />
+                                        <label :for="item.key">{{item.tugas}}</label>
+                                    </div>
+                                </div>
                             </template>
                         </Card>
                     </template>

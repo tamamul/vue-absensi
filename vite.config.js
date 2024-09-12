@@ -10,7 +10,26 @@ export default defineConfig({
   plugins: [
     vue(),
     Components({
-      resolvers:[PrimeVueResolver()]
+      include: [/\.vue$/, /\.vue\?vue/],
+      dirs: ['./src/components'],
+      resolvers:[PrimeVueResolver()],
+      directoryAsNamespace: true,
+    }),
+    AutoImport({
+      include: [
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+      ],
+      imports: [
+        'vue',
+        'vue-router',
+        {
+          'axios': [['default', 'axios']],
+          'pinia': ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
+          '@vueuse/integrations/useIDBKeyval': ['useIDBKeyval'],
+          '@vueuse/core': ['useCloned', 'useTimeAgo'],
+        }
+      ],
     })
   ],
   resolve: {

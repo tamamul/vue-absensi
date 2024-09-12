@@ -66,6 +66,16 @@ export default {
                     ]
                 },
                 {
+                    label: 'Absensi',
+                    items: [
+                        {
+                            label: 'QR CODE',
+                            icon: 'pi pi-qrcode',
+                            route: '/absensi/qr-code'
+                        },
+                    ]
+                },
+                {
                     label: 'Pegawai',
                     items: [
                         {
