@@ -87,11 +87,14 @@ export default {
         }
     },
     methods: {
-        async getEmployees() {
-            const response = await fetch("http://localhost:3000/employees");
-            const data = await response.json()
-            console.log(data)
-            this.employees = data
+        getAxiosEmployees() {
+            axios.get('employees')
+                .then((res) => {
+                    this.employees = res.data;
+                })
+                .catch((err) => {
+                    console.log("Error:" + err);
+                })
         },
         async postEmployees() {
             try {
@@ -125,8 +128,8 @@ export default {
             }
         }
     },
-    mounted() {
-        this.getEmployees()
+    async mounted() {
+        this.getAxiosEmployees()
     },
 }
 </script>

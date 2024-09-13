@@ -13,6 +13,16 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css'
 
+// ? Melakuakn import axios dan menggunakan 
+// ? baseURL yang di dapatkan dari config.js
+import axios from 'axios'
+import config from './config'
+axios.defaults.baseURL = config.baseURL;
+axios.defaults.headers.common = {
+    ...axios.defaults.headers.common,
+    ...config.headers,
+}
+
 const app = createApp(App);
 
 app.use(PrimeVue, {
