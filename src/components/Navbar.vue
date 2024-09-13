@@ -77,7 +77,7 @@ export default {
     emits: ['toggleSidebar'],
     data() {
         return {
-            dropdownOpen:false,
+            dropdownOpen:true,
             userItems: [
                 {
                     label: 'Profile',
@@ -140,6 +140,7 @@ export default {
     methods: {
         toggleDropdown(event) {
             this.$refs.menu.toggle(event);
+            this.dropdownOpen = !this.dropdownOpen;
         }
     },
 }

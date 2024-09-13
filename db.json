@@ -4,9 +4,42 @@
       "id": 1,
       "nama": "Arrayyan",
       "no_telp": "6285157879722",
+      "no_telp_darurat": "6285157879722",
       "foto": "reza.png",
       "tanggal_lahir": "30/10/2005",
       "alamat": "JL. Pendidikan Blok B5 No. 8"
+    },
+    {
+      "nama": "shiori",
+      "alamat": "dvxdv",
+      "tanggal_lahir": "2024-09-01T16:00:00.000Z",
+      "no_telp": "2412-3536-4564",
+      "no_telp_darurat": "2412-3536-4564",
+      "id": 2
+    },
+    {
+      "nama": "Perdi",
+      "alamat": "Jl Andi Djemma",
+      "tanggal_lahir": "2005-10-29T16:00:00.000Z",
+      "no_telp": "085157879722",
+      "no_telp_darurat": "085157879722",
+      "id": 3
+    },
+    {
+      "nama": "Ibam",
+      "alamat": "jl hartako",
+      "tanggal_lahir": "2018-05-01T16:00:00.000Z",
+      "no_telp": "085157879722",
+      "no_telp_darurat": "085157879722",
+      "id": 4
+    },
+    {
+      "nama": "dasffdas",
+      "alamat": "fadsfdas",
+      "tanggal_lahir": "2024-09-10T16:00:00.000Z",
+      "no_telp": "23423423",
+      "no_telp_darurat": "23423423",
+      "id": 5
     }
   ],
   "comments": [

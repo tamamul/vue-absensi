@@ -47,11 +47,6 @@ const routes = [
 		name: 'kanban',
 		component: () => import('../views/Produktifitas/Kanban.vue')
 	},
-	{
-		path: '/produktifitas/frontend/',
-		name: 'frontend',
-		component: () => import('../views/Produktifitas/Frontend.vue')
-	},
 ]
 
 const router = createRouter({
