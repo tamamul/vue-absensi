@@ -26,9 +26,9 @@
                     <template #item="{element}">
                         <Card class="shadow-md border-l-yellow-500 border-l-8">
                             <template #title>
-                                <div class="grid grid-cols-12 gap-5">
-                                    <div class="col-span-10 font-medium text-lg">{{element.nama}}</div>
-                                    <div class="col-span-2">
+                                <div class="flex justify-between gap-5">
+                                    <div class="font-medium text-lg">{{element.nama}}</div>
+                                    <div class="">
                                         <Button type="button" icon="pi pi-ellipsis-v" @click="toggle" text aria-haspopup="true" aria-controls="overlay_menu" />
                                         <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                                     </div>

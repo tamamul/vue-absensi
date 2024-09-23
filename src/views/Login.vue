@@ -1,64 +1,43 @@
 <template>
-    <div class="h-dvh flex justify-center items-center bg-[#F1F5F9]">
-        <Card class="flex flex-col gap-4 ">
-            <template #title>Login</template>
+    <div class="w-full h-dvh flex justify-center items-center">
+        <Card class="shadow-md">
+            <template #title>
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-3xl">Login</h1>
+                    <p class="font-normal text-sm">Masuk kedalam aplikasi absensi</p>
+                </div>
+            </template>
             <template #content>
-                <form @submit.prevent="onSubmit()">
+                <div class="flex flex-col gap-2">
                     <InputGroup>
                         <InputGroupAddon>
                             <i class="pi pi-user"></i>
                         </InputGroupAddon>
-                        <InputText v-model="form.email" placeholder="Username" required />
+                        <InputText v-model="login.username" placeholder="Username" />
                     </InputGroup>
                     <InputGroup>
                         <InputGroupAddon>
                             <i class="pi pi-lock"></i>
                         </InputGroupAddon>
-                        <Password v-model="form.password" placeholder="Password" toggleMask :feedback="false" required />
+                        <Password v-model="login.password" toggleMask placeholder="Password" :feedback="false" />
                     </InputGroup>
-                </form>
+                    <Button label="Login" />
+                </div>
             </template>
         </Card>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'pinia';
 export default {
-    name: 'Login',
     data() {
         return {
-            form: {
-                email: '',
+            login : {
+                username: '',
                 password: '',
-            },
-            loading: false,
+            }
         }
     },
-    methods: {
-        ...mapActions({
-            login: 'auth/login'
-        }),
-        onSubmit() {
-            this.loading = true;
-            this.login(this.form).then((res) => {
-                if (res) {
-                    this.$toast.add({ severity: 'success', summary: 'Success', detail: 'Login success', life: 3000 });
-                    this.$router.push({ name: 'dashboard' });
-                }
-            }).catch((err) => {
-                try {
-                    const errorMessage = err.response.data.message.replace('\\n', '\n');
-                    this.$toast.add({ severity: 'error', summary: 'Error', detail: errorMessage, life: 3000 });
-                } catch (error) {
-                    this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Login failed', life: 3000 });
-                }
-            }).finally(() => {
-                this.loading = false;
-            })
-        }
-    },
-    inject: ['default']
 }
 </script>
 
