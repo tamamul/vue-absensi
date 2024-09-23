@@ -1,7 +1,7 @@
 <template>
-    <ConfirmPopup class="max-lg:hidden" group="popup" />
-    <ConfirmDialog class="lg:hidden" group="dialog" />
-    <Toast class="max-lg:hidden"></Toast>
+    <ConfirmPopup group="popup" />
+    <ConfirmDialog  group="dialog" />
+    <Toast />
 	<RouterView></RouterView>
 </template>
 

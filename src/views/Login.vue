@@ -8,21 +8,21 @@
                 </div>
             </template>
             <template #content>
-                <div class="flex flex-col gap-2">
+                <form @submit="prevent" class="flex flex-col gap-2">
                     <InputGroup>
                         <InputGroupAddon>
                             <i class="pi pi-user"></i>
                         </InputGroupAddon>
-                        <InputText v-model="login.username" placeholder="Username" />
+                        <InputText v-model="email" placeholder="Email" required />
                     </InputGroup>
                     <InputGroup>
                         <InputGroupAddon>
                             <i class="pi pi-lock"></i>
                         </InputGroupAddon>
-                        <Password v-model="login.password" toggleMask placeholder="Password" :feedback="false" />
+                        <Password v-model="password" toggleMask placeholder="Password" :feedback="false" required />
                     </InputGroup>
-                    <Button label="Login" />
-                </div>
+                    <Button label="Login" @click="login" />
+                </form>
             </template>
         </Card>
     </div>
@@ -32,12 +32,43 @@
 export default {
     data() {
         return {
-            login : {
-                username: '',
-                password: '',
-            }
+			email	: '',
+			password: '',
         }
     },
+	methods: {
+		// admin@gmail.com
+		// 12345678
+		login() {
+			if (this.email && this.password) {
+				axios.post('/login', {
+					email	: this.email,
+					password: this.password
+				}).then((response) => {
+					console.log(response);
+					localStorage.setItem('email', response.data.data.email)
+					localStorage.setItem('id_user', response.data.data.id_user)
+					localStorage.setItem('avatar', response.data.data.avatar)
+					localStorage.setItem('token', response.data.token)
+				}).catch((error) => {
+					console.log(error);
+					this.$toast.add({
+						severity: 'error',
+						summary: 'Email atau password anda salah',
+						detail: 'Masukkan email dan password yang benar!',
+						life: 5000
+					});
+				});
+			} else {
+				this.$toast.add({
+					severity: 'error',
+					summary: 'Masukkan Email dan Password',
+					detail: 'Email dan password wajib diisi!',
+					life: 5000
+				});
+			}
+		}
+	}
 }
 </script>
 
