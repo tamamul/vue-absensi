@@ -14,14 +14,15 @@
 						<InputGroupAddon>
 							<i class="pi pi-user"></i>
 						</InputGroupAddon>
-						<InputText v-model="email" placeholder="Email" required />
+						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" required />
 					</InputGroup>
 					<small class="text-red-500" v-show="emailErr" id="email-help">{{ emailErrMsg }}</small>
+					
 					<InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
 						</InputGroupAddon>
-						<Password v-model="password" toggleMask placeholder="Password" :feedback="false" required />
+						<Password class="border border-[#CBD5E1]" :class="{borderDanger : passwordErr}" v-model="password" toggleMask placeholder="Password" :feedback="false" required />
 					</InputGroup>
 					<small class="text-red-500" v-show="passwordErr" id="password-help">{{ passwordErrMsg }}</small>
 					
@@ -49,18 +50,19 @@ export default {
 	methods: {
 		// admin@gmail.com
 		// 12345678
+		// Login
 		login() {
 			if (this.email && this.password) {
 				axios.post('/login', {
 					email	: this.email,
 					password: this.password
 				}).then((response) => {
-					console.log(response);
+					// console.log(response);
 					localStorage.setItem('token', response.data.token)
+					localStorage.setItem('is_admin', response.data.is_admin)
 					router.push({name: 'dashboard'})
 				}).catch((error) => {
-					console.log(error);
-					// Kalau error 401
+					// console.log(error);
 					if (error.response.status == 401) {
 						this.emailErr = false;
 						this.passwordErr = true;
@@ -73,19 +75,23 @@ export default {
 						});
 					}
 					if (error.response) {
-						const errors = error.response.data.errors;
-
-						if (errors.email) {
+						const errors = error.response.data.errors
+						if (errors.email && errors.password) {
 							this.emailErr = true;
-							this.emailErrMsg = Array.isArray(errors.email) ? errors.email.join('') : errors.email;
-						}
-						if (errors.password) {
+							this.emailErrMsg = errors.email.join('');
 							this.passwordErr = true;
-							this.passwordErrMsg = Array.isArray(errors.password) ? errors.password.join('') : errors.password;
+							this.passwordErrMsg = errors.password.join('');
+						} else if (errors.password) {
+							this.emailErr = false;
+							this.passwordErr = true;
+							this.passwordErrMsg = errors.password.join('');
+						} else if (errors.email) {
+							this.passwordErr = false;
+							this.emailErr = true;
+							this.emailErrMsg = errors.email.join('');
 						}
-
-						console.log(this.emailErrMsg);
-						console.log(this.passwordErrMsg);
+						// console.log(errors.email)
+						// console.log(errors.password)
 					}
 					this.$toast.add({
 						severity: 'error',
@@ -102,11 +108,26 @@ export default {
 					life: 5000
 				});
 			}
-		}
-	}
+		},
+
+		// Check already login
+        ifLogin() {
+            this.token = localStorage.getItem('token');
+            if (this.token) {
+                router.push({name: 'dashboard'});
+            }
+        },
+	},
+	mounted() {
+		this.ifLogin();
+	},
 }
 </script>
-
 <style>
-
+	.borderDanger {
+		@apply border-red-500
+	}
+	.p-password-input.p-inputtext{
+		border: none;
+	}
 </style>

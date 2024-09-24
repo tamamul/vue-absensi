@@ -22,12 +22,13 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
     name: 'DashboardShell',
     inject: ['default'],
     data() {
         return {
-            // visible: false,
+            token: '',
             sidebarToggle: false,
             sidebarItems: [
                 {
@@ -103,29 +104,21 @@ export default {
             ],
         }
     },
-    // computed: {
-    //     ...mapGetters({
-    //         role: 'auth/role'
-    //     }),
-    // },
     methods: {
+        // Sidebar
         callback() {
             this.sidebarToggle = !this.sidebarToggle;
         },
-        // ...mapActions({
-        //     logout: 'auth/logout'
-        // }),
-        // toggleSidebar() {
-        //     this.visibleSidebar = !this.visibleSidebar;
-        // },
-        // onLogout() {
-        //     this.logout().then(() => {
-        //         console.log('Logged out');
-        //         this.$router.push({ name: 'login' });
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     });
-        // }
+        // Check if login
+        ifLogin() {
+            this.token = localStorage.getItem('token');
+            if (!this.token) {
+                router.push({name: 'login'});
+            }
+        }
+    },
+    mounted() {
+        this.ifLogin()
     },
 }
 </script>

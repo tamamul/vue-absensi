@@ -5,6 +5,7 @@
         </template>
         <template #content>
             admin only
+            token
         </template>
     </Card>
     <Card class="col-span-12 shadow-md">
@@ -30,5 +31,9 @@
 export default {
     name: 'Dashboard',
     inject: ['default'],
+    data() {
+        return {
+        }
+    },
 };
 </script>
