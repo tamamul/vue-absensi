@@ -37,7 +37,7 @@
 
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
                         <span class="hidden text-right lg:block">
-                            <span class="block text-sm font-medium text-black">Arrayyan</span>
+                            <span class="block text-sm font-medium text-black">{{ userEmail }}</span>
                             <span class="block text-xs font-medium">Frontend Developer</span>
                         </span>
 
@@ -75,73 +75,24 @@
 <script>
 export default {
     emits: ['toggleSidebar'],
+    props: [
+        'userItems'
+    ],
     data() {
         return {
             dropdownOpen:true,
-            userItems: [
-                {
-                    label: 'Profile',
-                    icon: 'pi pi-user',
-                    route: '/profile'
-                },
-                {
-                    label: 'Settings',
-                    icon: 'pi pi-cog',
-                    route: '/settings'
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Logout',
-                    icon: 'pi pi-sign-out',
-                    route: '/login'
-                },
-            ],
-            items: [
-                {
-                    label: 'Router',
-                    icon: 'pi pi-palette',
-                    items: [
-                        {
-                            label: 'Styled',
-                            route: '/theming/styled'
-                        },
-                        {
-                            label: 'Unstyled',
-                            route: '/theming/unstyled'
-                        }
-                    ]
-                },
-                {
-                    label: 'Programmatic',
-                    icon: 'pi pi-link',
-                    command: () => {
-                        this.$router.push('/introduction');
-                    }
-                },
-                {
-                    label: 'External',
-                    icon: 'pi pi-home',
-                    items: [
-                        {
-                            label: 'Vue.js',
-                            url: 'https://vuejs.org/'
-                        },
-                        {
-                            label: 'Vite.js',
-                            url: 'https://vuejs.org/'
-                        }
-                    ]
-                }
-            ]
+            userId: localStorage.getItem('id_user'),
+            userEmail: localStorage.getItem('email'),
         }
     },
     methods: {
         toggleDropdown(event) {
             this.$refs.menu.toggle(event);
             this.dropdownOpen = !this.dropdownOpen;
-        }
+        },
+        // getUser(id) {
+        //     axios.get('')
+        // }
     },
 }
 </script>

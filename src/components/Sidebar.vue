@@ -49,65 +49,10 @@
 <script>
 export default {
     props: [
-        'sidebarToggle'
+        'sidebarToggle',
+        'sidebarItems'
     ],
     emits: ['toggleSidebar'],
-    data() {
-        return {
-            sidebarItems: [
-                {
-                    label: 'Home',
-                    items: [
-                        {
-                            label: 'Dashboard',
-                            icon: 'pi pi-home',
-                            route: '/'
-                        }
-                    ]
-                },
-                {
-                    label: 'Absensi',
-                    items: [
-                        {
-                            label: 'QR CODE',
-                            icon: 'pi pi-qrcode',
-                            route: '/absensi/qr-code'
-                        },
-                    ]
-                },
-                {
-                    label: 'Pegawai',
-                    items: [
-                        {
-                            label: 'Daftar Pegawai',
-                            icon: 'pi pi-users',
-                            route: '/pegawai/daftar'
-                        },
-                        {
-                            label: 'Gaji',
-                            icon: 'pi pi-wallet',
-                            route: '/pegawai/gaji'
-                        }
-                    ]
-                },
-                {
-                    label: 'Produktifitas',
-                    items: [
-                        {
-                            label: 'Workspaces',
-                            icon: 'pi pi-briefcase',
-                            route: '/produktifitas/workspaces'
-                        },
-                        {
-                            label: 'Kanban',
-                            icon: 'pi pi-list',
-                            route: '/produktifitas/kanban'
-                        },
-                    ]
-                },
-            ]
-        }
-    },
     methods: {
         toggleSidebar() {
             this.$emit('toggleSidebar')

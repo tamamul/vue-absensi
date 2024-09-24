@@ -1,8 +1,8 @@
 <template>
     <ConfirmPopup group="popup" />
-    <ConfirmDialog  group="dialog" />
+    <ConfirmDialog group="dialog" />
     <Toast />
-	<RouterView></RouterView>
+    <RouterView></RouterView>
 </template>
 
 <script>
