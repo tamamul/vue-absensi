@@ -1,5 +1,5 @@
 <template>
-    <Card class="col-span-12 shadow-md" v-if="!isAdmin">
+    <Card class="col-span-12 shadow-md" v-if="isAdmin">
         <template #title>
             text
         </template>
@@ -8,7 +8,7 @@
             token
         </template>
     </Card>
-    <Card class="col-span-12 shadow-md" v-if="isAdmin">
+    <Card class="col-span-12 shadow-md" v-if="!isAdmin">
         <template #title>
             another one
         </template>
@@ -27,17 +27,27 @@
 </template>
 
 <script>
+import { useAuthStore } from '@/stores/auth';
+
 
 export default {
     name: 'Dashboard',
-    inject: ['default', 'dataUser'],
+    inject: ['default'],
     data() {
         return {
-            isAdmin: this.dataUser.is_admin,
+            authStore: useAuthStore(),
+            isAdmin: 0,
+        }
+    },
+    methods: {
+        async getUser() {
+            await this.authStore.getUser()
+            
+            this.isAdmin = this.authStore.authUser.is_admin
         }
     },
     mounted() {
-        console.log(this.dataUser.is_admin)
+        this.getUser()
     },
 };
 </script>

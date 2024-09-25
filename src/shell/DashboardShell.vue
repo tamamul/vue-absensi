@@ -23,14 +23,14 @@
 
 <script>
 import router from '@/router'
+import { useAuthStore } from '@/stores/auth';
+
 export default {
     name: 'DashboardShell',
     inject: ['default'],
     data() {
         return {
-            token: '',
-            dataUser: '',
-            isAdmin: '',
+            authStore: useAuthStore(),
             sidebarToggle: false,
             sidebarItems: [
                 {
@@ -86,11 +86,6 @@ export default {
             ],
         }
     },
-    provide() {
-        return {
-            dataUser: this.dataUser
-        };
-    },
     methods: {
         // Sidebar
         callback() {
@@ -98,28 +93,20 @@ export default {
         },
         // Check if login
         ifLogin() {
-            this.token = localStorage.getItem('token');
-            axios.get('user', {
-                headers: {
-                    'Authorization': `Bearer ${this.token}`
-                }
-            }).then(res => {
-                console.log(res.data.data)
-                this.dataUser = (res.data.data)
-            }).catch(err => {
-                console.log(err)
-            })
-
-            if (!this.token) {
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
                 router.push({name: 'login'});
             }
-        }
-
+        },
+        // get user
+        // async getUser() {
+        //     await this.authStore.getUser()
+        // }
     },
     mounted() {
+        // this.getUser()
         this.ifLogin()
     },
 }
 </script>
-
-<style></style>

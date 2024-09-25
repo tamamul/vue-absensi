@@ -117,7 +117,6 @@ export default {
                 }
             }).then((response) => {
                 // console.log(response);
-                console.log('halo')
                 localStorage.removeItem('token')
                 localStorage.removeItem('is_admin')
                 this.$toast.add({

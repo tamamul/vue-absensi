@@ -5,38 +5,36 @@ import axios from 'axios'
 export const useAuthStore = defineStore('auth', {
     state: () => {
         return {
-            token   : localStorage.getItem('token'),
-            user    : '',
+            authUser    : null,
+            authToken   : null
         }
     },
     getters: {
-        auth(state) {
-            return state.token && state.user
-        },
-        token(state) {
-            return state.token
-        },
-        user(state) {
-            return state.user
-        },
+        user    : (state) => state.authUser,
+        token   : (state) => state.authToken,
     },
     actions: {
         // Login
         login(email, emailErr, emailErrMsg, password, passwordErr, passwordErrMsg) {
             if (email && password) {
                 axios.post('/login', {
-                    email: email,
+                    email   : email,
                     password: password
                 }).then((response) => {
                     console.log(response);
                     localStorage.setItem('token', response.data.data.token)
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: 'Berhasil login',
+                        detail: '',
+                        life: 5000
+                    });
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
-                    // console.log(error);
                     if (error.response.status == 401) {
                         emailErr = false;
                         passwordErr = true;
-                       passwordErrMsg = error.response.data.message
+                        passwordErrMsg = error.response.data.message
                         this.$toast.add({
                             severity: 'error',
                             summary: 'Password anda salah',
@@ -77,5 +75,25 @@ export const useAuthStore = defineStore('auth', {
                 });
             }
         },
+        // get token
+        getToken() {
+             this.authToken = localStorage.getItem('token');
+        },
+        // get user 
+        async getUser() {
+            this.getToken()
+
+            await axios.get('user', {
+                headers: {
+                    'Authorization': `Bearer ${this.authToken}`
+                }
+            }).then(res => {
+                console.log(res.data.data)
+                this.authUser = (res.data.data)
+            }).catch(err => {
+                console.log(this.authToken)
+                console.log(err)
+            })
+        }
     }
 })
