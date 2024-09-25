@@ -54,8 +54,8 @@ export default {
             this.isLoading  = false
         }
     },
-    mounted() {
-        this.getUser()
+    async mounted() {
+        await this.getUser()
     },
 };
 </script>

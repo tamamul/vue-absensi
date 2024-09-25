@@ -22,10 +22,16 @@ const routes = [
 				name: 'dashboard',
 				component: () => import('../views/Dashboard.vue'),
 			},
+			// Pegawai
 			{
-				path: '/pegawai/daftar',
+				path: '/pegawai/tambah-pegawai',
+				name: 'tambah-pegawai',
+				component: () => import('../views/Pegawai/TambahPegawai.vue')
+			},
+			{
+				path: '/pegawai/daftar-pegawai',
 				name: 'daftar-pegawai',
-				component: () => import('../views/Pegawai/Pegawai.vue')
+				component: () => import('../views/Pegawai/DaftarPegawai.vue')
 			},
 			{
 				path: '/absensi/qr-code',
@@ -40,12 +46,12 @@ const routes = [
 			{
 				path: '/user/profile',
 				name: 'user-profile',
-				component: () => import('../views/Pegawai/Pegawai.vue')
+				component: () => import('../views/Pegawai/TambahPegawai.vue')
 			},
 			{
 				path: '/user/settings',
 				name: 'user-settings',
-				component: () => import('../views/Pegawai/Pegawai.vue')
+				component: () => import('../views/Pegawai/TambahPegawai.vue')
 			},
 			{
 				path: '/produktifitas/workspaces',

@@ -57,7 +57,7 @@ export default {
                         {
                             label: 'Daftar Pegawai',
                             icon: 'pi pi-users',
-                            route: '/pegawai/daftar'
+                            route: '/pegawai/daftar-pegawai'
                         },
                         {
                             label: 'Gaji',
