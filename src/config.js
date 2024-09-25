@@ -7,21 +7,21 @@ const config = {
         baseURL: 'https://api-absensi.eventpro.id/api',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'accept': 'application/json',
+            'Accept': 'application/json',
         },
     },
     local: {
         baseURL: 'http://127.0.0.1:8000/api/',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'accept': 'application/json',
+            'Accept': 'application/json',
         },
     },
     jsonServer: {
         baseURL: 'http://localhost:3000/',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'accept': 'application/json',
+            'Accept': 'application/json',
         },
     },
     ngrok: {
@@ -29,7 +29,7 @@ const config = {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'ngrok-skip-browser-warning': 'true',
-            'accept': 'application/json',
+            'Accept': 'application/json',
         },
     },
 }

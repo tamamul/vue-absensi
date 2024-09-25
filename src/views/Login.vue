@@ -27,7 +27,7 @@
 					<small class="text-red-500" v-show="passwordErr" id="password-help">{{ passwordErrMsg }}</small>
 					
 					<!-- Submit -->
-					<Button label="Login" @click="login" />
+					<Button label="Login" @click="handleLogin" />
 				</form>
 			</template>
 		</Card>
@@ -36,82 +36,39 @@
 
 <script>
 import router from '@/router'
+import { useAuthStore } from '@/stores/auth';
 export default {
     data() {
         return {
-			email	: '',
-			emailErr: false,
-			emailErrMsg: '',
-			password: '',
-			passwordErr: false,
-			passwordErrMsg: '',
+			// Stete
+			store: useAuthStore,
+			// Email
+			email		: '',
+			emailErr	: false,
+			emailErrMsg	: '',
+			// Password
+			password		: '',
+			passwordErr		: false,
+			passwordErrMsg	: '',
         }
     },
 	methods: {
-		// admin@gmail.com
-		// 12345678
 		// Login
-		login() {
-			if (this.email && this.password) {
-				axios.post('/login', {
-					email	: this.email,
-					password: this.password
-				}).then((response) => {
-					// console.log(response);
-					localStorage.setItem('token', response.data.token)
-					localStorage.setItem('is_admin', response.data.is_admin)
-					router.push({name: 'dashboard'})
-				}).catch((error) => {
-					// console.log(error);
-					if (error.response.status == 401) {
-						this.emailErr = false;
-						this.passwordErr = true;
-						this.passwordErrMsg = error.response.data.message
-						this.$toast.add({
-							severity: 'error',
-							summary: 'Password anda salah',
-							detail: error.response.data.message,
-							life: 5000
-						});
-					}
-					if (error.response) {
-						const errors = error.response.data.errors
-						if (errors.email && errors.password) {
-							this.emailErr = true;
-							this.emailErrMsg = errors.email.join('');
-							this.passwordErr = true;
-							this.passwordErrMsg = errors.password.join('');
-						} else if (errors.password) {
-							this.emailErr = false;
-							this.passwordErr = true;
-							this.passwordErrMsg = errors.password.join('');
-						} else if (errors.email) {
-							this.passwordErr = false;
-							this.emailErr = true;
-							this.emailErrMsg = errors.email.join('');
-						}
-						// console.log(errors.email)
-						// console.log(errors.password)
-					}
-					this.$toast.add({
-						severity: 'error',
-						summary: 'Email atau password anda salah',
-						detail: 'Masukkan email dan password yang benar!',
-						life: 5000
-					});
-				});
-			} else {
-				this.$toast.add({
-					severity: 'error',
-					summary: 'Masukkan Email dan Password',
-					detail: 'Email dan password wajib diisi!',
-					life: 5000
-				});
-			}
+		handleLogin() {
+			const authStore = useAuthStore(); // Initialize the store
+
+			authStore.login(
+				this.email,
+				this.emailErr,
+				this.emailErrMsg,
+				this.password,
+				this.passwordErr,
+				this.passwordErrMsg
+			)
 		},
 
 		// Check already login
-        ifLogin() {
+        alreadyLogin() {
             this.token = localStorage.getItem('token');
             if (this.token) {
                 router.push({name: 'dashboard'});
@@ -119,7 +76,7 @@ export default {
         },
 	},
 	mounted() {
-		this.ifLogin();
+		this.alreadyLogin();
 	},
 }
 </script>

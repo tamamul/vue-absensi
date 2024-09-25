@@ -1,5 +1,5 @@
 <template>
-    <Card class="col-span-12 shadow-md">
+    <Card class="col-span-12 shadow-md" v-if="!isAdmin">
         <template #title>
             text
         </template>
@@ -8,7 +8,7 @@
             token
         </template>
     </Card>
-    <Card class="col-span-12 shadow-md">
+    <Card class="col-span-12 shadow-md" v-if="isAdmin">
         <template #title>
             another one
         </template>
@@ -30,10 +30,14 @@
 
 export default {
     name: 'Dashboard',
-    inject: ['default'],
+    inject: ['default', 'dataUser'],
     data() {
         return {
+            isAdmin: this.dataUser.is_admin,
         }
+    },
+    mounted() {
+        console.log(this.dataUser.is_admin)
     },
 };
 </script>

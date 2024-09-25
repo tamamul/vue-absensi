@@ -37,7 +37,7 @@
 
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
                         <span class="hidden text-right lg:block">
-                            <span class="block text-sm font-medium text-black">{{ userEmail }}</span>
+                            <span class="block text-sm font-medium text-black"></span>
                             <span class="block text-xs font-medium">Frontend Developer</span>
                         </span>
 
@@ -73,16 +73,36 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
     emits: ['toggleSidebar'],
-    props: [
-        'userItems'
-    ],
     data() {
         return {
             dropdownOpen:true,
-            userId: localStorage.getItem('id_user'),
-            userEmail: localStorage.getItem('email'),
+            token: localStorage.getItem('token'),
+            userItems: [
+                {
+                    label: 'Profile',
+                    icon: 'pi pi-user',
+                    // route: '/profile'
+                },
+                {
+                    label: 'Settings',
+                    icon: 'pi pi-cog',
+                    // route: '/settings'
+                },
+                {
+                    separator: true
+                },
+                {
+                    label: 'Logout',
+                    icon: 'pi pi-sign-out',
+                    command: () => {
+                        this.logout()
+                        // this.$router.push('/introduction');
+                    }
+                },
+            ],
         }
     },
     methods: {
@@ -90,9 +110,39 @@ export default {
             this.$refs.menu.toggle(event);
             this.dropdownOpen = !this.dropdownOpen;
         },
+        logout() {
+            axios.post('/logout', {}, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}` 
+                }
+            }).then((response) => {
+                // console.log(response);
+                console.log('halo')
+                localStorage.removeItem('token')
+                localStorage.removeItem('is_admin')
+                this.$toast.add({
+                    severity: 'success',
+                    summary: 'Logout Berhasil',
+                    detail: 'Sukses melakukan logout',
+                    life: 5000
+                });
+                router.push({name: 'login'})
+            }).catch((error) => {
+                console.log(error)
+                console.log(this.token)
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Logout gagal',
+                    detail: 'Gagal melakukan logout',
+                    life: 5000
+                });
+            });
+        },
         // getUser(id) {
         //     axios.get('')
         // }
+    },
+    mounted() {
     },
 }
 </script>

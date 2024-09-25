@@ -7,7 +7,8 @@ export const useMainStore = defineStore('main', {
         user: null,
     }),
 
-    // Getters: mirip dengan computed property, digunakan untuk menghitung nilai dari state
+    // Getters: mirip dengan computed property
+    // Biasa digunakan untuk menghitung nilai dari state
     getters: {
         doubleCount(state) {
             return state.count * 2

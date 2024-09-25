@@ -9,7 +9,7 @@
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
 
             <!-- Navbar -->
-            <Navbar :userItems="userItems" @toggleSidebar="callback"></Navbar>
+            <Navbar @toggleSidebar="callback"></Navbar>
 
             <!-- Main Content Area -->
             <div class="grid grid-cols-12 gap-5 m-5">
@@ -29,6 +29,8 @@ export default {
     data() {
         return {
             token: '',
+            dataUser: '',
+            isAdmin: '',
             sidebarToggle: false,
             sidebarItems: [
                 {
@@ -82,27 +84,12 @@ export default {
                     ]
                 },
             ],
-            userItems: [
-                {
-                    label: 'Profile',
-                    icon: 'pi pi-user',
-                    // route: '/profile'
-                },
-                {
-                    label: 'Settings',
-                    icon: 'pi pi-cog',
-                    // route: '/settings'
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Logout',
-                    icon: 'pi pi-sign-out',
-                    route: '/login'
-                },
-            ],
         }
+    },
+    provide() {
+        return {
+            dataUser: this.dataUser
+        };
     },
     methods: {
         // Sidebar
@@ -112,10 +99,22 @@ export default {
         // Check if login
         ifLogin() {
             this.token = localStorage.getItem('token');
+            axios.get('user', {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            }).then(res => {
+                console.log(res.data.data)
+                this.dataUser = (res.data.data)
+            }).catch(err => {
+                console.log(err)
+            })
+
             if (!this.token) {
                 router.push({name: 'login'});
             }
         }
+
     },
     mounted() {
         this.ifLogin()
