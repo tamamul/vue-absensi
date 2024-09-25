@@ -12,9 +12,7 @@
             <Navbar @toggleSidebar="callback"></Navbar>
 
             <!-- Main Content Area -->
-            <div class="grid grid-cols-12 gap-5 m-5">
-                <RouterView></RouterView>
-            </div>
+            <RouterView></RouterView>
 
         </div>
 
