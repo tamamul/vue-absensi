@@ -55,6 +55,11 @@ export default {
                     label: 'Pegawai',
                     items: [
                         {
+                            label: 'Tambah Pegawai',
+                            icon: 'pi pi-user-plus',
+                            route: '/pegawai/tambah-pegawai'
+                        },
+                        {
                             label: 'Daftar Pegawai',
                             icon: 'pi pi-users',
                             route: '/pegawai/daftar-pegawai'
