@@ -98,7 +98,7 @@ export default {
                 } catch (error) {
                     console.error("Error fetching QR code:", error);
                 }
-            }, 3000);
+            }, 30000);
         }
     },
     mounted() {

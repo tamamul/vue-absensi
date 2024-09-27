@@ -33,10 +33,16 @@ const routes = [
 				name: 'daftar-pegawai',
 				component: () => import('../views/Pegawai/DaftarPegawai.vue')
 			},
+			// Kehadiran
 			{
 				path: '/absensi/qr-code',
 				name: 'absensi-qr-code',
 				component: () => import('../views/Absensi/QrCode.vue')
+			},
+			{
+				path: '/absensi/konfirmasi',
+				name: 'absensi-konfirmasi',
+				component: () => import('../views/Absensi/Konfirmasi.vue')
 			},
 			{
 				path: '/pegawai/gaji',

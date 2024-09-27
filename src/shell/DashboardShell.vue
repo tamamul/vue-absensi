@@ -45,6 +45,11 @@ export default {
                     label: 'Absensi',
                     items: [
                         {
+                            label: 'Konfirmasi Absensi',
+                            icon: 'pi pi-check-square',
+                            route: '/absensi/konfirmasi'
+                        },
+                        {
                             label: 'QR CODE',
                             icon: 'pi pi-qrcode',
                             route: '/absensi/qr-code'
