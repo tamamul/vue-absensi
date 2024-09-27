@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', {
                     });
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
-                    if (error.response.status == 401) {
+                    if (error.response.status ? true : false == 401) {
                         emailErr = false;
                         passwordErr = true;
                         passwordErrMsg = error.response.data.message
