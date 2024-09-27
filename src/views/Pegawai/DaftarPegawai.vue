@@ -140,6 +140,7 @@
 </template>
 
 <script>
+import router  from "@/router";
 export default {
 	name: 'DaftarPegawai',
     inject: ['default'],
@@ -189,6 +190,7 @@ export default {
                 this.pegawai = res.data.data;
             }).catch((err) => {
                 console.log("Error:" + err);
+                router.push({name : 'dashboard'})
             })
         },
         async putPegawai() {

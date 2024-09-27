@@ -31,17 +31,17 @@ export const useAuthStore = defineStore('auth', {
                     });
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
-                    if (error.response.status ? true : false == 401) {
-                        emailErr = false;
-                        passwordErr = true;
-                        passwordErrMsg = error.response.data.message
-                        this.$toast.add({
-                            severity: 'error',
-                            summary: 'Password anda salah',
-                            detail: error.response.data.message,
-                            life: 5000
-                        });
-                    }
+                    // if (error.response.status ? true : false == 401) {
+                    //     emailErr = false;
+                    //     passwordErr = true;
+                    //     passwordErrMsg = error.response.data.message
+                    //     this.$toast.add({
+                    //         severity: 'error',
+                    //         summary: 'Password anda salah',
+                    //         detail: error.response.data.message,
+                    //         life: 5000
+                    //     });
+                    // }
                     if (error.response) {
                         const errors = error.response.data.errors
                         if (errors.email && errors.password) {
