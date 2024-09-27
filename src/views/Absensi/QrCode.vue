@@ -98,12 +98,17 @@ export default {
                 } catch (error) {
                     console.error("Error fetching QR code:", error);
                 }
-            }, 30000);
+            }, 3000);
         }
     },
     mounted() {
         this.getQrCode()
         this.getQrCodeS()
+    },
+    beforeUnmount() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }  
     },
 }
 </script>
