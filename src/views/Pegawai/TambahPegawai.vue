@@ -34,7 +34,7 @@
 
                         <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1">
                             <label class="col-span-12" for="tgl_lahir">Tanggal Lahir <span class="text-red-500">*</span></label>
-                            <DatePicker inputId="tgl_lahir" v-model="tgl_lahir" dateFormat="yy-mm-dd" class="col-span-12" />
+                            <DatePicker inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12" />
                         </div>
 
                         <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1">
@@ -93,6 +93,7 @@
                             </div>
                         </div>
 
+                        <div>{{ tgl_lahir }}</div>
                     </div>
 
                 </form>
@@ -114,104 +115,43 @@ export default {
             authStore: useAuthStore(),
             isLoading: false,
             formJenisKelamin: [
-                {
-                    name: 'Laki-Laki',
-                    code: 'l',
-                },
-                {
-                    name: 'Perempuan',
-                    code: 'p',
-                }
+                { name: 'Laki-Laki', code: 'l' },
+                { name: 'Perempuan', code: 'p' }
             ],
             formAgama: [
-                {
-                    name: 'Islam',
-                    code: 'islam',
-                },
-                {
-                    name: 'Kristen',
-                    code: 'kristen',
-                },
-                {
-                    name: 'Katolik',
-                    code: 'katolik',
-                },
-                {
-                    name: 'Hindu',
-                    code: 'hindu',
-                },
-                {
-                    name: 'Buddha',
-                    code: 'buddha',
-                },
-                {
-                    name: 'Konghucu',
-                    code: 'konghucu',
-                }
+                { name: 'Islam',    code: 'islam' },
+                { name: 'Kristen',  code: 'kristen' },
+                { name: 'Katolik',  code: 'katolik' },
+                { name: 'Hindu',    code: 'hindu' },
+                { name: 'Buddha',   code: 'buddha' },
+                { name: 'Konghucu', code: 'konghucu' }
             ],
             formGolDarah: [
-                {
-                    name: 'A',
-                    code: 'A',
-                },
-                {
-                    name: 'B',
-                    code: 'B',
-                },
-                {
-                    name: 'AB',
-                    code: 'AB',
-                },
-                {
-                    name: 'O',
-                    code: 'O',
-                },
-                {
-                    name: 'A+',
-                    code: 'A+',
-                },
-                {
-                    name: 'B+',
-                    code: 'B+',
-                },
-                {
-                    name: 'AB+',
-                    code: 'AB+',
-                },
-                {
-                    name: 'O+',
-                    code: 'O+',
-                },
-                {
-                    name: 'A-',
-                    code: 'A-',
-                },
-                {
-                    name: 'B-',
-                    code: 'B-',
-                },
-                {
-                    name: 'AB-',
-                    code: 'AB-',
-                },
-                {
-                    name: 'O-',
-                    code: 'O-',
-                }
+                { name: 'A',    code: 'A' },
+                { name: 'B',    code: 'B' },
+                { name: 'AB',   code: 'AB' },
+                { name: 'O',    code: 'O' },
+                { name: 'A+',   code: 'A+' },
+                { name: 'B+',   code: 'B+' },
+                { name: 'AB+',  code: 'AB+' },
+                { name: 'O+',   code: 'O+' },
+                { name: 'A-',   code: 'A-' },
+                { name: 'B-',   code: 'B-' },
+                { name: 'AB-',  code: 'AB-' },
+                { name: 'O-',   code: 'O-' }
             ],
-
             // the form
             nama_lengkap    : '',
             email           : '',
             nik             : '',
-            tgl_lahir       : '',
+            tgl_lahir       : null,
             tempat_lahir    : '',
             jk              : '',
             agama           : '',
             gol_darah       : '',
             pendidikan      : '',
             kontak_darurat  : '08',
-            mulai_kerja     : '',
+            mulai_kerja     : null,
             jabatan         : '',
             alamat          : '',
             no_telp         : '08',
@@ -219,35 +159,45 @@ export default {
         }
     },
     methods: {
+        formattedDate(date) {
+            if (date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+            return '';
+        },
         async postPegawai() {
             const data = {
-                nama_lengkap            : this.nama_lengkap,
+                nama_lengkap    : this.nama_lengkap,
                 email           : this.email,
                 nik             : this.nik,
-                tgl_lahir       : this.tgl_lahir,
+                tgl_lahir       : this.formattedDate(this.tgl_lahir),
                 tempat_lahir    : this.tempat_lahir,
                 jk              : this.jk,
                 agama           : this.agama,
                 gol_darah       : this.gol_darah,
                 pendidikan      : this.pendidikan,
                 kontak_darurat  : this.kontak_darurat,
-                mulai_kerja     : this.mulai_kerja,
+                mulai_kerja     : this.formattedDate(this.mulai_kerja),
                 jabatan         : this.jabatan,
                 alamat          : this.alamat,
                 no_telp         : this.no_telp,
                 rekening        : this.rekening,
             }
-            await axios.post('pegawai', data, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            }).then((res) => {
-                console.log(res.data)
-            }).catch(err => {
-                console.log(err)
-                console.log(localStorage.getItem('token'))
-            })
+            try {
+                const response = await axios.post('pegawai', data, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                console.log(response.data);
+            } catch (err) {
+                console.log(err);
+                console.log(localStorage.getItem('token'));
+            }
         }
-    },
+    }
 }
 </script>
