@@ -93,7 +93,6 @@
                             </div>
                         </div>
 
-                        <div>{{ tgl_lahir }}</div>
                     </div>
 
                 </form>
