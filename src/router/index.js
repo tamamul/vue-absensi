@@ -3,6 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 	{
+		path: '/:pathMatch(.*)*',
+		name: 'NotFound',
+		component: () => import('../views/NotFound.vue')
+	},
+	{
 		path: '/home',
 		name: 'home',
 		component: () => import('../views/Home.vue')
@@ -17,6 +22,11 @@ const routes = [
 		component: () => import('../shell/DashboardShell.vue'),
 		meta: { requiresAuth: false },
 		children: [
+			{
+				path: '/profile',
+				name: 'profile',
+				component: () => import('../views/Profile.vue')
+			},
 			{
 				path: '/dashboard',
 				name: 'dashboard',

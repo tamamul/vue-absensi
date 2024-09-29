@@ -38,7 +38,7 @@
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
                         <span class="hidden text-right lg:block">
                             <span class="block text-sm font-medium text-black">{{ username }}</span>
-                            <span class="block text-xs font-medium">Frontend Developer</span>
+                            <span class="block text-xs font-medium">{{ jabatan }}</span>
                         </span>
 
                         <span class="h-12 w-12 rounded-full">
@@ -81,6 +81,7 @@ export default {
         return {
             authStore: useAuthStore(),
             username: '',
+            jabatan: '',
             pegawai: [],
             dropdownOpen:true,
             token: localStorage.getItem('token'),
@@ -117,9 +118,11 @@ export default {
             const pegawai = this.authStore.authUser.pegawai
             if (pegawai === null) {
                 this.username = 'Admin'
+                this.jabatan  = 'HRD'
             }
             this.pegawai = pegawai
             this.username = pegawai.nama_lengkap
+            this.jabatan = pegawai.jabatan
             this.isLoading  = false
         },
         toggleDropdown(event) {

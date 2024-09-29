@@ -32,6 +32,11 @@ export default {
 				}
 			}).then((res) => {
 				console.log(res)
+			}).catch((err) => {
+				console.log(err)
+				// if (err.status == 401) {
+				// 	router.push({name: 'login'})
+				// }
 			})
 		}
 	},
