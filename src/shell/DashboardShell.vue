@@ -60,14 +60,9 @@ export default {
                     label: 'Pegawai',
                     items: [
                         {
-                            label: 'Tambah Pegawai',
-                            icon: 'pi pi-user-plus',
-                            route: '/pegawai/tambah-pegawai'
-                        },
-                        {
-                            label: 'Daftar Pegawai',
+                            label: 'Pegawai',
                             icon: 'pi pi-users',
-                            route: '/pegawai/daftar-pegawai'
+                            route: '/pegawai/list'
                         },
                         {
                             label: 'Gaji',

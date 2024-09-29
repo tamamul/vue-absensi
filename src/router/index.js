@@ -24,14 +24,14 @@ const routes = [
 			},
 			// Pegawai
 			{
-				path: '/pegawai/tambah-pegawai',
+				path: '/pegawai/tambah',
 				name: 'tambah-pegawai',
-				component: () => import('../views/Pegawai/TambahPegawai.vue')
+				component: () => import('../views/Pegawai/Tambah.vue')
 			},
 			{
-				path: '/pegawai/daftar-pegawai',
-				name: 'daftar-pegawai',
-				component: () => import('../views/Pegawai/DaftarPegawai.vue')
+				path: '/pegawai/list',
+				name: 'pegawai-list',
+				component: () => import('../views/Pegawai/List.vue')
 			},
 			{
 				path: '/pegawai/gaji',
@@ -57,12 +57,12 @@ const routes = [
 			{
 				path: '/user/profile',
 				name: 'user-profile',
-				component: () => import('../views/Pegawai/TambahPegawai.vue')
+				component: () => import('../views/Pegawai/Tambah.vue')
 			},
 			{
 				path: '/user/settings',
 				name: 'user-settings',
-				component: () => import('../views/Pegawai/TambahPegawai.vue')
+				component: () => import('../views/Pegawai/Tambah.vue')
 			},
 			{
 				path: '/produktifitas/workspaces',
