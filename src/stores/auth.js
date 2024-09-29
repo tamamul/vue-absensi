@@ -32,6 +32,8 @@ export const useAuthStore = defineStore('auth', {
             }).catch(err => {
                 console.log(this.authToken)
                 console.log(err)
+                localStorage.removeItem('token')
+                router.push({name: 'login'})
             })
         }
     }

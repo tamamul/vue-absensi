@@ -36,7 +36,6 @@
 <script>
 import { useAuthStore } from '@/stores/auth';
 
-
 export default {
     name: 'Dashboard',
     inject: ['default'],

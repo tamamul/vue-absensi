@@ -37,7 +37,7 @@
 
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
                         <span class="hidden text-right lg:block">
-                            <span class="block text-sm font-medium text-black"></span>
+                            <span class="block text-sm font-medium text-black">{{ username }}</span>
                             <span class="block text-xs font-medium">Frontend Developer</span>
                         </span>
 
@@ -73,23 +73,27 @@
 </template>
 
 <script>
+import { useAuthStore } from '@/stores/auth';
 import router from '@/router'
 export default {
     emits: ['toggleSidebar'],
     data() {
         return {
+            authStore: useAuthStore(),
+            username: '',
+            pegawai: [],
             dropdownOpen:true,
             token: localStorage.getItem('token'),
             userItems: [
                 {
                     label: 'Profile',
                     icon: 'pi pi-user',
-                    // route: '/profile'
+                    route: '/profile'
                 },
                 {
                     label: 'Settings',
                     icon: 'pi pi-cog',
-                    // route: '/settings'
+                    route: '/settings'
                 },
                 {
                     separator: true
@@ -99,13 +103,25 @@ export default {
                     icon: 'pi pi-sign-out',
                     command: () => {
                         this.logout()
-                        // this.$router.push('/introduction');
+                        this.$router.push('/login');
                     }
                 },
             ],
         }
     },
     methods: {
+        async getUser() {
+            await this.authStore.getUser()
+
+            this.isAdmin    = this.authStore.authUser.is_admin
+            const pegawai = this.authStore.authUser.pegawai
+            if (pegawai === null) {
+                this.username = 'Admin'
+            }
+            this.pegawai = pegawai
+            this.username = pegawai.nama_lengkap
+            this.isLoading  = false
+        },
         toggleDropdown(event) {
             this.$refs.menu.toggle(event);
             this.dropdownOpen = !this.dropdownOpen;
@@ -116,7 +132,7 @@ export default {
                     'Authorization': `Bearer ${this.token}` 
                 }
             }).then((response) => {
-                // console.log(response);
+                console.log(response);
                 localStorage.removeItem('token')
                 localStorage.removeItem('is_admin')
                 this.$toast.add({
@@ -137,11 +153,9 @@ export default {
                 });
             });
         },
-        // getUser(id) {
-        //     axios.get('')
-        // }
     },
-    mounted() {
+    async mounted() {
+        await this.getUser()
     },
 }
 </script>
