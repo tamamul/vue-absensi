@@ -3,20 +3,12 @@
 		<Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton>
 	</div>
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
-		<Card class="col-span-12 lg:col-span-8 shadow-md">
+		<Card class="col-span-12 shadow-md">
 			<template #title>
-				Data Payroll Pegawai
+				Data Shift Kerja Pegawai
 			</template>
 			<template #content>
-				<DataTable :value="dataPayroll"></DataTable>
-			</template>
-		</Card>
-		<Card class="col-span-12 lg:col-span-4 shadow-md">
-			<template #title>
-				Total Payroll Bulan Ini
-			</template>
-			<template #content>
-				
+				<DataTable :value="dataShift"></DataTable>
 			</template>
 		</Card>
 	</div>
@@ -24,17 +16,17 @@
 
 <script>
 export default {
-	name:'Payroll',
+	name:'ShiftKerja',
 	inject:['default'],
 	data() {
 		return {
 			isLoading: false,
-			dataPayroll: []
+			dataShift: []
 		}
 	},
 	methods: {
-		async getPayroll() {
-			await axios.get('payroll', {
+		async getShift() {
+			await axios.get('shift', {
 				headers: {
 					'Authorization': `Bearer ${this.default.token}`
 				}
@@ -44,7 +36,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.getPayroll()
+		this.getShift()
 	},
 }
 </script>

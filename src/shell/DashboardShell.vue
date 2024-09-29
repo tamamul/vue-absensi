@@ -77,17 +77,22 @@ export default {
                     ]
                 },
                 {
-                    label: 'Produktifitas',
+                    label: 'Kerjaan',
                     items: [
+                        {
+                            label: 'Shift Kerja',
+                            icon: 'pi pi-calendar-clock',
+                            route: '/kerjaan/shift-kerja'
+                        },
                         {
                             label: 'Workspaces',
                             icon: 'pi pi-briefcase',
-                            route: '/produktifitas/workspaces'
+                            route: '/kerjaan/workspaces'
                         },
                         {
                             label: 'Kanban',
                             icon: 'pi pi-list',
-                            route: '/produktifitas/kanban'
+                            route: '/kerjaan/kanban'
                         },
                     ]
                 },

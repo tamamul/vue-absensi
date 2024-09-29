@@ -64,15 +64,21 @@ const routes = [
 				name: 'user-settings',
 				component: () => import('../views/Pegawai/Tambah.vue')
 			},
+			// Kerjaan
 			{
-				path: '/produktifitas/workspaces',
-				name: 'workspaces',
-				component: () => import('../views/Produktifitas/Workspaces.vue')
+				path: '/kerjaan/shift-kerja',
+				name: 'shift-kerja',
+				component: () => import('../views/Kerjaan/ShiftKerja.vue')
 			},
 			{
-				path: '/produktifitas/kanban/',
+				path: '/kerjaan/workspaces',
+				name: 'workspaces',
+				component: () => import('../views/Kerjaan/Workspaces.vue')
+			},
+			{
+				path: '/kerjaan/kanban/',
 				name: 'kanban',
-				component: () => import('../views/Produktifitas/Kanban.vue')
+				component: () => import('../views/Kerjaan/Kanban.vue')
 			},
 		]
 	}
