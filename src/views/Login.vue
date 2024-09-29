@@ -1,6 +1,6 @@
 <template>
 	<div class="w-full h-dvh flex justify-center items-center bg-[#F1F5F9]">
-		<Card class="shadow-md w-96 h-96 flex flex-col justify-center">
+		<Card class="shadow-md w-96 h-80 flex flex-col justify-center">
 			<template #title>
 				<div class="flex flex-col gap-2">
 					<h1 class="text-3xl">Login</h1>
@@ -68,24 +68,33 @@ export default {
                         detail: '',
                         life: 5000
                     });
+					this.emailErr = false
+					this.passwordErr = false
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
 					console.log(error)
                     if (error.response) {
                         const errors = error.response.data.errors
+						if (error.status == 401) {
+							this.emailErr = false
+							this.passwordErr = true
+							// this.passwordErrMsg = error.response.data.message;
+							this.passwordErrMsg = 'Password salah	'
+						}
                         if (errors.email && errors.password) {
                             this.emailErr = true;
                             this.emailErrMsg = errors.email.join('');
                             this.passwordErr = true;
-                           	this.passwordErrMsg = errors.password.join('');
+							this.passwordErrMsg = errors.password.join('');
                         } else if (errors.password) {
-                            this.emailErr = false;
+							this.emailErr = false;
                             this.passwordErr = true;
-                           	this.passwordErrMsg = errors.password.join('');
+							this.passwordErrMsg = errors.password.join('');
                         } else if (errors.email) {
-                            this.passwordErr = false;
+							this.passwordErr = false;
                             this.emailErr = true;
-                            this.emailErrMsg = errors.email.join('');
+                            // this.emailErrMsg = errors.email.join('');
+                            this.emailErrMsg = 'Email tidak ditemukan!';
                         }
                     }
                     this.$toast.add({

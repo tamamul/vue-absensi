@@ -119,10 +119,12 @@ export default {
             if (pegawai === null) {
                 this.username = 'Admin'
                 this.jabatan  = 'HRD'
+            } else{
+                this.pegawai = pegawai
+                this.username = pegawai.nama_lengkap
+                this.jabatan = pegawai.jabatan
             }
-            this.pegawai = pegawai
-            this.username = pegawai.nama_lengkap
-            this.jabatan = pegawai.jabatan
+                
             this.isLoading  = false
         },
         toggleDropdown(event) {
