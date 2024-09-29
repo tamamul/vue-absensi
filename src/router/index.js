@@ -33,6 +33,16 @@ const routes = [
 				name: 'daftar-pegawai',
 				component: () => import('../views/Pegawai/DaftarPegawai.vue')
 			},
+			{
+				path: '/pegawai/gaji',
+				name: 'gaji-pegawai',
+				component: () => import('../views/Pegawai/Gaji.vue')
+			},
+			{
+				path: '/pegawai/payroll',
+				name: 'payroll-pegawai',
+				component: () => import('../views/Pegawai/Payroll.vue')
+			},
 			// Kehadiran
 			{
 				path: '/absensi/qr-code',
@@ -43,11 +53,6 @@ const routes = [
 				path: '/absensi/konfirmasi',
 				name: 'absensi-konfirmasi',
 				component: () => import('../views/Absensi/Konfirmasi.vue')
-			},
-			{
-				path: '/pegawai/gaji',
-				name: 'gaji-pegawai',
-				component: () => import('../views/Pegawai/Gaji.vue')
 			},
 			{
 				path: '/user/profile',

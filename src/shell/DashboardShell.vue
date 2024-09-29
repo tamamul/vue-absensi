@@ -73,7 +73,12 @@ export default {
                             label: 'Gaji',
                             icon: 'pi pi-wallet',
                             route: '/pegawai/gaji'
-                        }
+                        },
+                        {
+                            label: 'Payroll',
+                            icon: 'pi pi-credit-card',
+                            route: '/pegawai/payroll'
+                        },
                     ]
                 },
                 {
