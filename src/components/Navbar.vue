@@ -11,7 +11,7 @@
                     <i class="pi pi-bars text-2xl"></i>
                 </button>
 
-                <RouterLink class="block flex-shrink-0 lg:hidden icon-nav" to="/">
+                <RouterLink class="block flex-shrink-0 lg:hidden icon-nav" to="/dashboard">
                     <img src="../assets/app-logo.png" alt="Logo" class="w-12 h-12"/>
                 </RouterLink>
 

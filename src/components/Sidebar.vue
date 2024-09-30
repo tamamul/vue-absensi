@@ -5,7 +5,7 @@
 
         <!-- ? Sidebar Header -->
         <div class="flex items-center justify-between gap-2 px-6 py-5 lg:py-6">
-            <RouterLink to="/" class="flex gap-2 items-center font-semibold text-xl icon-nav">
+            <RouterLink to="/dashboard" class="flex gap-2 items-center font-semibold text-xl icon-nav">
                 <img src="../assets/app-logo.png" alt="Logo" class="w-12" />
                 Absensi Qr Code
             </RouterLink>
