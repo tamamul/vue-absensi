@@ -1,11 +1,22 @@
 <template>
 	<div class="grid grid-cols-12 m-5 gap-5" v-if="isLoading">
-		<Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton>
+		<ProgressSpinner />
+		<!-- <Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton> -->
 	</div>
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
 		<Card class="col-span-12 shadow-md">
 			<template #title>
-				Data Shift Kerja Pegawai
+				<div class="flex justify-between">
+                    <h3>
+						Data Shift Kerja
+					</h3>
+                    <div class="flex gap-2">
+                        <RouterLink to="/shift-kerja/tambah">
+                            <Button icon="pi pi-plus-circle" label="Tambah Shift Kerja"></Button>
+                        </RouterLink>
+                        <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
+                    </div>
+                </div>
 			</template>
 			<template #content>
 				<DataTable :value="dataShift"></DataTable>

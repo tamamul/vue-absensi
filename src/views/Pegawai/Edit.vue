@@ -1,7 +1,9 @@
 <template>
-    <div class="grid grid-cols-12 gap-5 m-5" v-if="isLoading">
-        <Skeleton class="col-span-12" width="100%" height="80vh"></Skeleton>
-    </div>
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
+        <div class="col-span-12 w-full flex justify-center items-center">
+            <ProgressSpinner />
+        </div>
+	</div>
 
     <div class="grid grid-cols-12 gap-5 m-5" v-else>
         <!-- <CardPegawai
@@ -23,7 +25,7 @@
             :rekening           = "rekening"
         ></CardPegawai> -->
         <Card class="shadow-md col-span-12">
-            <template #title>Tambah Pegawai</template>
+            <template #title>Edit Pegawai {{ pegawai.nama_lengkap }}</template>
             <template #content>
                 <form class="flex flex-col w-full gap-4">
 
@@ -128,7 +130,7 @@ export default {
     data() {
         return {
             authStore: useAuthStore(),
-            isLoading: false,
+            isLoading: true,
             formJenisKelamin: [
                 { name: 'Laki-Laki', code: 'l' },
                 { name: 'Perempuan', code: 'p' }
@@ -180,6 +182,7 @@ export default {
 				}
 			}).then((res) => {
 				console.log(res.data.data)
+				this.isLoading = false
 				this.pegawai = res.data.data
 			}).catch((err) => {
 				console.log(err)

@@ -5,7 +5,17 @@
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
 		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
-				Data Gaji Pegawai
+				<div class="flex justify-between">
+                    <h3>
+						Data Gaji Pegawai
+					</h3>
+                    <div class="flex gap-2">
+                        <RouterLink to="/gaji/tambah">    
+                            <Button icon="pi pi-plus-circle" label="Tambah Gaji"></Button>
+                        </RouterLink>
+                        <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
+                    </div>
+                </div>
 			</template>
 			<template #content>
 				<DataTable :value="dataGaji"></DataTable>

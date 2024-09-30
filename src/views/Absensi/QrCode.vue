@@ -1,14 +1,9 @@
 <template>
-    <div class="grid grid-cols-12 m-5" v-if="isLoading">
-        <Card class="col-span-12 xl:col-span-6 shadow-md">
-            <template #title>
-                Absensi
-            </template>
-            <template #content>
-                <Skeleton height="30rem"></Skeleton>
-            </template>
-        </Card>
-    </div>
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
+        <div class="col-span-12 w-full flex justify-center items-center">
+            <ProgressSpinner />
+        </div>
+	</div>
 
     <div class="grid grid-cols-12 m-5" v-else>
         <div class="col-span-12 xl:col-span-6">

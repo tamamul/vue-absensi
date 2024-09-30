@@ -1,15 +1,8 @@
 <template>
-	<div class="grid grid-cols-12 m-5" v-if="isLoading">
-		<Card class="col-span-12 shadow-md">
-			<template #title>
-				Konfirmasi Absensi
-			</template>
-			<template #content>
-				<div class="col-span-12">
-					<Skeleton></Skeleton>
-				</div>
-			</template>
-		</Card>
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
+        <div class="col-span-12 w-full flex justify-center items-center">
+            <ProgressSpinner />
+        </div>
 	</div>
 
 	<div class="grid grid-cols-12 gap-5 m-5" v-else>

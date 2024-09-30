@@ -1,7 +1,9 @@
 <template>
-    <div v-if="isLoading" class="grid grid-cols-12 gap-5 m-5">
-        <Skeleton class="col-span-12" width="100%" height="5rem"></Skeleton>
-    </div>
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
+        <div class="col-span-12 w-full flex justify-center items-center">
+            <ProgressSpinner />
+        </div>
+	</div>
 
     <div v-else class="grid grid-cols-12 gap-5 m-5">
         <Card class="col-span-12 shadow-md" v-if="isAdmin">
