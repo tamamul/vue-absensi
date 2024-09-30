@@ -43,11 +43,13 @@
                     <Column field="pendidikan" header="Pendidikan" style="min-width: 150px" />
                     <Column field="mulai_kerja" header="Mulai Kerja" style="min-width: 150px" />
                     <Column field="" header="Action" frozen alignFrozen="right">
-                        <template #body>
+                        <template #body="slotProps">
                             <div class="flex gap-2 bg-white">
                                 <Button icon="pi pi-envelope" severity="success" aria-label="Notification" />
                                 <Button icon="pi pi-trash" severity="danger" aria-label="Notification" />
-                                <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="visible = true" />
+                                <RouterLink :to="`edit/${slotProps.data.id_pegawai}`">
+                                    <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="visible = true" />
+                                </RouterLink>
                             </div>
                         </template>
                     </Column>
