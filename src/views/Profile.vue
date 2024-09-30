@@ -1,5 +1,16 @@
 <template>
-	<div class="grid grid-cols-12 m-5">test</div>
+	<div class="grid grid-cols-12 m-5">
+		<Card class="col-span-12 shadow-md">
+			<template #title>
+				Profile ku
+			</template>
+			<template #content>
+				<div>
+					
+				</div>
+			</template>
+		</Card>
+	</div>
 </template>
 
 <script>

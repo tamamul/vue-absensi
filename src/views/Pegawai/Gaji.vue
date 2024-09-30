@@ -3,7 +3,7 @@
 		<Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton>
 	</div>
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
-		<Card class="col-span-12 lg:col-span-8 shadow-md">
+		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
 				Data Gaji Pegawai
 			</template>
@@ -11,7 +11,7 @@
 				<DataTable :value="dataGaji"></DataTable>
 			</template>
 		</Card>
-		<Card class="col-span-12 lg:col-span-4 shadow-md">
+		<Card class="col-span-12 xl:col-span-4 shadow-md">
 			<template #title>
 				Total Gaji Bulan Ini
 			</template>
