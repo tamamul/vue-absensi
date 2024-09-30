@@ -5,7 +5,7 @@
 
     <div class="grid grid-cols-12 gap-5 m-5" v-else>
         <!-- <CardPegawai
-            @funPegawai         = "postPegawai"
+            @funPegawai         = "editPegawai"
             :nama_lengkap       = "nama_lengkap"
             :email              = "email"
             :nik                = "nik"
@@ -106,7 +106,7 @@
 
                         <div class="col-span-12 justify-end gap-2">
                             <div class="flex gap-3">
-                                <Button type="button" label="Save" @click="postPegawai"></Button>
+                                <Button type="button" label="Save" @click="editPegawai"></Button>
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@ import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 
 export default {
-    name: 'TambahPegawai',
+    name: 'EditPegawai',
     data() {
         return {
             authStore: useAuthStore(),
@@ -157,21 +157,7 @@ export default {
                 { name: 'O-',   code: 'O-' }
             ],
             // the form
-            nama_lengkap    : '',
-            email           : '',
-            nik             : '',
-            tgl_lahir       : null,
-            tempat_lahir    : '',
-            jk              : '',
-            agama           : '',
-            gol_darah       : '',
-            pendidikan      : '',
-            kontak_darurat  : '08',
-            mulai_kerja     : null,
-            jabatan         : '',
-            alamat          : '',
-            no_telp         : '08',
-            rekening        : '',
+			pegawai: []
         }
     },
     methods: {
@@ -184,7 +170,17 @@ export default {
             }
             return '';
         },
-        async postPegawai() {
+		async getPegawai(id){
+			await axios.get(`pegawai/${id}`, {}, {
+				headers:{
+					'Authorization': `Bearer ${this.token}` 
+				}
+			}).then((res) => {
+				console.log(res)
+				this.pegawai = res
+			})
+		},
+        async editPegawai() {
             const data = {
                 nama_lengkap    : this.nama_lengkap,
                 email           : this.email,
@@ -214,6 +210,9 @@ export default {
 
             })
         }
-    }
+    },
+	mounted() {
+		this.getPegawai(this.$route.params.id);
+	},
 }
 </script>

@@ -39,14 +39,19 @@ const routes = [
 			},
 			// Pegawai
 			{
-				path: '/pegawai/tambah',
-				name: 'tambah-pegawai',
-				component: () => import('../views/Pegawai/Tambah.vue')
-			},
-			{
 				path: '/pegawai/list',
 				name: 'pegawai-list',
 				component: () => import('../views/Pegawai/List.vue')
+			},
+			{
+				path: '/pegawai/edit/:id',
+				name: 'pegawai-edit',
+				component: () => import('../views/Pegawai/Edit.vue')
+			},
+			{
+				path: '/pegawai/tambah',
+				name: 'tambah-pegawai',
+				component: () => import('../views/Pegawai/Tambah.vue')
 			},
 			{
 				path: '/pegawai/gaji',
