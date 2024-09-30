@@ -56,12 +56,12 @@ const routes = [
 			{
 				path: '/pegawai/gaji',
 				name: 'gaji-pegawai',
-				component: () => import('../views/Pegawai/Gaji.vue')
+				component: () => import('../views/Gaji/List.vue')
 			},
 			{
 				path: '/pegawai/payroll',
 				name: 'payroll-pegawai',
-				component: () => import('../views/Pegawai/Payroll.vue')
+				component: () => import('../views/Payroll/List.vue')
 			},
 			// Kehadiran
 			{
@@ -72,7 +72,7 @@ const routes = [
 			{
 				path: '/absensi/konfirmasi',
 				name: 'absensi-konfirmasi',
-				component: () => import('../views/Absensi/Konfirmasi.vue')
+				component: () => import('../views/Absensi/List.vue')
 			},
 			{
 				path: '/user/profile',
@@ -88,7 +88,7 @@ const routes = [
 			{
 				path: '/kerjaan/shift-kerja',
 				name: 'shift-kerja',
-				component: () => import('../views/Kerjaan/ShiftKerja.vue')
+				component: () => import('../views/ShiftKerja/List.vue')
 			},
 			{
 				path: '/kerjaan/workspaces',

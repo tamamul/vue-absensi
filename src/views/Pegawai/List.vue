@@ -86,9 +86,6 @@ export default {
                 router.push({name : 'dashboard'})
             })
         },
-        async putPegawai() {
-            await axios.get('url')
-        },
         exportCSV() {
             this.$refs.dt.exportCSV();
         }
