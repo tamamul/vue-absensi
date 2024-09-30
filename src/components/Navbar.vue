@@ -12,7 +12,7 @@
                 </button>
 
                 <RouterLink class="block flex-shrink-0 lg:hidden icon-nav" to="/dashboard">
-                    <img src="../assets/app-logo.png" alt="Logo" class="w-12 h-12"/>
+                    <img src="@/assets/app-logo.png" alt="Logo" class="w-12 h-12"/>
                 </RouterLink>
 
             </div>
