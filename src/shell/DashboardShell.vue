@@ -57,7 +57,7 @@ export default {
                     ]
                 },
                 {
-                    label: 'Pegawai',
+                    label: 'Perusahaan',
                     items: [
                         {
                             label: 'Pegawai',
@@ -67,12 +67,12 @@ export default {
                         {
                             label: 'Gaji',
                             icon: 'pi pi-wallet',
-                            route: '/pegawai/gaji'
+                            route: '/gaji/list'
                         },
                         {
                             label: 'Payroll',
                             icon: 'pi pi-credit-card',
-                            route: '/pegawai/payroll'
+                            route: '/payroll/list'
                         },
                     ]
                 },

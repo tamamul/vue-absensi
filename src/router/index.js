@@ -22,6 +22,7 @@ const routes = [
 		component: () => import('../shell/DashboardShell.vue'),
 		meta: { requiresAuth: false },
 		children: [
+			// ? Profile
 			{
 				path: '/profile',
 				name: 'profile',
@@ -37,15 +38,15 @@ const routes = [
 				name: 'dashboard',
 				component: () => import('../views/Dashboard.vue'),
 			},
-			// Pegawai
+			// ? Pegawai
 			{
 				path: '/pegawai/list',
-				name: 'pegawai-list',
+				name: 'list-pegawai',
 				component: () => import('../views/Pegawai/List.vue')
 			},
 			{
 				path: '/pegawai/edit/:id',
-				name: 'pegawai-edit',
+				name: 'edit-pegawai',
 				component: () => import('../views/Pegawai/Edit.vue')
 			},
 			{
@@ -53,17 +54,34 @@ const routes = [
 				name: 'tambah-pegawai',
 				component: () => import('../views/Pegawai/Tambah.vue')
 			},
+			// ? Gaji
 			{
-				path: '/pegawai/gaji',
-				name: 'gaji-pegawai',
+				path: '/gaji/list',
+				name: 'list-gaji',
 				component: () => import('../views/Gaji/List.vue')
 			},
 			{
-				path: '/pegawai/payroll',
+				path: '/gaji/tambah',
+				name: 'tambah-gaji',
+				component: () => import('../views/Gaji/Tambah.vue')
+			},
+			{
+				path: '/gaji/edit/:id',
+				name: 'edit-gaji',
+				component: () => import('../views/Gaji/Edit.vue')
+			},
+			// ? Payroll
+			{
+				path: '/payroll/list',
+				name: 'list-payroll',
+				component: () => import('../views/Payroll/List.vue')
+			},
+			{
+				path: '/payroll/tambah',
 				name: 'payroll-pegawai',
 				component: () => import('../views/Payroll/List.vue')
 			},
-			// Kehadiran
+			// ? Kehadiran
 			{
 				path: '/absensi/qr-code',
 				name: 'absensi-qr-code',
