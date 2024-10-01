@@ -17,10 +17,18 @@
 						<p class="text-2xl font-semibold">{{ user.nama_lengkap ?? 'Admin' }}</p>
 						<p class="text-lg">{{ user.jabatan ?? 'HRD' }}</p>
 					</div>
-					<div class="col-span-8 grid grid-cols-12">
-						<div class="col-span-2">Username</div>
-						<div class="col-span-10">
-							<InputText class="w-full"></InputText>
+					<div class="col-span-8 flex flex-col gap-4">
+						<div class="grid grid-cols-12 items-center">
+							<div class="col-span-2">Username</div>
+							<div class="col-span-10">
+								<InputText class="w-full"></InputText>
+							</div>
+						</div>
+						<div class="grid grid-cols-12 items-center">
+							<div class="col-span-2">Username</div>
+							<div class="col-span-10">
+								<InputText class="w-full"></InputText>
+							</div>
 						</div>
 					</div>
 				</div>

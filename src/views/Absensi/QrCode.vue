@@ -21,7 +21,7 @@
                             :qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
                             :imageOptions="{ hideBackgroundDots: false, imageSize: 0.4, margin: 0 }"
                             :dotsOptions="{
-                                type: 'dots',
+                                type: 'square',
                                 color: '#000',
                                 gradient: {
                                     type: 'linear',
@@ -33,7 +33,7 @@
                                 },
                             }"
                             :backgroundOptions="{ color: '#ffffff' }"
-                            :cornersSquareOptions="{ type: 'dot', color: '#3B82F6' }"
+                            :cornersSquareOptions="{ type: 'square', color: '#3B82F6' }"
                             :cornersDotOptions="{ type: undefined, color: '#3B82F6' }"
                             fileExt="png"
                             myclass="my-qur flex justify-center"
@@ -70,7 +70,8 @@ export default {
                     'Authorization': `Bearer ${this.default.token}`
                 }
             }).then((res) => {
-                this.data = res.data.message.token
+                console.log(res.data.data.token)
+                this.data = res.data.data.token
                 this.isLoading = false
             }).catch((err) => {
                 console.log('errorbro' + err)
@@ -88,10 +89,9 @@ export default {
                             'Authorization': `Bearer ${this.default.token}`
                         }
                     });
-                    this.data = res.data.message.token; // Update QR code data
-                    console.log("Updated QR Code Data:", this.data); // Log updated data
+                    this.data = res.data.data.token;
                 } catch (error) {
-                    console.error("Error fetching QR code:", error);
+                    console.error("errorbro", error);
                 }
             }, 30000);
         }

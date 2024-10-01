@@ -25,7 +25,7 @@
                             <i class="pi pi-search text-lg"></i>
                         </button>
 
-                        <input type="text" :placeholder="$route.fullPath"
+                        <input type="text" placeholder="Search nothing"
                             class="w-full bg-transparent pl-4 pr-8 focus:outline-none xl:w-[500px]" />
                     </div>
                 </form>

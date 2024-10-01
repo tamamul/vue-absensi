@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
 	{
 		path: '/:pathMatch(.*)*',
-		name: 'NotFound',
+		name: 'not-found',
 		component: () => import('../views/NotFound.vue')
 	},
 	{
@@ -42,7 +42,7 @@ const routes = [
 			{
 				path: '/pegawai/list',
 				name: 'list-pegawai',
-				component: () => import('../views/Pegawai/List.vue')
+				component: () => import('../views/Pegawai/Pegawai.vue')
 			},
 			{
 				path: '/pegawai/edit/:id',
@@ -58,7 +58,7 @@ const routes = [
 			{
 				path: '/gaji/list',
 				name: 'list-gaji',
-				component: () => import('../views/Gaji/List.vue')
+				component: () => import('../views/Gaji/Gaji.vue')
 			},
 			{
 				path: '/gaji/tambah',
@@ -74,12 +74,12 @@ const routes = [
 			{
 				path: '/payroll/list',
 				name: 'list-payroll',
-				component: () => import('../views/Payroll/List.vue')
+				component: () => import('../views/Payroll/Payroll.vue')
 			},
 			{
 				path: '/payroll/tambah',
 				name: 'payroll-pegawai',
-				component: () => import('../views/Payroll/List.vue')
+				component: () => import('../views/Payroll/Payroll.vue')
 			},
 			// ? Kehadiran
 			{
@@ -90,7 +90,7 @@ const routes = [
 			{
 				path: '/absensi/konfirmasi',
 				name: 'absensi-konfirmasi',
-				component: () => import('../views/Absensi/List.vue')
+				component: () => import('../views/Absensi/Absensi.vue')
 			},
 			{
 				path: '/user/profile',
@@ -106,7 +106,7 @@ const routes = [
 			{
 				path: '/kerjaan/shift-kerja',
 				name: 'shift-kerja',
-				component: () => import('../views/ShiftKerja/List.vue')
+				component: () => import('../views/ShiftKerja/ShiftKerja.vue')
 			},
 			{
 				path: '/kerjaan/workspaces',

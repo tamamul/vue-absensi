@@ -12,7 +12,7 @@
 			</template>
 			<template #content>
 				<div class="flex flex-col">
-					<InputText type="text" v-model="kodeAbsensi"  />
+					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" />
 					<Button label="testing" @click="postKodeAbsensi"></Button>
 				</div>
 			</template>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import router from '@/router';
+
 export default {
 	name:'Konfirmasi',
 	inject:['default'],
@@ -51,8 +53,10 @@ export default {
                 }
 			}).then((res) => {
 				console.log(res)
+				this.kodeAbsensi = ''
 			}).catch((err) => {
 				console.log(err)
+				this.kodeAbsensi = ''
 			})
 		},
 		async getKodeAbsensi() {
@@ -65,6 +69,7 @@ export default {
 				console.log(res)
 			}).catch((err) => {
 				console.log(err)
+				// router.push({name: 'not-found'})
 			})
 		}
 	},
