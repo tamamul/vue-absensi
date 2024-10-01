@@ -47,7 +47,7 @@
                         <template #body="slotProps">
                             <div class="flex gap-2 bg-white">
                                 <Button icon="pi pi-envelope" severity="success" aria-label="Notification" />
-                                <Button icon="pi pi-trash" severity="danger" aria-label="Notification" />
+                                <Button icon="pi pi-trash" severity="danger" aria-label="Notification" @click="deletePegawai($event, slotProps.data.id_pegawai)" />
                                 <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="openEdit(slotProps.data.id_pegawai)" />
                                 <!-- <RouterLink :to="`edit/${slotProps.data.id_pegawai}`"> -->
                                 <!-- </RouterLink> -->
@@ -223,6 +223,7 @@ export default {
 		}
 	},
 	methods: {
+        // FORMAT TANGGAL
         formattedDate(date) {
             const datePattern = /^\d{2}-\d{2}-\d{4}$/;
             if (typeof date === 'string' && datePattern.test(date)) {
@@ -235,6 +236,54 @@ export default {
                 const day = String(date.getDate()).padStart(2, '0');
                 return `${year}-${month}-${day}`;
             }  
+        },
+        // DIALOG
+        openPost() {
+            this.formPost = true
+            this.visible = true
+            this.isFormLoading = false
+            this.dialogTitle = 'Tambahkan Pegawai'
+            this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
+            this.nama_lengkap    = ''
+            this.email           = ''
+            this.nik             = ''
+            this.tgl_lahir       = null
+            this.tempat_lahir    = ''
+            this.jk              = ''
+            this.agama           = ''
+            this.gol_darah       = ''
+            this.pendidikan      = ''
+            this.kontak_darurat  = '08'
+            this.mulai_kerja     = null
+            this.jabatan         = ''
+            this.alamat          = ''
+            this.no_telp         = '08'
+            this.rekening        = ''
+        },
+        openEdit(id) {
+            this.visible = true
+            this.dialogTitle = 'Edit Pegawai'
+            this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
+            console.log(id)
+            this.formPost = false
+            this.getPegawaiById(id)
+        },
+        close() {
+            this.visible = false
+            this.isFormLoading = true
+        },
+        async getPegawaiAll() {
+            await axios.get('pegawai', {
+                headers: {
+                    'Authorization': `Bearer ${this.default.token}`
+                }
+            }).then((res) => {
+                this.isLoading = false
+                this.pegawai = res.data.data;
+            }).catch((err) => {
+                console.log("Error:" + err);
+                // router.push({name : 'not-found'})
+            })
         },
         async getPegawaiById(id){
             await axios.get(`pegawai/${id}`, {
@@ -269,32 +318,8 @@ export default {
                 console.log(localStorage.getItem('token'));
             })
         },
-        async getPegawaiAll() {
-            await axios.get('pegawai', {
-                headers: {
-                    'Authorization': `Bearer ${this.default.token}`
-                }
-            }).then((res) => {
-                this.isLoading = false
-                this.pegawai = res.data.data;
-            }).catch((err) => {
-                console.log("Error:" + err);
-                router.push({name : 'not-found'})
-            })
-        },
-        // CLOSE DIALOG
-        close() {
-            this.visible = false
-            this.isFormLoading = true
-        },
-        // EDIT
-        openEdit(id) {
-            this.visible = true
-            this.dialogTitle = 'Edit Pegawai'
-            this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
-            console.log(id)
-            this.formPost = false
-            this.getPegawaiById(id)
+        exportCSV() {
+            this.$refs.dt.exportCSV();
         },
         async editPegawai(id) {
             const data = {
@@ -319,36 +344,14 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             }).then((res) => {
-                console.log('wait edit pegawai jalan?');
+                console.log(res.data)
+                this.visible = false
                 this.getPegawaiAll()
             }).catch((err) =>{
-                console.log('Error ryan :'+err);
+                console.log('Error ryan : ' +err);
                 console.log(err);
                 console.log(localStorage.getItem('token'));
             })
-        },
-        // POST
-        openPost() {
-            this.formPost = true
-            this.visible = true
-            this.isFormLoading = false
-            this.dialogTitle = 'Tambahkan Pegawai'
-            this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
-            this.nama_lengkap    = ''
-            this.email           = ''
-            this.nik             = ''
-            this.tgl_lahir       = null
-            this.tempat_lahir    = ''
-            this.jk              = ''
-            this.agama           = ''
-            this.gol_darah       = ''
-            this.pendidikan      = ''
-            this.kontak_darurat  = '08'
-            this.mulai_kerja     = null
-            this.jabatan         = ''
-            this.alamat          = ''
-            this.no_telp         = '08'
-            this.rekening        = ''
         },
         async postPegawai() {
             const data = {
@@ -374,15 +377,49 @@ export default {
                 }
             }).then((res) => {
                 console.log(res.data);
+                this.visible = false
+                this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
                 this.getPegawaiAll()
             }).catch((err) =>{
                 console.log(err);
-                console.log(localStorage.getItem('token'));
+                this.$toast.add({ severity: 'error', summary: 'Pegawai gagal ditambahkan!', detail: `Gagal menambahkan pegawai`, life: 5000 });
+                this.getPegawaiAll()
             })
         },
-        exportCSV() {
-            this.$refs.dt.exportCSV();
-        }
+        async funDelete(id){
+            await axios.delete(`pegawai/${id}`, {
+                headers: { 'Authorization': `Bearer ${this.default.token}` }
+            }).then((res) => {
+                this.getPegawaiAll()
+                console.log('berhasil delete')
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        deletePegawai(event, id) {
+            this.$confirm.require({
+                target: event.currentTarget,
+                message: 'Do you want to delete this record?',
+                icon: 'pi pi-info-circle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Delete',
+                    severity: 'danger'
+                },
+                accept: () => {
+                    this.$toast.add({ severity: 'success', summary: 'Data berhasil dihapus', detail: 'Data pegawai berhasil dihapus', life: 5000 });
+                    this.funDelete(id)
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 5000 });
+                }
+            });
+        },
 	},
 	mounted() {
         this.getPegawaiAll()

@@ -62,7 +62,7 @@ export default {
                         {
                             label: 'Pegawai',
                             icon: 'pi pi-users',
-                            route: '/pegawai/list'
+                            route: '/pegawai'
                         },
                         {
                             label: 'Gaji',

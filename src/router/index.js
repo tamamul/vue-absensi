@@ -8,6 +8,11 @@ const routes = [
 		component: () => import('../views/NotFound.vue')
 	},
 	{
+		path: '/reset-password',
+		name: 'reset-password',
+		component: () => import('../views/ResetPassword.vue')
+	},
+	{
 		path: '/home',
 		name: 'home',
 		component: () => import('../views/Home.vue')
@@ -40,19 +45,9 @@ const routes = [
 			},
 			// ? Pegawai
 			{
-				path: '/pegawai/list',
-				name: 'list-pegawai',
+				path: '/pegawai',
+				name: 'pegawai',
 				component: () => import('../views/Pegawai/Pegawai.vue')
-			},
-			{
-				path: '/pegawai/edit/:id',
-				name: 'edit-pegawai',
-				component: () => import('../views/Pegawai/Edit.vue')
-			},
-			{
-				path: '/pegawai/tambah',
-				name: 'tambah-pegawai',
-				component: () => import('../views/Pegawai/Tambah.vue')
 			},
 			// ? Gaji
 			{

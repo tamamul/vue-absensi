@@ -8,13 +8,13 @@
 				</div>
 			</template>
 			<template #content>
-				<form @submit="prevent" class="flex flex-col gap-2">
+				<form @submit="prevent" class="flex flex-col gap-2" v-focustrap>
 					<!-- Input -->
 					<InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-user"></i>
 						</InputGroupAddon>
-						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" required />
+						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" autofocus  required />
 					</InputGroup>
 					<small class="text-red-500" v-show="emailErr" id="email-help">{{ emailErrMsg }}</small>
 					
@@ -79,7 +79,7 @@ export default {
 							this.emailErr = false
 							this.passwordErr = true
 							// this.passwordErrMsg = error.response.data.message;
-							this.passwordErrMsg = 'Password salah	'
+							this.passwordErrMsg = 'Password salah'
 						}
                         if (errors.email && errors.password) {
                             this.emailErr = true;
@@ -127,7 +127,7 @@ export default {
 	},
 }
 </script>
-<style>
+<style scoped>
 	.borderDanger {
 		@apply border-red-500
 	}
