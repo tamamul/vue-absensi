@@ -27,21 +27,22 @@ const routes = [
 		component: () => import('../shell/DashboardShell.vue'),
 		meta: { requiresAuth: false },
 		children: [
-			// ? Profile
-			{
-				path: '/profile',
-				name: 'profile',
-				component: () => import('../views/Profile.vue')
-			},
-			{
-				path: '/settings',
-				name: 'settings',
-				component: () => import('../views/Settings.vue')
-			},
+			// ? Dashboard
 			{
 				path: '/dashboard',
 				name: 'dashboard',
 				component: () => import('../views/Dashboard.vue'),
+			},
+			// ? User
+			{
+				path: '/user/profile',
+				name: 'user-profile',
+				component: () => import('../views/User/Profile.vue')
+			},
+			{
+				path: '/user/settings',
+				name: 'user-settings',
+				component: () => import('../views/User/Settings.vue')
 			},
 			// ? Pegawai
 			{
@@ -61,7 +62,7 @@ const routes = [
 				name: 'payroll',
 				component: () => import('../views/Perusahaan/Payroll.vue')
 			},
-			// ? Kehadiran
+			// ? Absensi
 			{
 				path: '/absensi/qr-code',
 				name: 'absensi-qr-code',
@@ -72,21 +73,11 @@ const routes = [
 				name: 'absensi-konfirmasi',
 				component: () => import('../views/Absensi/Absensi.vue')
 			},
-			{
-				path: '/user/profile',
-				name: 'user-profile',
-				component: () => import('../views/Pegawai/Tambah.vue')
-			},
-			{
-				path: '/user/settings',
-				name: 'user-settings',
-				component: () => import('../views/Pegawai/Tambah.vue')
-			},
-			// Kerjaan
+			// ? Kerjaan
 			{
 				path: '/kerjaan/shift-kerja',
 				name: 'shift-kerja',
-				component: () => import('../views/ShiftKerja/ShiftKerja.vue')
+				component: () => import('../views/Kerjaan/ShiftKerja.vue')
 			},
 			{
 				path: '/kerjaan/workspaces',

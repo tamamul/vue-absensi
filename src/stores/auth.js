@@ -21,7 +21,6 @@ export const useAuthStore = defineStore('auth', {
         // get user 
         async getUser() {
             this.getToken()
-
             await axios.get('user', {
                 headers: {
                     'Authorization': `Bearer ${this.authToken}`

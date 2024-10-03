@@ -16,14 +16,7 @@
 					</div>
 				</div> -->
 				<!-- Input -->
-				<form @submit="prevent" class="flex flex-col gap-2">
-					<InputGroup>
-						<InputGroupAddon>
-							<i class="pi pi-user"></i>
-						</InputGroupAddon>
-						<InputText v-model="email" placeholder="Email" required />
-					</InputGroup>
-					
+				<form @submit="prevent" class="flex flex-col gap-2">					
 					<InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
@@ -35,7 +28,7 @@
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
 						</InputGroupAddon>
-						<Password class="border border-[#CBD5E1]" v-model="password_confirmation" toggleMask placeholder="Konfirmasi Password" :feedback="false" required />
+						<Password class="border border-[#CBD5E1]" v-model="password_confirm" toggleMask placeholder="Konfirmasi Password" :feedback="false" required />
 					</InputGroup>
 
 					<Button label="Kirim" @click="kirim" />
@@ -56,9 +49,8 @@ export default {
 	},
 	data() {
 		return {
-			email: '',
 			password: '',
-			password_confirmation: '',
+			password_confirm: '',
 		}
 	},
 	validations() {
@@ -71,11 +63,31 @@ export default {
 		}
 	},
 	methods: {
+		getToken () {
+			localStorage.setItem('token', this.$route.query.token)
+		},
 		async kirim() {
-			await axios.post('')
-		}
+			const data = {
+				email: (this.$route.query.email),
+				password: this.password,
+				password_confirmation: this.password_confirm,
+			}
+			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data, {
+				headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+			}).then((res) => {
+				console.log(res)
+                this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Halo `, life: 5000 });
+			}).catch((err) => {
+				console.log(err)
+                this.$toast.add({ severity: 'error', summary: 'Gagal bro', detail: `Halo `, life: 5000 });
+			})
+		},
 	},
+	
 	mounted() {
+		this.getToken();
 	},
 }
 </script>
