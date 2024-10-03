@@ -1,6 +1,5 @@
 // Server: local, jsonServer, and ngrok
-const mode = 'main',
-backendUrl = 'https://10c5-125-162-212-218.ngrok-free.app'
+const mode = 'main'
 
 const config = {
     main: {
@@ -14,21 +13,6 @@ const config = {
         baseURL: 'http://127.0.0.1:8000/api/',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-        },
-    },
-    jsonServer: {
-        baseURL: 'http://localhost:3000/',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-        },
-    },
-    ngrok: {
-        baseURL: `${backendUrl}/api/`,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': 'true',
             'Accept': 'application/json',
         },
     },

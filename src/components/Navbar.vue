@@ -114,15 +114,17 @@ export default {
         async getUser() {
             await this.authStore.getUser()
 
-            this.isAdmin    = this.authStore.authUser.is_admin
-            const pegawai = this.authStore.authUser.pegawai
-            if (pegawai === null) {
-                this.username = 'Admin'
-                this.jabatan  = 'HRD'
-            } else{
-                this.pegawai = pegawai
-                this.username = pegawai.nama_lengkap
-                this.jabatan = pegawai.jabatan
+            if (!this.authStore.authUser.is_admin) {                
+                this.isAdmin    = this.authStore.authUser.is_admin
+                const pegawai = this.authStore.authUser.pegawai
+                if (pegawai === null) {
+                    this.username = 'Admin'
+                    this.jabatan  = 'HRD'
+                } else{
+                    this.pegawai = pegawai
+                    this.username = pegawai.nama_lengkap
+                    this.jabatan = pegawai.jabatan
+                }
             }
                 
             this.isLoading  = false

@@ -46,7 +46,7 @@
                     <Column field="" header="Action" frozen alignFrozen="right">
                         <template #body="slotProps">
                             <div class="flex gap-2 bg-white">
-                                <Button icon="pi pi-envelope" severity="success" aria-label="Notification" />
+                                <Button icon="pi pi-envelope" severity="success" aria-label="Notification" @click="emailVerification(slotProps.data.email)" />
                                 <Button icon="pi pi-trash" severity="danger" aria-label="Notification" @click="deletePegawai($event, slotProps.data.id_pegawai)" />
                                 <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="openEdit(slotProps.data.id_pegawai)" />
                                 <!-- <RouterLink :to="`edit/${slotProps.data.id_pegawai}`"> -->
@@ -169,6 +169,7 @@ export default {
 			pegawai: [],
 			editPegawaiData: [],
 			isLoading: true,
+            btnIsLoading: false,
 			isFormLoading: true,
             no: 1,
             formPost:false,
@@ -242,7 +243,7 @@ export default {
             this.formPost = true
             this.visible = true
             this.isFormLoading = false
-            this.dialogTitle = 'Tambahkan Pegawai'
+            this.dialogTitle    = 'Tambahkan Pegawai'
             this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
             this.nama_lengkap    = ''
             this.email           = ''
@@ -260,6 +261,9 @@ export default {
             this.no_telp         = '08'
             this.rekening        = ''
         },
+        openEmailVerification() {
+
+        },
         openEdit(id) {
             this.visible = true
             this.dialogTitle = 'Edit Pegawai'
@@ -271,6 +275,21 @@ export default {
         close() {
             this.visible = false
             this.isFormLoading = true
+        },
+
+        async emailVerification(email){
+            const data = {
+                'email' : email
+            }
+            await axios.post('email/send-verification', data, {
+                headers: {'Authorization': `Bearer ${this.default.token}`}
+            }).then((res) => {
+                this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
+                console.log(res)
+            }).catch((err) => {
+                this.$toast.add({ severity: 'error', summary: 'Pegawai gagal ditambahkan!', detail: `Gagal menambahkan pegawai`, life: 5000 });
+                console.log(err)
+            })
         },
         async getPegawaiAll() {
             await axios.get('pegawai', {
@@ -297,7 +316,7 @@ export default {
                 console.log(response)
                 this.isFormLoading = false
 
-                this.id_pegawai    = id
+                this.id_pegawai      = id
                 this.nama_lengkap    = response.nama_lengkap
                 this.email           = response.email
                 this.nik             = response.nik
@@ -354,6 +373,7 @@ export default {
             })
         },
         async postPegawai() {
+            this.btnIsLoading = true
             const data = {
                 nama_lengkap    : this.nama_lengkap,
                 email           : this.email,
@@ -378,10 +398,12 @@ export default {
             }).then((res) => {
                 console.log(res.data);
                 this.visible = false
+                this.btnIsLoading = false
                 this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
                 this.getPegawaiAll()
             }).catch((err) =>{
                 console.log(err);
+                this.btnIsLoading = false
                 this.$toast.add({ severity: 'error', summary: 'Pegawai gagal ditambahkan!', detail: `Gagal menambahkan pegawai`, life: 5000 });
                 this.getPegawaiAll()
             })
@@ -416,7 +438,7 @@ export default {
                     this.funDelete(id)
                 },
                 reject: () => {
-                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 5000 });
+                    this.$toast.add({ severity: 'error', summary: 'Tidak jadi', detail: 'kamu memutuskan untuk tidak menghapus data nya', life: 5000 });
                 }
             });
         },
