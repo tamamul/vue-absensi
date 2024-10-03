@@ -47,34 +47,19 @@ const routes = [
 			{
 				path: '/pegawai',
 				name: 'pegawai',
-				component: () => import('../views/Pegawai/Pegawai.vue')
+				component: () => import('../views/Perusahaan/Pegawai.vue')
 			},
 			// ? Gaji
 			{
-				path: '/gaji/list',
-				name: 'list-gaji',
-				component: () => import('../views/Gaji/Gaji.vue')
-			},
-			{
-				path: '/gaji/tambah',
-				name: 'tambah-gaji',
-				component: () => import('../views/Gaji/Tambah.vue')
-			},
-			{
-				path: '/gaji/edit/:id',
-				name: 'edit-gaji',
-				component: () => import('../views/Gaji/Edit.vue')
+				path: '/gaji',
+				name: 'gaji',
+				component: () => import('../views/Perusahaan/Gaji.vue')
 			},
 			// ? Payroll
 			{
-				path: '/payroll/list',
-				name: 'list-payroll',
-				component: () => import('../views/Payroll/Payroll.vue')
-			},
-			{
-				path: '/payroll/tambah',
-				name: 'payroll-pegawai',
-				component: () => import('../views/Payroll/Payroll.vue')
+				path: '/payroll',
+				name: 'payroll',
+				component: () => import('../views/Perusahaan/Payroll.vue')
 			},
 			// ? Kehadiran
 			{

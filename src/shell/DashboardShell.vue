@@ -67,12 +67,12 @@ export default {
                         {
                             label: 'Gaji',
                             icon: 'pi pi-wallet',
-                            route: '/gaji/list'
+                            route: '/gaji'
                         },
                         {
                             label: 'Payroll',
                             icon: 'pi pi-credit-card',
-                            route: '/payroll/list'
+                            route: '/payroll'
                         },
                     ]
                 },
