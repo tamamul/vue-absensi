@@ -3,7 +3,7 @@
     <div class="flex h-screen overflow-hidden bg-[#F1F5F9]">
 
         <!-- Sidebar -->
-        <Sidebar :sidebarItems="sidebarItems" :sidebarToggle="sidebarToggle" @toggleSidebar="callback"></Sidebar>
+        <Sidebar :sidebarToggle=sidebarToggle @toggleSidebar="callback"></Sidebar>
 
         <!-- Content Area -->
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
@@ -14,6 +14,7 @@
             <!-- Main Content Area -->
             <RouterView></RouterView>
 
+            <BottomNav></BottomNav>
         </div>
 
     </div>
@@ -28,75 +29,8 @@ export default {
     inject: ['default'],
     data() {
         return {
+            sidebarToggle:false,
             authStore: useAuthStore(),
-            sidebarToggle: false,
-            sidebarItems: [
-                {
-                    label: 'Home',
-                    items: [
-                        {
-                            label: 'Dashboard',
-                            icon: 'pi pi-home',
-                            route: '/dashboard'
-                        }
-                    ]
-                },
-                {
-                    label: 'Absensi',
-                    items: [
-                        {
-                            label: 'Konfirmasi Absensi',
-                            icon: 'pi pi-check-square',
-                            route: '/absensi/konfirmasi'
-                        },
-                        {
-                            label: 'QR CODE',
-                            icon: 'pi pi-qrcode',
-                            route: '/absensi/qr-code'
-                        },
-                    ]
-                },
-                {
-                    label: 'Perusahaan',
-                    items: [
-                        {
-                            label: 'Pegawai',
-                            icon: 'pi pi-users',
-                            route: '/pegawai'
-                        },
-                        {
-                            label: 'Gaji',
-                            icon: 'pi pi-wallet',
-                            route: '/gaji'
-                        },
-                        {
-                            label: 'Payroll',
-                            icon: 'pi pi-credit-card',
-                            route: '/payroll'
-                        },
-                    ]
-                },
-                {
-                    label: 'Kerjaan',
-                    items: [
-                        {
-                            label: 'Shift Kerja',
-                            icon: 'pi pi-calendar-clock',
-                            route: '/kerjaan/shift-kerja'
-                        },
-                        {
-                            label: 'Workspaces',
-                            icon: 'pi pi-briefcase',
-                            route: '/kerjaan/workspaces'
-                        },
-                        {
-                            label: 'Kanban',
-                            icon: 'pi pi-list',
-                            route: '/kerjaan/kanban'
-                        },
-                    ]
-                },
-            ],
         }
     },
     methods: {

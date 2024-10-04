@@ -1,6 +1,6 @@
 <template>
     <header class="sticky top-0 z-40 flex w-full bg-white drop-shadow-1 shadow-md text-def">
-        <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+        <div class="flex flex-grow items-center justify-between lg:justify-end px-4 py-4 shadow-2 md:px-6 2xl:px-11">
 
             <!-- Menus -->
             <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Search If needed -->
-            <div class="hidden sm:block border-2 h-full px-3 rounded-full">
+            <!-- <div class="hidden sm:block border-2 h-full px-3 rounded-full">
                 <form action="" method="POST" class="flex justify-center h-full">
                     <div class="relative flex items-center">
                         <button class="flex">
@@ -29,14 +29,14 @@
                             class="w-full bg-transparent pl-4 pr-8 focus:outline-none xl:w-[500px]" />
                     </div>
                 </form>
-            </div>
+            </div> -->
 
             <!-- User Area -->
             <div class="flex items-center gap-3">
                 <div class="relative">
 
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
-                        <span class="hidden text-right lg:block">
+                        <span class="text-right sm:block">
                             <span class="block text-sm font-medium text-black">{{ username }}</span>
                             <span class="block text-xs font-medium">{{ jabatan }}</span>
                         </span>
@@ -89,12 +89,12 @@ export default {
                 {
                     label: 'Profile',
                     icon: 'pi pi-user',
-                    route: '/profile'
+                    route: '/user/profile'
                 },
                 {
                     label: 'Settings',
                     icon: 'pi pi-cog',
-                    route: '/settings'
+                    route: '/user/settings'
                 },
                 {
                     separator: true
@@ -114,19 +114,17 @@ export default {
         async getUser() {
             await this.authStore.getUser()
 
-            if (!this.authStore.authUser.is_admin) {                
-                this.isAdmin    = this.authStore.authUser.is_admin
-                const pegawai = this.authStore.authUser.pegawai
-                if (pegawai === null) {
-                    this.username = 'Admin'
-                    this.jabatan  = 'HRD'
-                } else{
-                    this.pegawai = pegawai
-                    this.username = pegawai.nama_lengkap
-                    this.jabatan = pegawai.jabatan
-                }
+            this.isAdmin  = this.authStore.authUser.is_admin
+            const pegawai = this.authStore.authUser.pegawai
+            if (pegawai === null) {
+                this.username = 'Admin'
+                this.jabatan  = 'HRD'
+            } else{
+                this.pegawai = pegawai
+                this.username = pegawai.nama_lengkap
+                this.jabatan = pegawai.jabatan
             }
-                
+            console.log('navbar ngambil lagi')
             this.isLoading  = false
         },
         toggleDropdown(event) {

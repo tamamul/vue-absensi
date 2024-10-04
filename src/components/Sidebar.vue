@@ -35,7 +35,6 @@
                                 {{menuItem.label}}
                             </RouterLink>
                         </li>
-
                     </ul>
                 </div>
 
@@ -48,15 +47,102 @@
 
 <script>
 export default {
-    props: [
-        'sidebarToggle',
-        'sidebarItems'
-    ],
+    props:['sidebarToggle'],
+    data() {
+        return {
+            sidebarItems: [
+                {
+                    label: 'Home',
+                    items: [
+                        {
+                            label: 'Dashboard',
+                            icon: 'pi pi-home',
+                            route: '/dashboard'
+                        }
+                    ]
+                },
+                {
+                    label: 'Absensi',
+                    items: [
+                        {
+                            label: 'Konfirmasi Absensi',
+                            icon: 'pi pi-check-square',
+                            route: '/absensi/konfirmasi'
+                        },
+                        {
+                            label: 'QR CODE',
+                            icon: 'pi pi-qrcode',
+                            route: '/absensi/qr-code'
+                        },
+                    ]
+                },
+                {
+                    label: 'Perusahaan',
+                    items: [
+                        {
+                            label: 'Pegawai',
+                            icon: 'pi pi-users',
+                            route: '/pegawai'
+                        },
+                        {
+                            label: 'Gaji',
+                            icon: 'pi pi-wallet',
+                            route: '/gaji'
+                        },
+                        {
+                            label: 'Payroll',
+                            icon: 'pi pi-credit-card',
+                            route: '/payroll'
+                        },
+                    ]
+                },
+                {
+                    label: 'Kerjaan',
+                    items: [
+                        {
+                            label: 'Shift Kerja',
+                            icon: 'pi pi-calendar-clock',
+                            route: '/kerjaan/shift-kerja'
+                        },
+                        {
+                            label: 'Workspaces',
+                            icon: 'pi pi-briefcase',
+                            route: '/kerjaan/workspaces'
+                        },
+                        {
+                            label: 'Kanban',
+                            icon: 'pi pi-list',
+                            route: '/kerjaan/kanban'
+                        },
+                    ]
+                },
+            ],
+            isAdmin: ''
+        }
+    },
     emits: ['toggleSidebar'],
     methods: {
         toggleSidebar() {
             this.$emit('toggleSidebar')
-        }
+        },
+        async getUser() {
+            await this.authStore.getUser()
+
+            this.isAdmin  = this.authStore.authUser.is_admin
+            const pegawai = this.authStore.authUser.pegawai
+            if (pegawai === null) {
+                this.username = 'Admin'
+                this.jabatan  = 'HRD'
+            } else{
+                this.pegawai = pegawai
+                this.username = pegawai.nama_lengkap
+                this.jabatan = pegawai.jabatan
+            }
+            // if (!this.authStore.authUser.is_admin) {                
+            // }
+            console.log('sidebar ngambil lagi')
+        this.isLoading  = false
+        },
     }
 }
 </script>

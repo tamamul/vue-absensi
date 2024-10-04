@@ -27,7 +27,7 @@
 					<small class="text-red-500" v-show="passwordErr" id="password-help">{{ passwordErrMsg }}</small>
 					
 					<!-- Submit -->
-					<Button label="Login" @click="login" />
+					<Button label="Login" :loading="btnIsLoading" @click="login" />
 				</form>
 			</template>
 		</Card>
@@ -42,6 +42,7 @@ export default {
         return {
 			// Stete
 			store: useAuthStore,
+			btnIsLoading: false,
 			// Email
 			email		: '',
 			emailErr	: false,
@@ -55,6 +56,7 @@ export default {
 	methods: {
 		// Login
         login() {
+			this.btnIsLoading = true
             if (this.email && this.password) {
                 axios.post('/login', {
                     email   : this.email,
@@ -70,6 +72,7 @@ export default {
                     });
 					this.emailErr = false
 					this.passwordErr = false
+					this.btnIsLoading = false
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
 					console.log(error)
@@ -97,6 +100,7 @@ export default {
                             this.emailErrMsg = 'Email tidak ditemukan!';
                         }
                     }
+					this.btnIsLoading = false
                     this.$toast.add({
                         severity: 'error',
                         summary: 'Email atau password anda salah',

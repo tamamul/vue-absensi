@@ -22,9 +22,7 @@ export const useAuthStore = defineStore('auth', {
         async getUser() {
             this.getToken()
             await axios.get('user', {
-                headers: {
-                    'Authorization': `Bearer ${this.authToken}`
-                }
+                headers: { 'Authorization': `Bearer ${this.authToken}` }
             }).then(res => {
                 console.log(res.data.data)
                 this.authUser = (res.data.data)

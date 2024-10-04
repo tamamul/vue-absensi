@@ -29,6 +29,8 @@ export default defineConfig({
           'pinia': ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
           '@vueuse/integrations/useIDBKeyval': ['useIDBKeyval'],
           '@vueuse/core': ['useCloned', 'useTimeAgo'],
+          '@vuelidate/core': ['useVuelidate'],
+          '@vuelidate/validators': ['required', 'email'],
         }
       ],
     })

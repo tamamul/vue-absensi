@@ -10,10 +10,10 @@
 				<div class="flex flex-col gap-2">
 					<p>Halaman yang kamu cari tidak ditemukan <br>atau telah di pindah kan ke route lain</p>
 					<div class="flex justify-center">
-						<RouterLink to="dashboard" v-show="token">
+						<RouterLink to="/dashboard" v-show="token">
 							<Button label="Kembali ke Dashboard"></Button>
 						</RouterLink>
-						<RouterLink to="login" v-show="!token">
+						<RouterLink to="/login" v-show="!token">
 							<Button label="Login"></Button>
 						</RouterLink>
 					</div>

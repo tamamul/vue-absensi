@@ -13,7 +13,7 @@ const routes = [
 		component: () => import('../views/ResetPassword.vue')
 	},
 	{
-		path: '/home',
+		path: '/',
 		name: 'home',
 		component: () => import('../views/Home.vue')
 	},

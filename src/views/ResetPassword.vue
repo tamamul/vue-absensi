@@ -79,6 +79,7 @@ export default {
 			}).then((res) => {
 				console.log(res)
                 this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Halo `, life: 5000 });
+				router.push({name: 'dashboard'})
 			}).catch((err) => {
 				console.log(err)
                 this.$toast.add({ severity: 'error', summary: 'Gagal bro', detail: `Halo `, life: 5000 });
