@@ -28,6 +28,6 @@ export default {
 
 <style>
 .router-link-active.mobile{
-	@apply bg-white
+	@apply bg-white border-t-[#3B82F6] text-[#3B82F6]
 }
 </style>

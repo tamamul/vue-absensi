@@ -14,7 +14,7 @@
 						<InputGroupAddon>
 							<i class="pi pi-user"></i>
 						</InputGroupAddon>
-						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" autofocus  required />
+						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" autofocus required />
 					</InputGroup>
 					<small class="text-red-500" v-show="emailErr" id="email-help">{{ emailErrMsg }}</small>
 					
@@ -57,13 +57,14 @@ export default {
 		// Login
         login() {
 			this.btnIsLoading = true
-            if (this.email && this.password) {
+			if (this.email && this.password) {
                 axios.post('/login', {
                     email   : this.email,
                     password: this.password
                 }).then((response) => {
                     console.log(response);
                     localStorage.setItem('token', response.data.data.token)
+					this.btnIsLoading = false
                     this.$toast.add({
                         severity: 'success',
                         summary: 'Berhasil login',
@@ -72,10 +73,10 @@ export default {
                     });
 					this.emailErr = false
 					this.passwordErr = false
-					this.btnIsLoading = false
                     router.push({ name: 'dashboard' })
                 }).catch((error) => {
 					console.log(error)
+					this.btnIsLoading = false
                     if (error.response) {
                         const errors = error.response.data.errors
 						if (error.status == 401) {
@@ -100,7 +101,6 @@ export default {
                             this.emailErrMsg = 'Email tidak ditemukan!';
                         }
                     }
-					this.btnIsLoading = false
                     this.$toast.add({
                         severity: 'error',
                         summary: 'Email atau password anda salah',

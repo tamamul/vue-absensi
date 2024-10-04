@@ -31,7 +31,7 @@
                     <Column field="nama_lengkap" header="Nama" style="min-width: 300px" class="capitalize" />
                     <Column field="" header="Jenis Kelamin" style="min-width: 150px">
                         <template #body="slotProps">
-                            {{ slotProps.data.jk == 'l' ? 'Laki-laki' : 'Perempuan'}}
+                            {{ slotProps.data.jk == 'l' ? 'Laki-laki' : 'Perempuan' }}
                         </template>
                     </Column>
                     <Column field="jabatan" header="Jabatan" style="min-width: 200px" />

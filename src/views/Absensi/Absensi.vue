@@ -12,8 +12,7 @@
 			</template>
 			<template #content>
 				<div class="flex flex-col">
-					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" />
-					<Button label="testing" @click="postKodeAbsensi"></Button>
+					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" :loading="inputIsLoading" />
 				</div>
 			</template>
 		</Card>
@@ -40,21 +39,25 @@ export default {
 	data() {
 		return {
 			isLoading: false,
+			inputIsLoading: false,
 			kodeAbsensi: '',
 			telahAbsen: []
 		}
 	},
 	methods: {
 		async postKodeAbsensi () {
+			this.inputIsLoading = true
 			const data = {token: this.kodeAbsensi}
 			await axios.post('kehadiran/confirm', data, {
 				headers: {
                     'Authorization': `Bearer ${this.default.token}`
                 }
 			}).then((res) => {
+				this.inputIsLoading = false
 				console.log(res)
 				this.kodeAbsensi = ''
 			}).catch((err) => {
+				this.inputIsLoading = false
 				console.log(err)
 				this.kodeAbsensi = ''
 			})

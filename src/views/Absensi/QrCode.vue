@@ -81,18 +81,19 @@ export default {
             if (this.intervalId) {
                 clearInterval(this.intervalId);
             }
+            this.isLoading = false
 
             this.intervalId = setInterval(async () => {
-                try {
-                    const res = await axios.get('kehadiran/get-kode', {
-                        headers: {
-                            'Authorization': `Bearer ${this.default.token}`
-                        }
-                    });
+                await axios.get('kehadiran/get-kode', {
+                    headers: {
+                        'Authorization': `Bearer ${this.default.token}`
+                    }
+                }).then((res) => {
                     this.data = res.data.data.token;
-                } catch (error) {
+                    console.log(res.data.data.token)
+                }).catch((error) => {
                     console.error("errorbro", error);
-                }
+                })
             }, 30000);
         }
     },
