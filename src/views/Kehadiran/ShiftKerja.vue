@@ -42,8 +42,8 @@
 
 	<Dialog v-model:visible="visible" modal :header="dialogTitle" :style="{ width: '30rem' }">
 
-        <!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ dialogDeskripsi }}</span> -->
-		<div :style="{ backgroundColor: warna }" class="rounded-md text-white py-3 px-3 flex justify-between">
+		<!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ dialogDeskripsi }}</span> -->
+		<div :style="{ backgroundColor: warna }" class="rounded-md text-white py-3 mb-4 px-3 flex justify-between">
 			<div>
 				{{ nama_shift }}
 			</div>
@@ -53,15 +53,15 @@
 			</div>
 		</div>
 		
-        <div class="grid grid-cols-12 gap-5 h-96 m-5" v-if="formIsLoading">
-            <div class="col-span-12 w-full flex justify-center items-center">
-                <ProgressSpinner />
-            </div>
-        </div>
+		<div class="grid grid-cols-12 gap-5 h-96 m-5" v-if="formIsLoading">
+			<div class="col-span-12 w-full flex justify-center items-center">
+				<ProgressSpinner />
+			</div>
+		</div>
 
         <form class="w-full grid grid-cols-12 gap-2" v-else>
 
-			<div class="col-span-12 gap-1 justify-end">
+			<div class="col-span-12 gap-1">
                 <label class="max-h-6 col-span-12" for="nama_shift">Nama Shift <span class="text-red-500">*</span></label>
                 <InputText id="nama_shift" v-model="nama_shift" class="w-full max-h-[46px]" :invalid="hasValidated && v$.nama_shift.$invalid" />
                 <small v-if="hasValidated && v$.nama_shift.$error" class="text-red-500 w-full">Wajib Diisi</small>
@@ -69,9 +69,9 @@
             </div>
 
 			<div class="col-span-12 grid grid-cols-12 gap-2">
-				<div class="col-span-6 gap-1 justify-end">
+				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_masuk">Jam Masuk <span class="text-red-500">*</span></label>
-					<DatePicker id="jam_masuk" v-model="jam_masuk" timeOnly showIcon fluid iconDisplay="input">
+					<DatePicker inputId="jam_masuk" v-model="jam_masuk" timeOnly showIcon fluid iconDisplay="input">
 						<template #inputicon="slotProps">
 							<i class="pi pi-clock" @click="slotProps.clickCallback" />
 						</template>
@@ -80,9 +80,9 @@
 					<small v-else class="invisible">...</small>
 				</div>
 	
-				<div class="col-span-6 gap-1 justify-end">
+				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_keluar">Jam Keluar <span class="text-red-500">*</span></label>
-					<DatePicker id="jam_keluar" v-model="jam_keluar" timeOnly  showIcon fluid iconDisplay="input">
+					<DatePicker inputId="jam_keluar" v-model="jam_keluar" timeOnly  showIcon fluid iconDisplay="input">
 						<template #inputicon="slotProps">
 							<i class="pi pi-clock" @click="slotProps.clickCallback" />
 						</template>
@@ -92,20 +92,20 @@
 				</div>
 			</div>
 
-			<div class="col-span-12 gap-1 justify-end">
-				<label class="max-h-6 col-span-12" for="jam_keluar">Toleransi Keterlambatan <span class="text-red-500">*</span></label>
+			<div class="col-span-12 gap-1">
+				<label class="max-h-6 col-span-12" for="toleransi_keterlambatan">Toleransi Keterlambatan <span class="text-red-500">*</span></label>
 				<InputGroup>
-					<InputNumber v-model="toleransi_keterlambatan" />
+					<InputNumber inputId="toleransi_keterlambatan" v-model="toleransi_keterlambatan" />
 					<InputGroupAddon>Menit</InputGroupAddon>
 				</InputGroup>
-				<small v-if="hasValidated && v$.jam_keluar.$error" class="text-red-500 w-full">Wajib Diisi</small>
+				<small v-if="hasValidated && v$.toleransi_keterlambatan.$error" class="text-red-500 w-full">Wajib Diisi</small>
 				<small v-else class="invisible">...</small>
 			</div>
 
 			<div class="col-span-12 grid grid-cols-12 gap-2">
-				<div class="col-span-6 gap-1 justify-end">
+				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_istirahat_mulai">Jam Istirahat Mulai <span class="text-red-500">*</span></label>
-					<DatePicker id="jam_istirahat_mulai" v-model="jam_istirahat_mulai" timeOnly showIcon fluid iconDisplay="input">
+					<DatePicker inputId="jam_istirahat_mulai" v-model="jam_istirahat_mulai" timeOnly showIcon fluid iconDisplay="input">
 						<template #inputicon="slotProps">
 							<i class="pi pi-clock" @click="slotProps.clickCallback" />
 						</template>
@@ -114,9 +114,9 @@
 					<small v-else class="invisible">...</small>
 				</div>
 	
-				<div class="col-span-6 gap-1 justify-end">
+				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_istirahat_selesai">Jam Istirahat Selesai <span class="text-red-500">*</span></label>
-					<DatePicker id="jam_istirahat_selesai" v-model="jam_istirahat_selesai" timeOnly  showIcon fluid iconDisplay="input">
+					<DatePicker inputId="jam_istirahat_selesai" v-model="jam_istirahat_selesai" timeOnly  showIcon fluid iconDisplay="input">
 						<template #inputicon="slotProps">
 							<i class="pi pi-clock" @click="slotProps.clickCallback" />
 						</template>
@@ -126,10 +126,10 @@
 				</div>
 			</div>
 
-			<div class="col-span-12 gap-1 justify-end">
-				<label class="max-h-6 col-span-12" for="jam_keluar">Warna Background <span class="text-red-500">*</span></label>
-				<ColorPicker v-model="warna" inputId="cp-hex" format="hex" class="mb-4" />
-				<small v-if="hasValidated && v$.jam_keluar.$error" class="text-red-500 w-full">Wajib Diisi</small>
+			<div class="col-span-12 flex flex-col gap-2">
+				<label class="max-h-6 col-span-12" for="warna">Warna Background <span class="text-red-500">*</span></label>
+				<ColorPicker v-model="warna" inputId="warna" format="hex" class="col-span-12" inline="" @change="ensureHashtag" />
+				<small v-if="hasValidated && v$.warna.$error" class="text-red-500 w-full">Wajib Diisi</small>
 				<small v-else class="invisible">...</small>
 			</div>
 
@@ -191,6 +191,11 @@ export default {
 		}
 	},
 	methods: {
+		ensureHashtag() {
+			if (this.warna && !this.warna.startsWith('#')) {
+				this.warna = `#${this.warna}`;
+			}
+		},
 		// FORMAT JAM DAN MENIT
 		formattedTime(date) {
 			const timePattern = /^\d{2}:\d{2}$/;
