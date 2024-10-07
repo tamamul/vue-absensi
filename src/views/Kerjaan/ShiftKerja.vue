@@ -19,7 +19,25 @@
                 </div>
 			</template>
 			<template #content>
-				<DataTable :value="dataShift"></DataTable>
+				<DataTable 
+					:value="dataShift"
+					paginator  
+                    :rows="10" 
+                    :rowsPerPageOptions="[5, 10, 20, 50]"
+                    scrollable 
+                    tableStyle="min-width: 50rem"
+				>
+					<Column field="id_pegawai" header="No" />
+                    <Column field="nama_lengkap" header="Nama" style="min-width: 300px" class="capitalize" />
+					<Column field="" header="Action" frozen alignFrozen="right">
+                        <template #body="slotProps">
+                            <div class="flex gap-2 bg-white">
+                                <Button icon="pi pi-trash" severity="danger" aria-label="Notification" @click="delete($event, slotProps.data.id_pegawai)" />
+                                <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="edit(slotProps.data.id_pegawai)" />
+                            </div>
+                        </template>
+                    </Column>
+				</DataTable>
 			</template>
 		</Card>
 	</div>
@@ -45,11 +63,21 @@ export default {
 				console.log(res)
 			}).catch((err) => {
 				console.log(err)
-				// if (err.status == 401) {
-				// 	router.push({name: 'login'})
-				// }
 			})
-		}
+		},
+		async getPegawaiAll() {
+            await axios.get('pegawai', {
+                headers: {
+                    'Authorization': `Bearer ${this.default.token}`
+                }
+            }).then((res) => {
+				console.log(res)
+                this.isLoading = false
+            }).catch((err) => {
+				console.log(err)
+                router.push({name : 'not-found'})
+            })
+        },
 	},
 	mounted() {
 		this.getShift()
