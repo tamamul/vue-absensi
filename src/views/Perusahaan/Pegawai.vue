@@ -65,7 +65,7 @@
 
     <Dialog v-model:visible="visible" modal :header="dialogTitle" :style="{ width: '75rem' }">
         <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ dialogDeskripsi }}</span>
-        <div class="grid grid-cols-12 gap-5 h-96 m-5" v-if="isFormLoading">
+        <div class="grid grid-cols-12 gap-5 h-96 m-5" v-if="formIsLoading">
             <div class="col-span-12 w-full flex justify-center items-center">
                 <ProgressSpinner />
             </div>
@@ -116,23 +116,23 @@
 
             <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
                 <label class="max-h-6 col-span-12" for="jk">Jenis Kelamin <span class="text-red-500">*</span></label>
-                <Select inputId="jk" v-model="jk" :options="formJenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
+                <Select inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
                 <small v-if="hasValidated && v$.jk.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
                 <small v-else class="invisible">...</small>
             </div>
             
             <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
                 <label class="max-h-6 col-span-12" for="agama">Agama <span class="text-red-500">*</span></label>
-                <Select inputId="agama" v-model="agama" :options="formAgama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
+                <Select inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
                 <small v-if="hasValidated && v$.agama.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
                 <small v-else class="invisible">...</small>
             </div>
             
             <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
                 <label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah <span class="text-red-500">*</span></label>
-                <Select inputId="gol_darah" v-model="gol_darah" :options="formGolDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
+                <Select inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
                 <small v-if="hasValidated && v$.gol_darah.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
+                <small v-else class="invisible">...</small>,
             </div>
 
             <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
@@ -194,46 +194,51 @@ export default {
     inject: ['default'],
 	data() {
 		return {
-            v$: useVuelidate(),
+            // Table
 			pegawai: [],
-			editPegawaiData: [],
+            // Loading State
 			isLoading: true,
             btnIsLoading: false,
-			isFormLoading: true,
-            no: 1,
-            formPost:false,
+			formIsLoading: true,
             // Dialog
             visible: false,
             dialogTitle: '',
             dialogDeskripsi: '',
+            // Validation
+            v$: useVuelidate(),
             hasValidated: false,
             // Form
-            formJenisKelamin: [
-                { name: 'Laki-Laki', code: 'l' },
-                { name: 'Perempuan', code: 'p' }
-            ],
-            formAgama: [
-                { name: 'Islam',    code: 'islam' },
-                { name: 'Kristen',  code: 'kristen' },
-                { name: 'Katolik',  code: 'katolik' },
-                { name: 'Hindu',    code: 'hindu' },
-                { name: 'Buddha',   code: 'buddha' },
-                { name: 'Konghucu', code: 'konghucu' }
-            ],
-            formGolDarah: [
-                { name: 'A',    code: 'A' },
-                { name: 'B',    code: 'B' },
-                { name: 'AB',   code: 'AB' },
-                { name: 'O',    code: 'O' },
-                { name: 'A+',   code: 'A+' },
-                { name: 'B+',   code: 'B+' },
-                { name: 'AB+',  code: 'AB+' },
-                { name: 'O+',   code: 'O+' },
-                { name: 'A-',   code: 'A-' },
-                { name: 'B-',   code: 'B-' },
-                { name: 'AB-',  code: 'AB-' },
-                { name: 'O-',   code: 'O-' }
-            ],
+            no: 1,
+			editPegawaiData: [],
+            formPost:false,
+            options: {
+                jenisKelamin: [
+                    { name: 'Laki-Laki', code: 'l' },
+                    { name: 'Perempuan', code: 'p' }
+                ],
+                agama: [
+                    { name: 'Islam',    code: 'islam' },
+                    { name: 'Kristen',  code: 'kristen' },
+                    { name: 'Katolik',  code: 'katolik' },
+                    { name: 'Hindu',    code: 'hindu' },
+                    { name: 'Buddha',   code: 'buddha' },
+                    { name: 'Konghucu', code: 'konghucu' }
+                ],
+                golDarah: [
+                    { name: 'A',    code: 'A' },
+                    { name: 'B',    code: 'B' },
+                    { name: 'AB',   code: 'AB' },
+                    { name: 'O',    code: 'O' },
+                    { name: 'A+',   code: 'A+' },
+                    { name: 'B+',   code: 'B+' },
+                    { name: 'AB+',  code: 'AB+' },
+                    { name: 'O+',   code: 'O+' },
+                    { name: 'A-',   code: 'A-' },
+                    { name: 'B-',   code: 'B-' },
+                    { name: 'AB-',  code: 'AB-' },
+                    { name: 'O-',   code: 'O-' }
+                ],
+            },
             // the form
             id_pegawai      : '',
             nama_lengkap    : '',
@@ -292,7 +297,7 @@ export default {
         openPost() {
             this.formPost = true
             this.visible = true
-            this.isFormLoading = false
+            this.formIsLoading = false
             this.dialogTitle    = 'Tambahkan Pegawai'
             this.dialogDeskripsi = 'Semua data dengan (*) wajib diisi!'
             this.nama_lengkap    = ''
@@ -321,8 +326,9 @@ export default {
         },
         close() {
             this.visible = false
-            this.isFormLoading = true
+            this.formIsLoading = true
         },
+        // Get All
         async getPegawaiAll() {
             await axios.get('pegawai', {
                 headers: {
@@ -346,7 +352,7 @@ export default {
                 this.editPegawaiData = res.data.data
                 const response = res.data.data
                 console.log(response)
-                this.isFormLoading = false
+                this.formIsLoading = false
 
                 this.id_pegawai      = id
                 this.nama_lengkap    = response.nama_lengkap

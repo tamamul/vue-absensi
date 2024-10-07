@@ -62,17 +62,22 @@ export default {
                     ]
                 },
                 {
-                    label: 'Absensi',
+                    label: 'Kehadiran',
                     items: [
-                        {
-                            label: 'Konfirmasi Absensi',
-                            icon: 'pi pi-check-square',
-                            route: '/absensi/konfirmasi'
-                        },
                         {
                             label: 'QR CODE',
                             icon: 'pi pi-qrcode',
-                            route: '/absensi/qr-code'
+                            route: '/kehadiran/qr-code'
+                        },
+                        {
+                            label: 'Konfirmasi Absensi',
+                            icon: 'pi pi-check-square',
+                            route: '/kehadiran/absensi'
+                        },
+                        {
+                            label: 'Shift Kerja',
+                            icon: 'pi pi-calendar-clock',
+                            route: '/kehadiran/shift-kerja'
                         },
                     ]
                 },
@@ -99,11 +104,6 @@ export default {
                 {
                     label: 'Kerjaan',
                     items: [
-                        {
-                            label: 'Shift Kerja',
-                            icon: 'pi pi-calendar-clock',
-                            route: '/kerjaan/shift-kerja'
-                        },
                         {
                             label: 'Workspaces',
                             icon: 'pi pi-briefcase',

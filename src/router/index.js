@@ -64,21 +64,21 @@ const routes = [
 			},
 			// ? Absensi
 			{
-				path: '/absensi/qr-code',
-				name: 'absensi-qr-code',
-				component: () => import('../views/Absensi/QrCode.vue')
+				path: '/kehadiran/qr-code',
+				name: 'kehadiran-qr-code',
+				component: () => import('../views/Kehadiran/QrCode.vue')
 			},
 			{
-				path: '/absensi/konfirmasi',
-				name: 'absensi-konfirmasi',
-				component: () => import('../views/Absensi/Absensi.vue')
+				path: '/kehadiran/absensi',
+				name: 'kehadiran-absensi',
+				component: () => import('../views/Kehadiran/Absensi.vue')
+			},
+			{
+				path: '/kehadiran/shift-kerja',
+				name: 'shift-kerja',
+				component: () => import('../views/Kehadiran/ShiftKerja.vue')
 			},
 			// ? Kerjaan
-			{
-				path: '/kerjaan/shift-kerja',
-				name: 'shift-kerja',
-				component: () => import('../views/Kerjaan/ShiftKerja.vue')
-			},
 			{
 				path: '/kerjaan/workspaces',
 				name: 'workspaces',
