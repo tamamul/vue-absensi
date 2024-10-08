@@ -56,6 +56,7 @@
 						:jam_keluar	 = "item.jam_keluar"
 						@editShift	 = "handleEditShift"
 						@deleteShift = "handleDeleteShift"
+						:deleteConf	 = "deleteConf"
 					/>
 				</div>
 			</template>
@@ -174,40 +175,45 @@ export default {
 		return {
 			// Table
 			shift	: [],
+
 			// Loading State
 			isLoading		: true,
 			btnIsLoading	: false,
 			formIsLoading	: true,
+
 			// Dialog
 			visible			: false,
 			dialogTitle		: '',
             dialogDeskripsi	: '',
-            // Validation
+
+			// Validation
             v$				: useVuelidate(),
             hasValidated	: false,
+
 			// Form
 			no			: 1,
 			editShift	: [],
 			formPost	: false,
+			deleteConf	: false,
+
 			// theForm
-			nama_shift	: "",
-			jam_masuk	: "08:00",
-			jam_keluar	: "17:00",
-			warna		: "#07134f",
+			nama_shift				: "",
+			jam_masuk				: "08:00",
+			jam_keluar				: "17:00",
+			warna					: "#07134f",
 			jam_istirahat_mulai		: "12:00",
 			jam_istirahat_selesai	: "13:00",
 			toleransi_keterlambatan	: 0,
-			// Opsional: default=#07134f
 		}
 	},
 
 	validations() {
 		return {
 			// Form
-			nama_shift	: { required },
-			jam_masuk	: { required },
-			jam_keluar	: { required },
-			warna		: { required },
+			nama_shift				: { required },
+			jam_masuk				: { required },
+			jam_keluar				: { required },
+			warna					: { required },
 			jam_istirahat_mulai		: { required },
 			jam_istirahat_selesai	: { required },
 			toleransi_keterlambatan	: { required },
@@ -257,10 +263,10 @@ export default {
 		openPost() {
 			// Form
 			this.formPost = true
-			this.nama_shift	= ""
-			this.jam_masuk	= ""
-			this.jam_keluar	= ""
-			this.warna		= ""
+			this.nama_shift					= ""
+			this.jam_masuk					= ""
+			this.jam_keluar					= ""
+			this.warna						= ""
 			this.jam_istirahat_mulai		= ""
 			this.jam_istirahat_selesai		= ""
 			this.toleransi_keterlambatan	= ""
@@ -274,10 +280,10 @@ export default {
             this.hasValidated = true
             this.v$.$validate()
 			const data = {
-				nama_shift	: this.nama_shift,
-				jam_masuk	: this.formattedTime(this.jam_masuk),
-				jam_keluar	: this.formattedTime(this.jam_keluar),
-				warna		: this.warna,
+				nama_shift				: this.nama_shift,
+				jam_masuk				: this.formattedTime(this.jam_masuk),
+				jam_keluar				: this.formattedTime(this.jam_keluar),
+				warna					: this.warna,
 				jam_istirahat_mulai		: this.formattedTime(this.jam_istirahat_mulai),
 				jam_istirahat_selesai	: this.formattedTime(this.jam_istirahat_selesai),
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,

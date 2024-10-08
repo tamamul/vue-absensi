@@ -1,4 +1,5 @@
 <template>
+    <ConfirmDialog />
 	<div 
 		:style="{ backgroundColor: warna }" 
 		class="rounded-md text-white py-3 px-3 flex justify-between items-center"
@@ -28,6 +29,7 @@
 export default {
 	name: 'TampilanShift',
 	props: {
+		deleteConf	: Boolean,
 		id			: Number,
 		nama_shift	: String,
 		warna		: String,
@@ -51,15 +53,36 @@ export default {
 			],
 		};
 	},
+
 	methods: {
 		editShift(id) {
-			this.$emit('editShift', id);
+			this.$emit('editShift', id)
 		},
 		deleteShift(id) {
-			this.$emit('deleteShift', id);
+            this.$confirm.require({
+                message: 'Are you sure you want to sdfdsfdsproceed?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Save'
+                },
+                accept: () => {
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                }
+            });
+			this.$emit('deleteShift', id)
+			this.deleteConf = true
 		},
         toggle(event) {
-            this.$refs.menu.toggle(event);
+            this.$refs.menu.toggle(event)
         }
 	},
 };
