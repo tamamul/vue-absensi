@@ -1,10 +1,6 @@
 <template>
     <ConfirmPopup />
-	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
-        <div class="col-span-12 w-full flex justify-center items-center">
-            <ProgressSpinner />
-        </div>
-	</div>
+    <PageLoading v-if="isLoading"></PageLoading>
 	<div class="grid grid-cols-12 gap-5 m-5" v-else>
 		<Card class="shadow-md col-span-12 lg:col-span-12 xl:col-span-12">
 			<template #title>

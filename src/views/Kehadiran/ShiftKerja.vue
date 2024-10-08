@@ -1,8 +1,5 @@
 <template>
-	<div class="flex h-5/6 m-5 gap-5 justify-center items-center" v-if="isLoading">
-		<ProgressSpinner />
-		<!-- <Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton> -->
-	</div>
+	<PageLoading v-if="isLoading"></PageLoading>
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
 		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
@@ -198,11 +195,11 @@ export default {
 
 			// theForm
 			nama_shift				: "",
-			jam_masuk				: "08:00",
-			jam_keluar				: "17:00",
-			warna					: "#07134f",
-			jam_istirahat_mulai		: "12:00",
-			jam_istirahat_selesai	: "13:00",
+			jam_masuk				: null,
+			jam_keluar				: null,
+			warna					: "",
+			jam_istirahat_mulai		: null,
+			jam_istirahat_selesai	: null,
 			toleransi_keterlambatan	: 0,
 		}
 	},
@@ -263,13 +260,14 @@ export default {
 		openPost() {
 			// Form
 			this.formPost = true
-			this.nama_shift					= ""
-			this.jam_masuk					= ""
-			this.jam_keluar					= ""
-			this.warna						= ""
-			this.jam_istirahat_mulai		= ""
-			this.jam_istirahat_selesai		= ""
-			this.toleransi_keterlambatan	= ""
+			this.nama_shift					= "",
+			this.jam_masuk					= "08:00",
+			this.jam_keluar					= "17:00",
+			this.warna						= "#07134f",
+			this.jam_istirahat_mulai		= "12:00",
+			this.jam_istirahat_selesai		= "13:00",
+			this.toleransi_keterlambatan	= 0,
+
 			this.formIsLoading = false
 			this.visible = true
 			this.dialogTitle = 'Tambahkan Shift Kerja'
