@@ -439,9 +439,7 @@ export default {
                 rekening        : this.rekening,
             }
             await axios.post('pegawai', data, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             }).then((res) => {
                 this.hasValidated = false
                 // console.log(res.data);

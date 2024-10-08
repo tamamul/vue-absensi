@@ -241,8 +241,9 @@ export default {
 			}).then((res) => {
 				console.log(res)
 				this.btnIsLoading = false
-			}).cathc((err) => {
+			}).catch((err) => {
 				console.log(err)
+				console.log(data)
 				this.btnIsLoading = false
 			})
 		},
