@@ -53,7 +53,6 @@
 						:jam_keluar	 = "item.jam_keluar"
 						@editShift	 = "handleEditShift"
 						@deleteShift = "handleDeleteShift"
-						:deleteConf	 = "deleteConf"
 					/>
 				</div>
 			</template>
@@ -191,7 +190,6 @@ export default {
 			no			: 1,
 			editShift	: [],
 			formPost	: false,
-			deleteConf	: false,
 
 			// theForm
 			nama_shift				: "",
@@ -304,8 +302,39 @@ export default {
 			this.getShiftById(id)
 		},
 
+		async onDelete(id) {
+			await axios.delete(`shift/${id}`, {
+				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+			}).then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err)
+			})
+		},
+
 		handleDeleteShift(id) {
-			console.log(`Parent handling delete for shift id: ${id}`);
+			this.$confirm.require({
+                message: 'Are you sure you want to sdfdsfdsproceed?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Save'
+                },
+                accept: () => {
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+					console.log(`Parent handling delete for shift id: ${id}`);
+					this.onDelete(id)
+					this.getAllShift()
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                }
+            });
 		},
 
 		close() {
