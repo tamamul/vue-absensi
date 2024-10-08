@@ -4,16 +4,13 @@
 		<!-- <Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton> -->
 	</div>
 	<div class="grid grid-cols-12 m-5 gap-5" v-else>
-		<Card class="col-span-12 shadow-md">
+		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
 				<div class="flex justify-between">
                     <h3>
 						Shift Kerja
 					</h3>
-                    <div class="flex gap-2">
-						<Button icon="pi pi-plus-circle" label="Tambah Shift Kerja" @click="openPost()"></Button>
-                        <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
-                    </div>
+					<Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
                 </div>
 			</template>
 			<template #content>
@@ -36,6 +33,19 @@
                         </template>
                     </Column>
 				</DataTable>
+			</template>
+		</Card>
+		<Card class="col-span-12 xl:col-span-4 shadow-md">
+			<template #title>
+				<div class="flex justify-between">
+                    <h3>
+						Daftar Shift Kerja
+					</h3>
+					<Button icon="pi pi-plus-circle" label="Tambah Shift Kerja" @click="openPost()"></Button>
+                </div>
+			</template>
+			<template #content>
+				
 			</template>
 		</Card>
 	</div>
@@ -191,23 +201,11 @@ export default {
 		}
 	},
 	methods: {
+		formattedTime,
 		ensureHashtag() {
 			if (this.warna && !this.warna.startsWith('#')) {
 				this.warna = `#${this.warna}`;
 			}
-		},
-		// FORMAT JAM DAN MENIT
-		formattedTime(date) {
-			const timePattern = /^\d{2}:\d{2}$/;
-			if (typeof date === 'string' && timePattern.test(date)) {
-				return date; 
-			}
-
-			if (date instanceof Date) {
-				const hours = String(date.getHours()).padStart(2, '0');
-				const minutes = String(date.getMinutes()).padStart(2, '0');
-				return `${hours}:${minutes}`;
-			}  
 		},
 		async getShift() {
 			await axios.get('shift', {
