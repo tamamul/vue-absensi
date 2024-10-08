@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-12 m-5 gap-5" v-if="isLoading">
+	<div class="flex h-5/6 m-5 gap-5 justify-center items-center" v-if="isLoading">
 		<ProgressSpinner />
 		<!-- <Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton> -->
 	</div>
@@ -45,7 +45,19 @@
                 </div>
 			</template>
 			<template #content>
-				
+				<div class="flex flex-col gap-1">
+					<TampilanShift
+						v-for		 = "item in shift" 
+						:key		 = "item.id_shift"
+						:id			 = "item.id_shift"
+						:nama_shift	 = "item.nama_shift"
+						:warna		 = "item.warna"
+						:jam_masuk	 = "item.jam_masuk"
+						:jam_keluar	 = "item.jam_keluar"
+						@editShift	 = "handleEditShift"
+						@deleteShift = "handleDeleteShift"
+					/>
+				</div>
 			</template>
 		</Card>
 	</div>
@@ -145,8 +157,8 @@
 
             <div class="col-span-12 flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
-                <!-- <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="!formPost"></Button> -->
-                <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post"></Button>
+                <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="formPost"></Button>
+                <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post" v-else></Button>
             </div>
 
         </form>
@@ -161,22 +173,22 @@ export default {
 	data() {
 		return {
 			// Table
-			shift: [],
+			shift	: [],
 			// Loading State
-			isLoading: false,
-			btnIsLoading: false,
-			formIsLoading: true,
+			isLoading		: true,
+			btnIsLoading	: false,
+			formIsLoading	: true,
 			// Dialog
-			visible: false,
-			dialogTitle: '',
-            dialogDeskripsi: '',
+			visible			: false,
+			dialogTitle		: '',
+            dialogDeskripsi	: '',
             // Validation
-            v$: useVuelidate(),
-            hasValidated: false,
+            v$				: useVuelidate(),
+            hasValidated	: false,
 			// Form
-			no: 1,
-			editShift: [],
-			formPost: false,
+			no			: 1,
+			editShift	: [],
+			formPost	: false,
 			// theForm
 			nama_shift	: "",
 			jam_masuk	: "08:00",
@@ -184,10 +196,11 @@ export default {
 			warna		: "#07134f",
 			jam_istirahat_mulai		: "12:00",
 			jam_istirahat_selesai	: "13:00",
-			toleransi_keterlambatan	: "",
+			toleransi_keterlambatan	: 0,
 			// Opsional: default=#07134f
 		}
 	},
+
 	validations() {
 		return {
 			// Form
@@ -200,6 +213,7 @@ export default {
 			toleransi_keterlambatan	: { required },
 		}
 	},
+
 	methods: {
 		formattedTime,
 		ensureHashtag() {
@@ -207,20 +221,54 @@ export default {
 				this.warna = `#${this.warna}`;
 			}
 		},
-		async getShift() {
+
+		async getAllShift() {
 			await axios.get('shift', {
 				headers: { 'Authorization': `Bearer ${this.default.token}` }
 			}).then((res) => {
-				console.log(res)
+				this.isLoading = false
+				this.shift = res.data.data
+				console.log(res.data.data)
 			}).catch((err) => {
 				console.log(err)
 			})
 		},
+
+		async getShiftById(id) {
+			await axios.get(`shift/${id}`, {
+				headers: { 'Authorization': `Bearer ${this.default.token}` }
+			}).then((res) => {
+				this.isLoading = false
+				this.formIsLoading = false
+				// Form
+				this.nama_shift	= res.data.data.nama_shift,
+				this.jam_masuk	= res.data.data.jam_masuk,
+				this.jam_keluar	= res.data.data.jam_keluar,
+				this.warna		= res.data.data.warna,
+				this.jam_istirahat_mulai		= res.data.data.jam_istirahat_mulai,
+				this.jam_istirahat_selesai		= res.data.data.jam_istirahat_selesai,
+				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan,
+				console.log(res.data.data.nama_shift)
+			}).catch((err) => {
+				console.log(err)
+			})
+		},
+
 		openPost() {
+			// Form
+			this.formPost = true
+			this.nama_shift	= ""
+			this.jam_masuk	= ""
+			this.jam_keluar	= ""
+			this.warna		= ""
+			this.jam_istirahat_mulai		= ""
+			this.jam_istirahat_selesai		= ""
+			this.toleransi_keterlambatan	= ""
 			this.formIsLoading = false
 			this.visible = true
 			this.dialogTitle = 'Tambahkan Shift Kerja'
 		},
+
 		async post() {
             this.btnIsLoading = true
             this.hasValidated = true
@@ -245,15 +293,27 @@ export default {
 				this.btnIsLoading = false
 			})
 		},
+
+		handleEditShift(id) {
+			console.log(`Parent handling edit for shift id: ${id}`);
+			this.visible = true
+			this.getShiftById(id)
+		},
+
+		handleDeleteShift(id) {
+			console.log(`Parent handling delete for shift id: ${id}`);
+		},
+
 		close() {
 			this.visible = false
 		},
 	},
 	mounted() {
-		this.getShift()
+		this.getAllShift()
 	},
 }
 </script>
+
 <style>
 .p-datatable-header{
     background: white;
