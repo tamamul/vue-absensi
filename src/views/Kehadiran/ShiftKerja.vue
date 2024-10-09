@@ -330,7 +330,6 @@ export default {
 					console.log(`Parent handling delete for shift id: ${id}`);
 					this.onDelete(id)
 					this.getAllShift()
-					this.getAllShift()
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
