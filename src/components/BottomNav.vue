@@ -18,7 +18,7 @@ export default {
 		return {
 			menuItems: [
 				{ label: 'Dashboard', icon: 'pi pi-home', route:'/dashboard' },
-				{ label: 'Kode', icon: 'pi pi-qrcode', route:'/absensi/qr-code' },
+				{ label: 'Absen', icon: 'pi pi-qrcode', route:'/kehadiran/qr-code' },
 				{ label: 'Profile', icon: 'pi pi-user', route:'/user/profile' },
 			]
 		}

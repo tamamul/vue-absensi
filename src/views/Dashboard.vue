@@ -6,15 +6,16 @@
 	</div>
 
     <div v-else class="grid grid-cols-12 gap-5 m-5">
-        <Card class="col-span-12 shadow-md" v-if="isAdmin">
+        <!-- Admin -->
+        <Card class="col-span-12 lg:col-span-4 shadow-md" v-if="isAdmin">
             <template #title>
-                text
+                Jumlah Pegawai
             </template>
             <template #content>
-                admin only
-                token
+                
             </template>
         </Card>
+        <!-- Pegawai -->
         <Card class="col-span-12 shadow-md" v-if="!isAdmin">
             <template #title>
                 another one
@@ -23,12 +24,13 @@
                 User normal only      
             </template>
         </Card>
+        <!-- Umum -->
         <Card class="col-span-12 shadow-md">
             <template #title>
-                another one
+                Card umum
             </template>
             <template #content>
-                both {{ this.default.image }}
+                Absen Sekarang
             </template>
         </Card>
     </div>
