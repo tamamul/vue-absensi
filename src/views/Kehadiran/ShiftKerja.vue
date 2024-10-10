@@ -1,6 +1,6 @@
 <template>
 	<PageLoading v-if="isLoading"></PageLoading>
-	<div class="grid grid-cols-12 m-5 gap-5" v-else>
+	<div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5" v-else>
 		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
 				<div class="flex justify-between">

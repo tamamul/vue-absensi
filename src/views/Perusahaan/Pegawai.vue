@@ -1,7 +1,7 @@
 <template>
     <ConfirmPopup />
     <PageLoading v-if="isLoading"></PageLoading>
-	<div class="grid grid-cols-12 gap-5 m-5" v-else>
+	<div class="grid grid-cols-12 gap-5 m-5 mb-24 lg:mb-5" v-else>
 		<Card class="shadow-md col-span-12 lg:col-span-12 xl:col-span-12">
 			<template #title>
                 <div class="flex justify-between">
@@ -329,14 +329,11 @@ export default {
         },
         async getPegawaiById(id){
             await axios.get(`pegawai/${id}`, {
-                headers:{
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             }).then((res) => {
                 // this.isLoading = false
-                this.editPegawaiData = res.data.data
                 const response = res.data.data
-                console.log(response)
+                this.editPegawaiData = response
                 this.formIsLoading = false
 
                 this.id_pegawai      = id
