@@ -154,7 +154,7 @@
 
             <div class="col-span-12 flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
-                <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="formPost"></Button>
+                <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="!formPost"></Button>
                 <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post" v-else></Button>
             </div>
 
@@ -288,6 +288,9 @@ export default {
 				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
 			}).then((res) => {
 				console.log(res)
+				this.$toast.add({ severity: 'success', summary: 'Shift kerja sukses ditambahkan', detail: 'Shift kerja telah di tambahkan', life: 3000 });
+				this.getAllShift()
+				this.visible = false
 				this.btnIsLoading = false
 			}).catch((err) => {
 				console.log(err)
@@ -298,6 +301,7 @@ export default {
 
 		handleEditShift(id) {
 			console.log(`Parent handling edit for shift id: ${id}`);
+			this.formPost = false
 			this.visible = true
 			this.getShiftById(id)
 		},
@@ -307,6 +311,7 @@ export default {
 				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
 			}).then((res) => {
 				console.log(res)
+				this.getAllShift()
 			}).catch((err) => {
 				console.log(err)
 			})
