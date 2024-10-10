@@ -14,8 +14,8 @@
 			</template>
 			<template #content>
 				<div class="flex flex-col gap-5">
-					<div class="grid grid-cols-12">
-						<div class="col-span-6 flex items-center gap-3">
+					<div class="grid grid-cols-12 gap-2">
+						<div class="col-span-12 md:col-span-6 flex items-center gap-5">
 							<Image :src="avatar" :alt="user.nama_lengkap" class="w-32 border border-white shadow-md items-center justify-center rounded-full" />
 							<div>
 								<p class="text-xl font-bold">{{ user.nama_lengkap ?? 'Muh. Mahatma Arrayyan' }}</p>
@@ -23,15 +23,16 @@
 								<p class="text-base font-light">{{ user.alamat ?? 'Jl. Pendidikan Blok B5 No.08' }}</p>
 							</div>
 						</div>
-						<div class="col-span-6 flex items-center gap-3 justify-center">
-							<Button label="Upload New Photo" class="py-3 px-4"></Button>
-							<Button label="Delete" class="py-3 px-4" outlined severity="danger"></Button>
+						<div class="col-span-12 md:col-span-6 flex items-center gap-3 justify-center">
+							<!-- <FileUpload ref="fileupload" mode="basic" name="demo[]" url="/api/upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" /> -->
+							<FileUpload mode="basic" class="py-3 px-4" name="demo[]" url="/api/upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :auto="true" chooseLabel="Foto Profil" />
+							<Button label="Hapus Foto" class="py-3 px-4" outlined severity="danger"></Button>
 						</div>
 					</div>
 
 					<!-- <Divider /> -->
 
-					<Tabs value="0">
+					<Tabs value="0" scrollable>
 						<TabList>
 							<Tab value="0">Informasi Pegawai</Tab>
 							<Tab value="1">Ganti Password</Tab>
@@ -185,7 +186,9 @@
 									</div>
 
 									<!-- CP itu Change Password  -->
-									<Button label="Kirim" class="px-14 py-3" :loading="btnCPIsLoading" @click="kirim" />
+									<div class="col-span-12">
+										<Button label="Kirim" class="px-14 py-3" :loading="btnCPIsLoading" @click="kirim" />
+									</div>
 								</form>
 							</TabPanel>
 						</TabPanels>
@@ -347,3 +350,9 @@ export default {
 	},
 }
 </script>
+
+<style>
+.p-tabpanels{
+	padding: 0;
+}
+</style>
