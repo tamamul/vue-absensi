@@ -19,7 +19,11 @@
                     scrollable 
                     tableStyle="min-width: 50rem"
 				>
-					<Column field="id_pegawai" header="No" />
+					<Column field="" header="No">
+						<template #body="slotProps">
+							{{ slotProps.index + 1 }}
+                        </template>
+					</Column>
                     <Column field="nama_shift" header="Nama Shift" style="min-width: 300px" class="capitalize" />
 					<Column field="" header="Action" frozen alignFrozen="right">
                         <template #body="slotProps">
@@ -154,7 +158,7 @@
 
             <div class="col-span-12 flex justify-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
-                <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="!formPost"></Button>
+                <Button type="button" label="Edit" :loading="btnIsLoading" @click="edit(id_shift)" v-if="!formPost"></Button>
                 <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post" v-else></Button>
             </div>
 
@@ -192,6 +196,7 @@ export default {
 			formPost	: false,
 
 			// theForm
+			id_shift				: null,
 			nama_shift				: "",
 			jam_masuk				: null,
 			jam_keluar				: null,
@@ -242,13 +247,14 @@ export default {
 				this.isLoading = false
 				this.formIsLoading = false
 				// Form
-				this.nama_shift	= res.data.data.nama_shift,
-				this.jam_masuk	= res.data.data.jam_masuk,
-				this.jam_keluar	= res.data.data.jam_keluar,
-				this.warna		= res.data.data.warna,
-				this.jam_istirahat_mulai		= res.data.data.jam_istirahat_mulai,
-				this.jam_istirahat_selesai		= res.data.data.jam_istirahat_selesai,
-				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan,
+				this.id_shift 	= res.data.data.id_shif
+				this.nama_shift	= res.data.data.nama_shift
+				this.jam_masuk	= res.data.data.jam_masuk
+				this.jam_keluar	= res.data.data.jam_keluar
+				this.warna		= res.data.data.warna
+				this.jam_istirahat_mulai		= res.data.data.jam_istirahat_mulai
+				this.jam_istirahat_selesai		= res.data.data.jam_istirahat_selesai
+				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan
 				console.log(res.data.data.nama_shift)
 			}).catch((err) => {
 				console.log(err)
@@ -296,6 +302,28 @@ export default {
 				console.log(err)
 				console.log(data)
 				this.btnIsLoading = false
+			})
+		},
+
+		async edit(id) {
+			const data = {
+				nama_shift				: this.nama_shift,
+				jam_masuk				: this.formattedTime(this.jam_masuk),
+				jam_keluar				: this.formattedTime(this.jam_keluar),
+				warna					: this.warna,
+				jam_istirahat_mulai		: this.formattedTime(this.jam_istirahat_mulai),
+				jam_istirahat_selesai	: this.formattedTime(this.jam_istirahat_selesai),
+				toleransi_keterlambatan	: this.toleransi_keterlambatan,
+			}
+			await axios.put(`shift/${id}`, data, {
+				headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+			}).then((res) => {
+				console.log('berhasil edit' + res)
+				this.visible = false
+				this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+				this.getAllShift()
+			}).catch((err) => {
+				console.log(err)
 			})
 		},
 

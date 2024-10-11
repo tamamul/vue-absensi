@@ -46,65 +46,47 @@
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="nama_lengkap">Nama Lengkap <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_lengkap.$invalid" />
-										<small v-if="hasValidated && v$.nama_lengkap.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_lengkap.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="nik">NIK <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" v-model="nik" id="nik" :useGrouping="false" fluid class="col-span-12" :invalid="hasValidated && v$.nik.$invalid" />
-										<small v-if="hasValidated && v$.nik.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled v-model="nik" id="nik" :useGrouping="false" fluid class="col-span-12" :invalid="hasValidated && v$.nik.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="tempat_lahir">Tempat Lahir <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="tempat_lahir" v-model="tempat_lahir" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tempat_lahir.$invalid" />
-										<small v-if="hasValidated && v$.tempat_lahir.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="tempat_lahir" v-model="tempat_lahir" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tempat_lahir.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="tgl_lahir">Tanggal Lahir <span class="text-red-500">*</span></label>
-										<DatePicker :disabled="isAdmin" inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
-										<small v-if="hasValidated && v$.tgl_lahir.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<DatePicker disabled inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="alamat">Alamat <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="alamat" v-model="alamat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.alamat.$invalid" />
-										<small v-if="hasValidated && v$.alamat.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="alamat" v-model="alamat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.alamat.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="jk">Jenis Kelamin <span class="text-red-500">*</span></label>
-										<Select :disabled="isAdmin" inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
-										<small v-if="hasValidated && v$.jk.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<Select disabled inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="agama">Agama <span class="text-red-500">*</span></label>
-										<Select :disabled="isAdmin" inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
-										<small v-if="hasValidated && v$.agama.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<Select disabled inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah <span class="text-red-500">*</span></label>
-										<Select :disabled="isAdmin" inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
-										<small v-if="hasValidated && v$.gol_darah.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<Select disabled inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="pendidikan">Pendidikan <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="pendidikan" v-model="pendidikan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.pendidikan.$invalid" />
-										<small v-if="hasValidated && v$.pendidikan.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="pendidikan" v-model="pendidikan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.pendidikan.$invalid" />
 									</div>
 
 									<Divider class="col-span-12" />
@@ -113,23 +95,17 @@
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
-										<small v-if="hasValidated && v$.email.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="no_telp">Nomor Telpon <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="no_telp" :useGrouping="false" fluid v-model="no_telp" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.no_telp.$invalid" />
-										<small v-if="hasValidated && v$.no_telp.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="no_telp" :useGrouping="false" fluid v-model="no_telp" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.no_telp.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="kontak_darurat">Kontak Darurat <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="kontak_darurat" :useGrouping="false" fluid v-model="kontak_darurat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.kontak_darurat.$invalid" />
-										<small v-if="hasValidated && v$.kontak_darurat.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="kontak_darurat" :useGrouping="false" fluid v-model="kontak_darurat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.kontak_darurat.$invalid" />
 									</div>
 
 									<Divider class="col-span-12" />
@@ -139,23 +115,17 @@
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="rekening">Rekening <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="rekening" v-model="rekening" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.rekening.$invalid" />
-										<small v-if="hasValidated && v$.rekening.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="rekening" v-model="rekening" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.rekening.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="mulai_kerja">Mulai Kerja <span class="text-red-500">*</span></label>
-										<DatePicker :disabled="isAdmin" inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
-										<small v-if="hasValidated && v$.mulai_kerja.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<DatePicker disabled inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="jabatan">Jabatan <span class="text-red-500">*</span></label>
-										<InputText :disabled="isAdmin" id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
-										<small v-if="hasValidated && v$.jabatan.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputText disabled id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
 									</div>
 
 									<div class="col-span-12 flex gap-2">
@@ -168,21 +138,15 @@
 								<form class="w-full grid grid-cols-12 gap-2">
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
-										<InputText id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
-										<small v-if="hasValidated && v$.email.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputTextid v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="password">Password <span class="text-red-500">*</span></label>
-										<InputText id="password" v-model="password" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password.$invalid" />
-										<small v-if="hasValidated && v$.password.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputTextid v-model="password" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password.$invalid" />
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
 										<label class="max-h-6 col-span-12" for="password_confirm">Konfirmasi Password <span class="text-red-500">*</span></label>
-										<InputText id="password_confirm" v-model="password_confirm" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password_confirm.$invalid" />
-										<small v-if="hasValidated && v$.password_confirm.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-										<small v-else class="invisible">...</small>
+										<InputTextid v-model="password_confirm" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password_confirm.$invalid" />
 									</div>
 
 									<!-- CP itu Change Password  -->
@@ -346,7 +310,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.getUser()
+		this.isAdmin ? this.getUser() : this.isLoading = false
 	},
 }
 </script>

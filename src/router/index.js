@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import store from '../store'
+// import store from '@stores/auth'
+import { useAuthStore } from '@/stores/auth';
 
 const routes = [
 	{
@@ -25,7 +26,7 @@ const routes = [
 	},
 	{
 		component: () => import('../shell/DashboardShell.vue'),
-		meta: { requiresAuth: false },
+		meta: { requiresAuth: true },
 		children: [
 			// ? Dashboard
 			{
@@ -98,11 +99,28 @@ const router = createRouter({
 	routes,
 })
 
-router.beforeEach((to, from, next) => {
-	if (to.meta.requiresAuth && !store.getters['auth/auth']) {
-		return next({ name: 'login' })
+router.beforeEach(async (to, from, next) => {
+	const authStore = useAuthStore();  // Initialize the Pinia store
+
+	// Ensure the token is loaded from localStorage
+	if (!authStore.authToken) {
+		await authStore.getToken();
 	}
-	next()
-})
+
+	// If the route requires authentication and the user isn't authenticated
+	if (to.meta.requiresAuth && !authStore.authToken) {
+		// Try to fetch the user data using the stored token
+		try {
+			await authStore.getUser();  // This will set `authUser` if the token is valid
+		} catch (error) {
+			return next({ name: 'login' });
+		}
+	}
+
+	// If everything checks out, proceed to the next route
+	next();
+});
+
+
 
 export default router
