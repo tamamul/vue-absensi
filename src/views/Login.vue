@@ -8,129 +8,128 @@
 				</div>
 			</template>
 			<template #content>
-				<form @submit="prevent" class="flex flex-col gap-2" v-focustrap>
-					<!-- Input -->
+				<form @submit.prevent="login" class="flex flex-col gap-2" v-focustrap>
+					<!-- Input for Email -->
 					<InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-user"></i>
 						</InputGroupAddon>
-						<InputText :class="{borderDanger : emailErr}" v-model="email" placeholder="Email" autofocus required />
+						<InputText 
+							:class="{borderDanger : emailErr}" 
+							v-model="email" 
+							placeholder="Email" 
+							autofocus 
+							required 
+						/>
 					</InputGroup>
 					<small class="text-red-500" v-show="emailErr" id="email-help">{{ emailErrMsg }}</small>
-					
+
+					<!-- Input for Password -->
 					<InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
 						</InputGroupAddon>
-						<Password class="border border-[#CBD5E1]" :class="{borderDanger : passwordErr}" v-model="password" toggleMask placeholder="Password" :feedback="false" required />
+						<Password 
+							class="border border-[#CBD5E1]" 
+							:class="{borderDanger : passwordErr}" 
+							v-model="password" 
+							toggleMask 
+							placeholder="Password" 
+							:feedback="false" 
+							required 
+						/>
 					</InputGroup>
 					<small class="text-red-500" v-show="passwordErr" id="password-help">{{ passwordErrMsg }}</small>
-					
-					<!-- Submit -->
-					<Button label="Login" :loading="btnIsLoading" @click="login" />
+
+					<!-- Submit Button -->
+					<Button label="Login" :loading="btnIsLoading" type="submit" />
 				</form>
 			</template>
 		</Card>
 	</div>
 </template>
 
+
 <script>
-import router from '@/router'
+import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
+
 export default {
     data() {
         return {
-			// Stete
-			store: useAuthStore,
-			btnIsLoading: false,
-			// Email
-			email		: '',
-			emailErr	: false,
-			emailErrMsg	: '',
-			// Password
-			password		: '',
-			passwordErr		: false,
-			passwordErrMsg	: '',
-        }
+            // State
+            email: '',
+            emailErr: false,
+            emailErrMsg: '',
+            password: '',
+            passwordErr: false,
+            passwordErrMsg: '',
+            btnIsLoading: false,
+        };
     },
-	methods: {
-		// Login
-        login() {
-			this.btnIsLoading = true
-			if (this.email && this.password) {
-                axios.post('/login', {
-                    email   : this.email,
-                    password: this.password
-                }).then((response) => {
-                    console.log(response);
-                    localStorage.setItem('token', response.data.data.token)
-					this.btnIsLoading = false
-                    this.$toast.add({
-                        severity: 'success',
-                        summary: 'Berhasil login',
-                        detail: '',
-                        life: 5000
-                    });
-					this.emailErr = false
-					this.passwordErr = false
-                    router.push({ name: 'dashboard' })
-                }).catch((error) => {
-					console.log(error)
-					this.btnIsLoading = false
-                    if (error.response) {
-                        const errors = error.response.data.errors
-						if (error.status == 401) {
-							this.emailErr = false
-							this.passwordErr = true
-							// this.passwordErrMsg = error.response.data.message;
-							this.passwordErrMsg = 'Password salah'
-						}
-                        if (errors.email && errors.password) {
-                            this.emailErr = true;
-                            this.emailErrMsg = errors.email.join('');
-                            this.passwordErr = true;
-							this.passwordErrMsg = errors.password.join('');
-                        } else if (errors.password) {
-							this.emailErr = false;
-                            this.passwordErr = true;
-							this.passwordErrMsg = errors.password.join('');
-                        } else if (errors.email) {
-							this.passwordErr = false;
-                            this.emailErr = true;
-                            // this.emailErrMsg = errors.email.join('');
-                            this.emailErrMsg = 'Email tidak ditemukan!';
-                        }
+    methods: {
+        // Login method
+        async login() {
+            const authStore = useAuthStore();  // Get auth store
+            this.btnIsLoading = true;  // Set loading state
+
+            try {
+                // Validate input (basic check)
+                if (!this.email) {
+                    this.emailErr = true;
+                    this.emailErrMsg = "Email is required.";
+                    this.btnIsLoading = false;
+                    return;
+                }
+                if (!this.password) {
+                    this.passwordErr = true;
+                    this.passwordErrMsg = "Password is required.";
+                    this.btnIsLoading = false;
+                    return;
+                }
+
+                // Call login action from store
+                await authStore.login({ email: this.email, password: this.password });
+
+                // If successful, redirect to dashboard
+                router.push({ name: 'dashboard' });
+            } catch (error) {
+                // Handle login failure (set error messages)
+                if (error.response?.data?.message) {
+                    const errorMsg = error.response.data.message;
+
+                    if (errorMsg.includes('email')) {
+                        this.emailErr = true;
+                        this.emailErrMsg = errorMsg;
                     }
-                    this.$toast.add({
-                        severity: 'error',
-                        summary: 'Email atau password anda salah',
-                        detail: 'Masukkan email dan password yang benar!',
-                        life: 5000
-                    });
-                });
-            } else {
-                this.$toast.add({
-                    severity: 'error',
-                    summary: 'Masukkan Email dan Password',
-                    detail: 'Email dan password wajib diisi!',
-                    life: 5000
-                });
+
+                    if (errorMsg.includes('password')) {
+                        this.passwordErr = true;
+                        this.passwordErrMsg = errorMsg;
+                    }
+                } else {
+                    console.error('Login error:', error);
+                }
+            } finally {
+                this.btnIsLoading = false;  // Turn off loading state
             }
         },
 
-		// Check already login
+        // Check if already logged in
         alreadyLogin() {
-            this.token = localStorage.getItem('token');
-            if (this.token) {
-                router.push({name: 'dashboard'});
+            const token = localStorage.getItem('token');
+            if (token) {
+                router.push({ name: 'dashboard' });
             }
         },
-	},
-	mounted() {
-		this.alreadyLogin();
-	},
-}
+    },
+    mounted() {
+        this.alreadyLogin();  // Check if user is already logged in
+    },
+};
+
 </script>
+
 <style scoped>
 	.borderDanger {
 		@apply border-red-500

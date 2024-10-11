@@ -17,11 +17,27 @@ import 'primeicons/primeicons.css'
 // ? baseURL yang di dapatkan dari config.js
 import axios from 'axios'
 import config from './config'
-axios.defaults.baseURL = config.baseURL;
-axios.defaults.headers.common = {
-    ...axios.defaults.headers.common,
-    ...config.headers,
-}
+import { useAuthStore } from './stores/auth'
+
+const pinia = createPinia();
+
+axios.defaults.baseURL = config.baseURL;  // Set baseURL from config.js
+axios.defaults.headers = {
+    ...config.headers,  // Use default headers from config.js
+};
+
+// Add Axios interceptor to automatically attach Authorization header
+axios.interceptors.request.use((axiosConfig) => {
+    const authStore = useAuthStore(pinia);  // Access the auth store
+
+    // Attach token if it exists in authStore
+    if (authStore.authToken) {
+        axiosConfig.headers.Authorization = `Bearer ${authStore.authToken}`;
+    }
+    return axiosConfig;
+}, (error) => {
+    return Promise.reject(error);
+});
 
 const app = createApp(App);
 
@@ -43,7 +59,7 @@ app.use(PrimeVue, {
 app.use(ConfirmationService)
 app.use(ToastService)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')
