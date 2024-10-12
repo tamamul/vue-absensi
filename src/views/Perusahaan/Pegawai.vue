@@ -278,6 +278,7 @@ export default {
 	methods: {
         // FORMAT TANGGAL
         formattedDate,
+
         // DIALOG
         openPost() {
             this.formPost = true
@@ -301,6 +302,7 @@ export default {
             this.no_telp         = '08'
             this.rekening        = ''
         },
+
         openEdit(id) {
             this.visible = true
             this.dialogTitle = 'Edit Pegawai'
@@ -309,10 +311,12 @@ export default {
             this.formPost = false
             this.getPegawaiById(id)
         },
+
         close() {
             this.visible = false
             this.formIsLoading = true
         },
+
         // Get All
         async getPegawaiAll() {
             await axios.get('pegawai', {
@@ -327,6 +331,7 @@ export default {
                 router.push({name : 'not-found'})
             })
         },
+
         async getPegawaiById(id){
             await axios.get(`pegawai/${id}`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
@@ -357,9 +362,11 @@ export default {
                 console.log(localStorage.getItem('token'));
             })
         },
+
         exportCSV() {
             this.$refs.dt.exportCSV();
         },
+
         async editPegawai(id) {
             this.btnIsLoading = true
             this.hasValidated = true
@@ -381,6 +388,7 @@ export default {
                 no_telp         : this.no_telp,
                 rekening        : this.rekening,
             }
+
             await axios.put(`pegawai/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -399,6 +407,7 @@ export default {
                 console.log(localStorage.getItem('token'));
             })
         },
+
         async postPegawai() {
             this.btnIsLoading = true
             this.hasValidated = true
@@ -440,6 +449,7 @@ export default {
                 this.getPegawaiAll()
             })
         },
+
         async funDelete(id){
             await axios.delete(`pegawai/${id}`, {
                 headers: { 'Authorization': `Bearer ${this.default.token}` }
@@ -451,6 +461,7 @@ export default {
                 console.log(err)
             })
         },
+
         deletePegawai(event, id) {
             this.$confirm.require({
                 target: event.currentTarget,
@@ -474,6 +485,7 @@ export default {
                 }
             });
         },
+
         async emailVerification(email){
             const data = {
                 'email' : email
@@ -488,6 +500,7 @@ export default {
                 console.log(err)
             })
         },
+
         openEmailVerification(event, email) {
             this.$confirm.require({
                 target: event.currentTarget,

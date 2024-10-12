@@ -18,15 +18,37 @@
         <div class="flex flex-col overflow-y-auto duration-300 ease-linear">
 
             <!-- Sidebar Menu -->
-            <nav class="mt-5 px-4 lg:mt-9 lg:px-6">
+            <nav v-if="isAdmin" class="mt-5 px-4 lg:mt-9 lg:px-6">
 
                 <!-- Menu Group -->
-                <div v-for="sidebarItem in sidebarItems" :key="sidebarItem.label">
-                    <h3 class="mb-4 ml-4 text-sm font-medium">{{sidebarItem.label}}</h3>
+                <div v-for="item in sidebarItemsAdmin" :key="item.label">
+                    <h3 class="mb-4 ml-4 text-sm font-medium">{{item.label}}</h3>
 
                     <ul class="mb-6 flex flex-col gap-1">
                         <!-- Menu Item -->
-                        <li v-for="menuItem in sidebarItem.items" :key="menuItem.label" >
+                        <li v-for="menuItem in item.items" :key="menuItem.label" >
+                            <RouterLink class="group relative flex items-center gap-2 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out menu"
+                                :to="menuItem.route"
+                            >
+                                <i class="text-lg" :class="menuItem.icon"></i>
+
+                                {{menuItem.label}}
+                            </RouterLink>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <nav v-else class="mt-5 px-4 lg:mt-9 lg:px-6">
+
+                <!-- Menu Group -->
+                <div v-for="item in sidebarItemsUser" :key="item.label">
+                    <h3 class="mb-4 ml-4 text-sm font-medium">{{item.label}}</h3>
+
+                    <ul class="mb-6 flex flex-col gap-1">
+                        <!-- Menu Item -->
+                        <li v-for="menuItem in item.items" :key="menuItem.label" >
                             <RouterLink class="group relative flex items-center gap-2 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out menu"
                                 :to="menuItem.route"
                             >
@@ -46,11 +68,15 @@
 </template>
 
 <script>
+import { useAuthStore } from '@/stores/auth';
+
+// ? ambil dulu info admin dari authStore terus tentukan sidebarItems mana yang di pakai
 export default {
     props:['sidebarToggle'],
     data() {
         return {
-            sidebarItems: [
+            authStore: useAuthStore(),
+            sidebarItemsUser: [
                 {
                     label: 'Home',
                     items: [
@@ -69,6 +95,38 @@ export default {
                             icon: 'pi pi-qrcode',
                             route: '/kehadiran/qr-code'
                         },
+                    ]
+                },
+                {
+                    label: 'Kerjaan',
+                    items: [
+                        {
+                            label: 'Workspaces',
+                            icon: 'pi pi-briefcase',
+                            route: '/kerjaan/workspaces'
+                        },
+                        {
+                            label: 'Kanban',
+                            icon: 'pi pi-list',
+                            route: '/kerjaan/kanban'
+                        },
+                    ]
+                },
+            ],
+            sidebarItemsAdmin: [
+                {
+                    label: 'Home',
+                    items: [
+                        {
+                            label: 'Dashboard',
+                            icon: 'pi pi-home',
+                            route: '/admin/dashboard'
+                        }
+                    ]
+                },
+                {
+                    label: 'Kehadiran',
+                    items: [
                         {
                             label: 'Konfirmasi Absensi',
                             icon: 'pi pi-check-square',
@@ -125,25 +183,18 @@ export default {
         toggleSidebar() {
             this.$emit('toggleSidebar')
         },
-        async getUser() {
+
+        async getAdmin() {
             await this.authStore.getUser()
 
-            this.isAdmin  = this.authStore.authUser.is_admin
-            const pegawai = this.authStore.authUser.pegawai
-            if (pegawai === null) {
-                this.username = 'Admin'
-                this.jabatan  = 'HRD'
-            } else{
-                this.pegawai = pegawai
-                this.username = pegawai.nama_lengkap
-                this.jabatan = pegawai.jabatan
-            }
-            // if (!this.authStore.authUser.is_admin) {                
-            // }
+            this.isAdmin  = this.authStore.authUser.data.is_admin
+
             console.log('sidebar ngambil lagi')
-        this.isLoading  = false
         },
-    }
+    },
+    mounted() {
+        this.getAdmin()
+    },
 }
 </script>
 

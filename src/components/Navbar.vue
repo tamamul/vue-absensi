@@ -113,9 +113,10 @@ export default {
     methods: {
         async getUser() {
             await this.authStore.getUser()
-
+            // console.log(this.authStore.authUser.data.pegawai)
             this.isAdmin  = this.authStore.authUser.is_admin
-            const pegawai = this.authStore.authUser.pegawai
+            const pegawai = this.authStore.authUser.data.pegawai
+
             if (pegawai === null) {
                 this.username = 'Admin'
                 this.jabatan  = 'HRD'
@@ -124,13 +125,16 @@ export default {
                 this.username = pegawai.nama_lengkap
                 this.jabatan = pegawai.jabatan
             }
+
             console.log('navbar ngambil lagi')
             this.isLoading  = false
         },
+
         toggleDropdown(event) {
             this.$refs.menu.toggle(event);
             this.dropdownOpen = !this.dropdownOpen;
         },
+
         logout() {
             axios.post('/logout', {}, {
                 headers: {
@@ -140,25 +144,30 @@ export default {
                 console.log(response);
                 localStorage.removeItem('token')
                 localStorage.removeItem('is_admin')
+
                 this.$toast.add({
                     severity: 'success',
                     summary: 'Logout Berhasil',
                     detail: 'Sukses melakukan logout',
                     life: 5000
                 });
+
                 router.push({name: 'login'})
             }).catch((error) => {
                 console.log(error)
                 console.log(this.token)
+
                 this.$toast.add({
                     severity: 'error',
                     summary: 'Logout gagal',
                     detail: 'Gagal melakukan logout',
                     life: 5000
                 });
+
             });
         },
     },
+
     async mounted() {
         await this.getUser()
     },

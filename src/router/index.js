@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import store from '@stores/auth'
 import { useAuthStore } from '@/stores/auth';
 
 const routes = [
@@ -86,12 +85,28 @@ const routes = [
 				component: () => import('../views/Kerjaan/Workspaces.vue')
 			},
 			{
-				path: '/kerjaan/kanban/',
+				path: '/kerjaan/kanban',
 				name: 'kanban',
 				component: () => import('../views/Kerjaan/Kanban.vue')
 			},
+
+		],
+	},
+
+	// Group Admin
+	{
+		path: '/admin/',
+		name: 'admin',
+		component: () => import('../shell/AdminDashboardShell.vue'),
+		meta: { requiresAuth: true, role: 1 }, 
+		children: [
+			{
+				path: 'dashboard',
+				name: 'admin-dashboard',
+				component: () => import('../views/Admin/Dashboard.vue'),
+			},
 		]
-	}
+	},
 ]
 
 const router = createRouter({
@@ -109,14 +124,21 @@ router.beforeEach(async (to, from, next) => {
 	if (to.meta.requiresAuth && !authStore.authToken) {
 		try {
 			await authStore.getUser();
-		} catch (error) {
+		} 
+		catch (error) {
+			return next({ name: 'login' });
+		}
+	}
+
+	if (to.meta.role) {
+		if (authStore.userRole !== to.meta.role) {
+			return next();
+		} else {
 			return next({ name: 'login' });
 		}
 	}
 
 	next();
 });
-
-
 
 export default router
