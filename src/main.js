@@ -21,16 +21,13 @@ import { useAuthStore } from './stores/auth'
 
 const pinia = createPinia();
 
-axios.defaults.baseURL = config.baseURL;  // Set baseURL from config.js
+axios.defaults.baseURL = config.baseURL;
 axios.defaults.headers = {
-    ...config.headers,  // Use default headers from config.js
+    ...config.headers,
 };
-
-// Add Axios interceptor to automatically attach Authorization header
 axios.interceptors.request.use((axiosConfig) => {
-    const authStore = useAuthStore(pinia);  // Access the auth store
+    const authStore = useAuthStore(pinia);
 
-    // Attach token if it exists in authStore
     if (authStore.authToken) {
         axiosConfig.headers.Authorization = `Bearer ${authStore.authToken}`;
     }

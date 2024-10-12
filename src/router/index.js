@@ -100,24 +100,20 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-	const authStore = useAuthStore();  // Initialize the Pinia store
+	const authStore = useAuthStore();
 
-	// Ensure the token is loaded from localStorage
 	if (!authStore.authToken) {
 		await authStore.getToken();
 	}
 
-	// If the route requires authentication and the user isn't authenticated
 	if (to.meta.requiresAuth && !authStore.authToken) {
-		// Try to fetch the user data using the stored token
 		try {
-			await authStore.getUser();  // This will set `authUser` if the token is valid
+			await authStore.getUser();
 		} catch (error) {
 			return next({ name: 'login' });
 		}
 	}
 
-	// If everything checks out, proceed to the next route
 	next();
 });
 
