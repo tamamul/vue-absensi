@@ -23,57 +23,57 @@ const routes = [
 		name: 'login',
 		component: () => import('../views/Login.vue')
 	},
-	// {
-	// 	component: () => import('../shell/DashboardShell.vue'),
-	// 	meta: { requiresAuth: true },
-	// 	children: [
-	// 		// ? Dashboard
-	// 		{
-	// 			path: '/dashboard',
-	// 			name: 'dashboard',
-	// 			component: () => import('../views/Dashboard.vue'),
-	// 		},
-	// 		// ? User
-	// 		{
-	// 			path: '/user/profile',
-	// 			name: 'user-profile',
-	// 			component: () => import('../views/User/Profile.vue')
-	// 		},
-	// 		{
-	// 			path: '/user/settings',
-	// 			name: 'user-settings',
-	// 			component: () => import('../views/User/Settings.vue')
-	// 		},
-	// 		// ? Absensi
-	// 		{
-	// 			path: '/kehadiran/qr-code',
-	// 			name: 'kehadiran-qr-code',
-	// 			component: () => import('../views/Kehadiran/QrCode.vue')
-	// 		},
-	// 		{
-	// 			path: '/kehadiran/absensi',
-	// 			name: 'kehadiran-absensi',
-	// 			component: () => import('../views/Kehadiran/Absensi.vue')
-	// 		},
-	// 		{
-	// 			path: '/kehadiran/shift-kerja',
-	// 			name: 'shift-kerja',
-	// 			component: () => import('../views/Kehadiran/ShiftKerja.vue')
-	// 		},
-	// 		// ? Kerjaan
-	// 		{
-	// 			path: '/kerjaan/workspaces',
-	// 			name: 'workspaces',
-	// 			component: () => import('../views/Kerjaan/Workspaces.vue')
-	// 		},
-	// 		{
-	// 			path: '/kerjaan/kanban',
-	// 			name: 'kanban',
-	// 			component: () => import('../views/Kerjaan/Kanban.vue')
-	// 		},
+	{
+		component: () => import('../shell/DashboardShell.vue'),
+		meta: { requiresAuth: true, role: 0 },
+		children: [
+			// ? Dashboard
+			{
+				path: '/dashboard',
+				name: 'dashboard',
+				component: () => import('../views/Dashboard.vue'),
+			},
+			// ? User
+			{
+				path: '/user/profile',
+				name: 'user-profile',
+				component: () => import('../views/User/Profile.vue')
+			},
+			{
+				path: '/user/settings',
+				name: 'user-settings',
+				component: () => import('../views/User/Settings.vue')
+			},
+			// ? Absensi
+			{
+				path: '/kehadiran/qr-code',
+				name: 'kehadiran-qr-code',
+				component: () => import('../views/Kehadiran/QrCode.vue')
+			},
+			{
+				path: '/kehadiran/absensi',
+				name: 'kehadiran-absensi',
+				component: () => import('../views/Kehadiran/Absensi.vue')
+			},
+			{
+				path: '/kehadiran/shift-kerja',
+				name: 'shift-kerja',
+				component: () => import('../views/Kehadiran/ShiftKerja.vue')
+			},
+			// ? Kerjaan
+			{
+				path: '/kerjaan/workspaces',
+				name: 'workspaces',
+				component: () => import('../views/Kerjaan/Workspaces.vue')
+			},
+			{
+				path: '/kerjaan/kanban',
+				name: 'kanban',
+				component: () => import('../views/Kerjaan/Kanban.vue')
+			},
 
-	// 	],
-	// },
+		],
+	},
 
 	// Group Admin
 	{
@@ -104,6 +104,16 @@ const routes = [
 				path: 'perusahaan/payroll',
 				name: 'admin-payroll',
 				component: () => import('../views/Admin/Perusahaan/Payroll.vue')
+			},
+			{
+				path: 'kehadiran/absensi',
+				name: 'kehadiran-absensi',
+				component: () => import('../views/Admin/Kehadiran/Absensi.vue')
+			},
+			{
+				path: 'kehadiran/shift-kerja',
+				name: 'shift-kerja',
+				component: () => import('../views/Admin/Kehadiran/ShiftKerja.vue')
 			},
 		]
 	},

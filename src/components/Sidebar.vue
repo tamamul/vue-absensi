@@ -20,53 +20,19 @@
 
                 <!-- Menu Group -->
 
-                <div>
+                <div v-for="n in 3" :key="n">
                     <h3 class="mb-4 ml-4 text-sm font-medium">
-                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="1.5rem" width="50%" />
                     </h3>
 
                     <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <Skeleton height="2rem"></Skeleton>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="mb-4 ml-4 text-sm font-medium">
-                        <Skeleton height="2rem"></Skeleton>
-                    </h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="mb-4 ml-4 text-sm font-medium">
-                        <Skeleton height="2rem"></Skeleton>
-                    </h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="mb-4 ml-4 text-sm font-medium">
-                        <Skeleton height="2rem"></Skeleton>
-                    </h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
-                        <Skeleton height="2rem"></Skeleton>
+                        <!-- Skeleton Menu Item -->
+                        <li v-for="i in 4" :key="i">
+                            <div class="group relative flex items-center gap-2 rounded-sm px-4 py-2 duration-300 ease-in-out">
+                                <Skeleton shape="circle" width="2rem" height="2rem" />
+                                <Skeleton height="2rem" width="80%" />
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
