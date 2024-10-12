@@ -39,13 +39,13 @@ export default {
             this.sidebarToggle = !this.sidebarToggle;
         },
         // Check if login
-        ifLogin() {
-            const token = localStorage.getItem('token');
+        // ifLogin() {
+        //     const token = localStorage.getItem('token');
             
-            if (!token) {
-                router.push({name: 'login'});
-            }
-        },
+        //     if (!token) {
+        //         router.push({name: 'login'});
+        //     }
+        // },
         // get user
         // async getUser() {
         //     await this.authStore.getUser()
@@ -53,7 +53,7 @@ export default {
     },
     mounted() {
         // this.getUser()
-        this.ifLogin()
+        // this.ifLogin()
     },
 }
 </script>

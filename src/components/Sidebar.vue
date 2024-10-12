@@ -15,7 +15,65 @@
             </button>
         </div>
 
-        <div class="flex flex-col overflow-y-auto duration-300 ease-linear">
+        <div v-if="isLoading" class="flex flex-col overflow-y-auto duration-300 ease-linear">
+            <nav class="mt-5 px-4 lg:mt-9 lg:px-6">
+
+                <!-- Menu Group -->
+
+                <div>
+                    <h3 class="mb-4 ml-4 text-sm font-medium">
+                        <Skeleton height="2rem"></Skeleton>
+                    </h3>
+
+                    <ul class="mb-6 flex flex-col gap-1">
+                        <!-- Menu Item -->
+                        <Skeleton height="2rem"></Skeleton>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 ml-4 text-sm font-medium">
+                        <Skeleton height="2rem"></Skeleton>
+                    </h3>
+
+                    <ul class="mb-6 flex flex-col gap-1">
+                        <!-- Menu Item -->
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 ml-4 text-sm font-medium">
+                        <Skeleton height="2rem"></Skeleton>
+                    </h3>
+
+                    <ul class="mb-6 flex flex-col gap-1">
+                        <!-- Menu Item -->
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 ml-4 text-sm font-medium">
+                        <Skeleton height="2rem"></Skeleton>
+                    </h3>
+
+                    <ul class="mb-6 flex flex-col gap-1">
+                        <!-- Menu Item -->
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                        <Skeleton height="2rem"></Skeleton>
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+
+        <div v-else class="flex flex-col overflow-y-auto duration-300 ease-linear">
 
             <!-- Sidebar Menu -->
             <nav v-if="isAdmin" class="mt-5 px-4 lg:mt-9 lg:px-6">
@@ -130,12 +188,12 @@ export default {
                         {
                             label: 'Konfirmasi Absensi',
                             icon: 'pi pi-check-square',
-                            route: '/kehadiran/absensi'
+                            route: '/admin/kehadiran/absensi'
                         },
                         {
                             label: 'Shift Kerja',
                             icon: 'pi pi-calendar-clock',
-                            route: '/kehadiran/shift-kerja'
+                            route: '/admin/kehadiran/shift-kerja'
                         },
                     ]
                 },
@@ -145,17 +203,17 @@ export default {
                         {
                             label: 'Pegawai',
                             icon: 'pi pi-users',
-                            route: '/pegawai'
+                            route: '/admin/perusahaan/pegawai'
                         },
                         {
                             label: 'Gaji',
                             icon: 'pi pi-wallet',
-                            route: '/gaji'
+                            route: '/admin/perusahaan/gaji'
                         },
                         {
                             label: 'Payroll',
                             icon: 'pi pi-credit-card',
-                            route: '/payroll'
+                            route: '/admin/perusahaan/payroll'
                         },
                     ]
                 },
@@ -165,16 +223,17 @@ export default {
                         {
                             label: 'Workspaces',
                             icon: 'pi pi-briefcase',
-                            route: '/kerjaan/workspaces'
+                            route: '/admin/kerjaan/workspaces'
                         },
                         {
                             label: 'Kanban',
                             icon: 'pi pi-list',
-                            route: '/kerjaan/kanban'
+                            route: '/admin/kerjaan/kanban'
                         },
                     ]
                 },
             ],
+            isLoading: true,
             isAdmin: ''
         }
     },
@@ -190,6 +249,7 @@ export default {
             this.isAdmin  = this.authStore.authUser.data.is_admin
 
             console.log('sidebar ngambil lagi')
+            this.isLoading = false
         },
     },
     mounted() {

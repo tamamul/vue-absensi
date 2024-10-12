@@ -116,15 +116,15 @@ export default {
         },
 
         // Check if already logged in
-        alreadyLogin() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                router.push({ name: 'dashboard' });
-            }
-        },
+        // alreadyLogin() {
+        //     const token = localStorage.getItem('token');
+        //     if (token) {
+        //         router.push({ name: 'dashboard' });
+        //     }
+        // },
     },
     mounted() {
-        this.alreadyLogin();  // Check if user is already logged in
+        // this.alreadyLogin();  // Check if user is already logged in
     },
 };
 
