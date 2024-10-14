@@ -29,6 +29,7 @@ export default {
             sidebarToggle:false,
         }
     },
+
     methods: {
         // Sidebar
         callback() {

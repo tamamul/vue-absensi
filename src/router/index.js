@@ -23,8 +23,12 @@ const routes = [
 		name: 'login',
 		component: () => import('../views/Login.vue')
 	},
+
+	// Group User
 	{
-		component: () => import('../shell/DashboardShell.vue'),
+		path: '/user',
+		name: 'user',
+		component: () => import('../shell/UserDashboardShell.vue'),
 		meta: { requiresAuth: true, role: 0 },
 		children: [
 			// ? Dashboard
@@ -124,25 +128,29 @@ const router = createRouter({
 	routes,
 })
 
+// Global navigation guard
 router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore();
 
+	// Attempt to get the token from local storage if not present in state
 	if (!authStore.authToken) {
 		await authStore.getToken();
 	}
 
+	// Check if the route requires authentication
 	if (to.meta.requiresAuth && !authStore.authToken) {
 		try {
 			await authStore.getUser();
-		} 
-		catch (error) {
+		} catch (error) {
 			return next({ name: 'login' });
 		}
 	}
 
+	// Role-based access control
 	if (to.meta.role) {
+		// Check if the user's role matches the required role
 		if (authStore.userRole !== to.meta.role) {
-			return next();
+			return next({ name: 'not-found' }); // Redirect to a not-found page or another route
 		}
 	}
 
