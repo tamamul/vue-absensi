@@ -389,7 +389,6 @@ export default {
                 no_telp         : this.no_telp,
                 rekening        : this.rekening,
             }
-
             await axios.put(`pegawai/${id}`, data, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`

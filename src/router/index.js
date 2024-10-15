@@ -40,7 +40,7 @@ const routes = [
 			// ? Dashboard
 			{
 				path: 'dashboard',
-				name: 'dashboard',
+				name: 'user-dashboard',
 				component: () => import('../views/Users/Dashboard.vue'),
 			},
 			// ? User
