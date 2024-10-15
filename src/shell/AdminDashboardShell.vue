@@ -21,12 +21,14 @@
 </template>
 
 <script>
+import { useAuthStore } from '@/stores/auth';
 export default {
     name: 'AdminDashboardShell',
     inject: ['default'],
     data() {
         return {
             sidebarToggle:false,
+            authStore: useAuthStore()
         }
     },
     methods: {
@@ -35,5 +37,8 @@ export default {
             this.sidebarToggle = !this.sidebarToggle;
         },
     },
+    async mounted() {
+        await this.authStore.getUser();
+    }
 }
 </script>

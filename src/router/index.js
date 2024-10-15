@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth';
 
+const UserRoles = {
+	USER: 0,
+	ADMIN: 1,
+};
+
 const routes = [
 	{
 		path: '/:pathMatch(.*)*',
@@ -12,16 +17,17 @@ const routes = [
 		name: 'reset-password',
 		component: () => import('../views/ResetPassword.vue')
 	},
-	{
-		path: '/',
-		name: 'home',
-		component: () => import('../views/Home.vue')
-	},
 	// ? Login
 	{
 		path: '/login',
 		name: 'login',
 		component: () => import('../views/Login.vue')
+	},
+	// Home
+	{
+		path: '/',
+		name: 'home',
+		component: () => import('../views/Home.vue')
 	},
 
 	// Group User
@@ -29,49 +35,49 @@ const routes = [
 		path: '/user',
 		name: 'user',
 		component: () => import('../shell/UserDashboardShell.vue'),
-		meta: { requiresAuth: true, role: 0 },
+		meta: { requiresAuth: true, role: UserRoles.USER },
 		children: [
 			// ? Dashboard
 			{
-				path: '/dashboard',
+				path: 'dashboard',
 				name: 'dashboard',
-				component: () => import('../views/Dashboard.vue'),
+				component: () => import('../views/Users/Dashboard.vue'),
 			},
 			// ? User
 			{
-				path: '/user/profile',
+				path: 'user/profile',
 				name: 'user-profile',
 				component: () => import('../views/User/Profile.vue')
 			},
 			{
-				path: '/user/settings',
+				path: 'user/settings',
 				name: 'user-settings',
 				component: () => import('../views/User/Settings.vue')
 			},
 			// ? Absensi
 			{
-				path: '/kehadiran/qr-code',
+				path: 'kehadiran/qr-code',
 				name: 'kehadiran-qr-code',
 				component: () => import('../views/Kehadiran/QrCode.vue')
 			},
 			{
-				path: '/kehadiran/absensi',
+				path: 'kehadiran/absensi',
 				name: 'kehadiran-absensi',
 				component: () => import('../views/Kehadiran/Absensi.vue')
 			},
 			{
-				path: '/kehadiran/shift-kerja',
+				path: 'kehadiran/shift-kerja',
 				name: 'shift-kerja',
 				component: () => import('../views/Kehadiran/ShiftKerja.vue')
 			},
 			// ? Kerjaan
 			{
-				path: '/kerjaan/workspaces',
+				path: 'kerjaan/workspaces',
 				name: 'workspaces',
 				component: () => import('../views/Kerjaan/Workspaces.vue')
 			},
 			{
-				path: '/kerjaan/kanban',
+				path: 'kerjaan/kanban',
 				name: 'kanban',
 				component: () => import('../views/Kerjaan/Kanban.vue')
 			},
@@ -81,10 +87,10 @@ const routes = [
 
 	// Group Admin
 	{
-		path: '/admin/',
+		path: '/admin',
 		name: 'admin',
 		component: () => import('../shell/AdminDashboardShell.vue'),
-		meta: { requiresAuth: true, role: 1 }, 
+		meta: { requiresAuth: true, role: UserRoles.ADMIN },
 		children: [
 			{
 				path: 'dashboard',
@@ -128,16 +134,22 @@ const router = createRouter({
 	routes,
 })
 
-// Global navigation guard
+// Navigation guard
 router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore();
 
-	// Attempt to get the token from local storage if not present in state
 	if (!authStore.authToken) {
 		await authStore.getToken();
 	}
 
-	// Check if the route requires authentication
+	// Public routes that do not require authentication
+	const publicRoutes = ['login', 'reset-password', 'not-found', 'home'];
+
+	// If the route is public, allow access
+	if (publicRoutes.includes(to.name)) {
+		return next(); // Allow access to public routes
+	}
+
 	if (to.meta.requiresAuth && !authStore.authToken) {
 		try {
 			await authStore.getUser();
@@ -146,11 +158,19 @@ router.beforeEach(async (to, from, next) => {
 		}
 	}
 
-	// Role-based access control
-	if (to.meta.role) {
-		// Check if the user's role matches the required role
+	// Ensure that the userRole is set before checking it
+	if (authStore.userRole === null) {
+		await authStore.getUser();
+	}
+
+	console.log(authStore.userRole);
+	console.log(authStore.authToken);
+
+	if (to.meta.role !== undefined) {
+		// Check if the userRole matches the required role
 		if (authStore.userRole !== to.meta.role) {
-			return next({ name: 'not-found' }); // Redirect to a not-found page or another route
+			// Optionally, redirect to a not authorized page or back to the dashboard
+			return next({ name: authStore.userRole === UserRoles.ADMIN ? 'admin-dashboard' : 'user-dashboard' });
 		}
 	}
 

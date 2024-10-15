@@ -15,10 +15,9 @@ export const useAuthStore = defineStore('auth', {
                 const token = res.data.data.token;
                 localStorage.setItem('token', token);
                 this.authToken = token;
-
                 this.getUser();
             }).catch((err) => {
-                throw err;
+                console.log(err);
             })
         },
 

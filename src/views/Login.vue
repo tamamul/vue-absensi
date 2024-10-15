@@ -1,53 +1,58 @@
 <template>
-	<div class="w-full h-dvh flex justify-center items-center bg-[#F1F5F9]">
-		<Card class="shadow-md w-96 h-80 flex flex-col justify-center">
-			<template #title>
-				<div class="flex flex-col gap-2">
-					<h1 class="text-3xl">Login</h1>
-					<p class="font-normal text-sm">Masuk kedalam aplikasi absensi</p>
-				</div>
-			</template>
-			<template #content>
-				<form @submit.prevent="login" class="flex flex-col gap-2" v-focustrap>
-					<!-- Input for Email -->
-					<InputGroup>
-						<InputGroupAddon>
-							<i class="pi pi-user"></i>
-						</InputGroupAddon>
-						<InputText 
-							:class="{borderDanger : emailErr}" 
-							v-model="email" 
-							placeholder="Email" 
-							autofocus 
-							required 
-						/>
-					</InputGroup>
-					<small class="text-red-500" v-show="emailErr" id="email-help">{{ emailErrMsg }}</small>
+    <div class="w-full h-dvh flex justify-center items-center bg-[#F1F5F9]">
+        <Card class="shadow-md w-96 h-80 flex flex-col justify-center">
+            <template #title>
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-3xl">Login</h1>
+                    <p class="font-normal text-sm">Masuk kedalam aplikasi absensi</p>
+                </div>
+            </template>
+            <template #content>
+                <form id="login" @submit.prevent="login" class="flex flex-col gap-2">
+                    <!-- Input for Email -->
+                    <InputGroup>
+                        <InputGroupAddon>
+                            <i class="pi pi-user"></i>
+                        </InputGroupAddon>
+                        <InputText 
+                            v-model="email" 
+                            placeholder="Email" 
+                            required
+                            autofocus
+                        />
+                    </InputGroup>
+                    <small class="text-red-500" v-if="hasValidated && v$.email.$error">
+                        {{ v$.email.email ? 'Invalid email format' : 'Email is required' }}
+                    </small>
+                    <small v-else class="invisible">...</small>
 
-					<!-- Input for Password -->
-					<InputGroup>
-						<InputGroupAddon>
-							<i class="pi pi-lock"></i>
-						</InputGroupAddon>
-						<Password 
-							class="border border-[#CBD5E1]" 
-							:class="{borderDanger : passwordErr}" 
-							v-model="password" 
-							toggleMask 
-							placeholder="Password" 
-							:feedback="false" 
-							required 
-						/>
-					</InputGroup>
-					<small class="text-red-500" v-show="passwordErr" id="password-help">{{ passwordErrMsg }}</small>
+                    <!-- Input for Password -->
+                    <InputGroup>
+                        <InputGroupAddon>
+                            <i class="pi pi-lock"></i>
+                        </InputGroupAddon>
+                        <Password 
+                            class="border border-[#CBD5E1]" 
+                            v-model="password" 
+                            toggleMask 
+                            placeholder="Password" 
+                            :feedback="false" 
+                            required 
+                        />
+                    </InputGroup>
+                    <small class="text-red-500" v-if="hasValidated && v$.password.$error">
+                        Password is required
+                    </small>
+                    <small v-else class="invisible">...</small>
 
-					<!-- Submit Button -->
-					<Button label="Login" :loading="btnIsLoading" type="submit" />
-				</form>
-			</template>
-		</Card>
-	</div>
+                    <!-- Submit Button -->
+                    <Button label="Login" :loading="btnIsLoading" type="submit" />
+                </form>
+            </template>
+        </Card>
+    </div>
 </template>
+
 
 
 <script>
@@ -57,76 +62,41 @@ import { useAuthStore } from '@/stores/auth';
 export default {
     data() {
         return {
-            // State
-            email: '',
-            emailErr: false,
-            emailErrMsg: '',
-            password: '',
-            passwordErr: false,
-            passwordErrMsg: '',
+            // Store
+            authStore: useAuthStore(),
+            // Validation
+            v$: useVuelidate(),
+            hasValidated: false,
+            // Form
+            email       : '',
+            password    : '',
             btnIsLoading: false,
         };
     },
+
+    validation() {
+        return {
+            email   : { required, email },
+            password: { required },
+        }
+    },
+
     methods: {
         // Login method
         async login() {
-            const authStore = useAuthStore();  // Get auth store
-            this.btnIsLoading = true;  // Set loading state
-
-            try {
-                // Validate input (basic check)
-                if (!this.email) {
-                    this.emailErr = true;
-                    this.emailErrMsg = "Email is required.";
-                    this.btnIsLoading = false;
-                    return;
-                }
-                if (!this.password) {
-                    this.passwordErr = true;
-                    this.passwordErrMsg = "Password is required.";
-                    this.btnIsLoading = false;
-                    return;
-                }
-
-                // Call login action from store
-                await authStore.login({ email: this.email, password: this.password });
-
-                // If successful, redirect to dashboard
-                router.push({ name: 'dashboard' });
-            } catch (error) {
-                // Handle login failure (set error messages)
-                if (error.response?.data?.message) {
-                    const errorMsg = error.response.data.message;
-
-                    if (errorMsg.includes('email')) {
-                        this.emailErr = true;
-                        this.emailErrMsg = errorMsg;
-                    }
-
-                    if (errorMsg.includes('password')) {
-                        this.passwordErr = true;
-                        this.passwordErrMsg = errorMsg;
-                    }
-                } else {
-                    console.error('Login error:', error);
-                }
-            } finally {
-                this.btnIsLoading = false;  // Turn off loading state
-            }
-        },
-
-        // Check if already logged in
-        // alreadyLogin() {
-        //     const token = localStorage.getItem('token');
-        //     if (token) {
-        //         router.push({ name: 'dashboard' });
-        //     }
-        // },
+            this.v$.$validate();
+            const data = { email: this.email, password: this.password };
+            this.btnIsLoading = true;
+            await this.authStore.login(data)
+            
+            this.authStore.userRole == 1 ? router.push({ name: 'admin-dashboard' }) : router.push({ name: 'dashboard' })
+            this.btnIsLoading = false;
+        }
     },
     mounted() {
         // this.alreadyLogin();  // Check if user is already logged in
     },
-};
+}
 
 </script>
 
