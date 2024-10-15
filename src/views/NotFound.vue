@@ -10,8 +10,15 @@
 				<div class="flex flex-col gap-2">
 					<p>Halaman yang kamu cari tidak ditemukan <br>atau telah di pindah kan ke route lain</p>
 					<div class="flex justify-center">
-						<RouterLink to="/dashboard" v-show="token">
-							<Button label="Kembali ke Dashboard"></Button>
+						<RouterLink to="" v-show="token">
+							<Button 
+								type="button"    
+								@click="hasHistory() 
+									? $router.go(-1) 
+									: $router.push('/')"
+								label="Back"
+							> 
+							</Button>
 						</RouterLink>
 						<RouterLink to="/login" v-show="!token">
 							<Button label="Login"></Button>
@@ -33,6 +40,7 @@ export default {
 		}
 	},
 	methods: {
+		hasHistory () { return window.history.length > 2 }
 	},
 	mounted() {
 	},
