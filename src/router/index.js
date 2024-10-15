@@ -138,10 +138,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
 	const authStore = useAuthStore();
 
-	if (!authStore.authToken) {
-		await authStore.getToken();
-	}
-
 	// Public routes that do not require authentication
 	const publicRoutes = ['login', 'reset-password', 'not-found', 'home'];
 
@@ -150,31 +146,47 @@ router.beforeEach(async (to, from, next) => {
 		return next(); // Allow access to public routes
 	}
 
-	if (to.meta.requiresAuth && !authStore.authToken) {
+	// If no auth token, fetch the token or redirect to login
+	if (!authStore.authToken) {
 		try {
-			await authStore.getUser();
+			await authStore.getToken();
 		} catch (error) {
-			return next({ name: 'login' });
+			// If user is not authenticated and tries to access a protected route, redirect to login
+			if (!publicRoutes.includes(to.name)) {
+				return next({ name: 'login' });
+			}
 		}
 	}
 
 	// Ensure that the userRole is set before checking it
 	if (authStore.userRole === null) {
-		await authStore.getUser();
-	}
-
-	console.log(authStore.userRole);
-	console.log(authStore.authToken);
-
-	if (to.meta.role !== undefined) {
-		// Check if the userRole matches the required role
-		if (authStore.userRole !== to.meta.role) {
-			// Optionally, redirect to a not authorized page or back to the dashboard
-			return next({ name: authStore.userRole === UserRoles.ADMIN ? 'admin-dashboard' : 'user-dashboard' });
+		try {
+			await authStore.getUser();
+		} catch (error) {
+			// Redirect to login if user data cannot be fetched
+			return next({ name: 'login' });
 		}
 	}
 
-	next();
+	// If the route is public, allow access
+	if (publicRoutes.includes(to.name)) {
+		return next(); // Allow access to public routes
+	}
+
+	// Ensure that the userRole matches the required role
+	if (to.meta.requiresAuth) {
+		// Redirect to login if there's no valid token or user role
+		if (!authStore.authToken || authStore.userRole === null) {
+			return next({ name: 'login' });
+		}
+
+		// If the route requires a specific role and user role doesn't match
+		if (to.meta.role !== undefined && authStore.userRole !== to.meta.role) {
+			return next({ name: 'not-found' }); // Redirect to 404 page
+		}
+	}
+
+	next(); // Allow navigation if all checks pass
 });
 
 export default router

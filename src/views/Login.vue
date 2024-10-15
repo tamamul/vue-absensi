@@ -91,10 +91,16 @@ export default {
             
             this.authStore.userRole == 1 ? router.push({ name: 'admin-dashboard' }) : router.push({ name: 'dashboard' })
             this.btnIsLoading = false;
+        },
+
+        alreadyLogin() {
+            if (localStorage.getItem('token') != null) {
+                router.push({name: 'dashboard'})
+            }
         }
     },
     mounted() {
-        // this.alreadyLogin();  // Check if user is already logged in
+        this.alreadyLogin();
     },
 }
 
