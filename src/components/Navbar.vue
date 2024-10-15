@@ -36,7 +36,11 @@
                 <div class="relative">
 
                     <button class="flex items-center gap-4" @click="toggleDropdown" aria-haspopup="true" aria-controls="overlay_tmenu">
-                        <span class="text-right sm:block">
+                        <span class="flex flex-col items-end gap-1" v-if="isLoading">
+                            <Skeleton height="1rem" width="7rem"/>
+                            <Skeleton height="0.8rem" width="5rem"/>
+                        </span>
+                        <span class="text-right sm:block" v-else>
                             <span class="block text-sm font-medium text-black">{{ username }}</span>
                             <span class="block text-xs font-medium">{{ jabatan }}</span>
                         </span>
@@ -80,6 +84,7 @@ export default {
     data() {
         return {
             authStore: useAuthStore(),
+            isLoading : true,
             username: '',
             jabatan: '',
             pegawai: [],
@@ -116,6 +121,7 @@ export default {
             // console.log(this.authStore.authUser.data.pegawai)
             this.isAdmin  = this.authStore.authUser.is_admin
             const pegawai = this.authStore.authUser.data.pegawai
+            this.isLoading = false
 
             if (pegawai === null) {
                 this.username = 'Admin'

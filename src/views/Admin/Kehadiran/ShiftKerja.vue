@@ -1,5 +1,6 @@
 <template>
 	<PageLoading v-if="isLoading"></PageLoading>
+
 	<div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5" v-else>
 		<Card class="col-span-12 xl:col-span-8 shadow-md">
 			<template #title>
@@ -36,6 +37,7 @@
 				</DataTable>
 			</template>
 		</Card>
+
 		<Card class="col-span-12 xl:col-span-4 shadow-md">
 			<template #title>
 				<div class="flex justify-between">
@@ -102,7 +104,7 @@
 					<small v-if="hasValidated && v$.jam_masuk.$error" class="text-red-500 w-full">Wajib Diisi</small>
 					<small v-else class="invisible">...</small>
 				</div>
-	
+
 				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_keluar">Jam Keluar <span class="text-red-500">*</span></label>
 					<DatePicker inputId="jam_keluar" v-model="jam_keluar" timeOnly  showIcon fluid iconDisplay="input">
@@ -136,7 +138,7 @@
 					<small v-if="hasValidated && v$.jam_istirahat_mulai.$error" class="text-red-500 w-full">Wajib Diisi</small>
 					<small v-else class="invisible">...</small>
 				</div>
-	
+
 				<div class="col-span-6 gap-1">
 					<label class="max-h-6 col-span-12" for="jam_istirahat_selesai">Jam Istirahat Selesai <span class="text-red-500">*</span></label>
 					<DatePicker inputId="jam_istirahat_selesai" v-model="jam_istirahat_selesai" timeOnly  showIcon fluid iconDisplay="input">

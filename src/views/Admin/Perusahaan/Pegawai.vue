@@ -9,8 +9,8 @@
                     <div class="flex gap-2">
                         <!-- <RouterLink to="/pegawai/tambah">     -->
                         <!-- </RouterLink> -->
-                        <Button icon="pi pi-user-plus" label="Tambah Pegawai" @click="openPost"></Button>
-                        <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
+                        <Button icon="pi pi-user-plus" label="Tambah" @click="openPost"></Button>
+                        <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" severity="success" />
                     </div>
                 </div>
             </template>
@@ -175,9 +175,9 @@
             </div>
 
             <div class="col-span-12 flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
+                <Button type="button" label="Tutup" severity="secondary" @click="close"></Button>
                 <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="!formPost"></Button>
-                <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="postPegawai" v-else></Button>
+                <Button type="button" label="Tambah" :loading="btnIsLoading" @click="postPegawai" v-else></Button>
             </div>
 
         </form>
@@ -317,7 +317,7 @@ export default {
             this.formIsLoading = true
         },
 
-        // Get All
+        // GET
         async getPegawaiAll() {
             await axios.get('pegawai', {
                 // headers: {
@@ -367,6 +367,7 @@ export default {
             this.$refs.dt.exportCSV();
         },
 
+        // EDIT
         async editPegawai(id) {
             this.btnIsLoading = true
             this.hasValidated = true
@@ -408,6 +409,7 @@ export default {
             })
         },
 
+        // POST
         async postPegawai() {
             this.btnIsLoading = true
             this.hasValidated = true
@@ -450,6 +452,7 @@ export default {
             })
         },
 
+        // DELETE
         async funDelete(id){
             await axios.delete(`pegawai/${id}`, {
                 headers: { 'Authorization': `Bearer ${this.default.token}` }
