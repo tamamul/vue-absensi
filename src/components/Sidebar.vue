@@ -107,32 +107,32 @@ export default {
                         {
                             label: 'Dashboard',
                             icon: 'pi pi-home',
-                            route: '/dashboard'
+                            route: '/user/dashboard'
                         }
                     ]
                 },
                 {
-                    label: 'Kehadiran',
+                    label: 'User',
                     items: [
                         {
                             label: 'QR CODE',
                             icon: 'pi pi-qrcode',
-                            route: '/kehadiran/qr-code'
+                            route: '/user/qr-code'
                         },
-                    ]
-                },
-                {
-                    label: 'Kerjaan',
-                    items: [
+                        // {
+                        //     label: 'Kehadiran',
+                        //     icon: 'pi pi-qrcode',
+                        //     route: '/user/kehadiran'
+                        // },
                         {
-                            label: 'Workspaces',
+                            label: 'Shift Kerja',
                             icon: 'pi pi-briefcase',
-                            route: '/kerjaan/workspaces'
+                            route: '/user/shift-kerja'
                         },
                         {
-                            label: 'Kanban',
-                            icon: 'pi pi-list',
-                            route: '/kerjaan/kanban'
+                            label: 'Gaji',
+                            icon: 'pi pi-wallet',
+                            route: '/user/gaji'
                         },
                     ]
                 },

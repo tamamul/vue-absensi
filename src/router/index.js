@@ -7,29 +7,18 @@ const UserRoles = {
 };
 
 const routes = [
-    {
-        path: '/:pathMatch(.*)*',
-        name: 'not-found',
-        component: () => import('../views/NotFound.vue')
-    },
-    {
-        path: '/reset-password',
-        name: 'reset-password',
-        component: () => import('../views/ResetPassword.vue')
-    },
-    // Login
-    {
-        path: '/login',
-        name: 'login',
-        meta: { requiresAuth: false },
-        component: () => import('../views/Login.vue')
-    },
     // Home
-    {
-        path: '/',
-        name: 'home',
-        component: () => import('../views/Home.vue')
-    },
+    { path: '/', 					name: 'home',				component: () => import('../views/Home.vue') },
+    // Login
+    { path: '/login', 				name: 'login',				component: () => import('../views/Login.vue')},
+	// Reset Password
+    { path: '/reset-password', 		name: 'reset-password', 	component: () => import('../views/ResetPassword.vue') },
+	// 404
+    { path: '/:pathMatch(.*)*', 	name: 'not-found', 			component: () => import('../views/NotFound.vue') },
+	// KANBAN
+	{ path: '/kerjaan/workspaces', 	name: 'user-workspaces', 	component: () => import('../views/KANBAN/Workspaces.vue') },
+	{ path: '/kerjaan/kanban',		name: 'user-kanban', 		component: () => import('../views/KANBAN/Kanban.vue') },
+
     // User Routes
     {
         path: '/user',
@@ -37,14 +26,12 @@ const routes = [
         component: () => import('../shell/UserDashboardShell.vue'),
         meta: { requiresAuth: true, role: UserRoles.USER },
         children: [
-            { path: 'dashboard', 				name: 'user-dashboard',		component: () => import('../views/Users/Dashboard.vue') },
-            { path: 'user/profile', 			name: 'user-profile', 		component: () => import('../views/User/Profile.vue') },
-            { path: 'user/settings', 			name: 'user-settings', 		component: () => import('../views/User/Settings.vue') },
-            { path: 'kehadiran/qr-code', 		name: 'kehadiran-qr-code', 	component: () => import('../views/Kehadiran/QrCode.vue') },
-            { path: 'kehadiran/absensi', 		name: 'kehadiran-absensi', 	component: () => import('../views/Kehadiran/Absensi.vue') },
-            { path: 'kehadiran/shift-kerja', 	name: 'shift-kerja', 		component: () => import('../views/Kehadiran/ShiftKerja.vue') },
-            { path: 'kerjaan/workspaces', 		name: 'workspaces', 		component: () => import('../views/Kerjaan/Workspaces.vue') },
-            { path: 'kerjaan/kanban',			name: 'kanban', 			component: () => import('../views/Kerjaan/Kanban.vue') },
+            { path: 'dashboard', 	name: 'user-dashboard',		component: () => import('../views/Users/Dashboard.vue') },
+            { path: 'profile', 		name: 'user-profile', 		component: () => import('../views/Users/Profile.vue') },
+            { path: 'settings', 	name: 'user-settings', 		component: () => import('../views/Users/Settings.vue') },
+            { path: 'qr-code', 		name: 'user-qr-code', 		component: () => import('../views/Users/QrCode.vue') },
+            { path: 'shift-kerja', 	name: 'user-shift-kerja', 	component: () => import('../views/Users/ShiftKerja.vue') },
+            { path: 'gaji', 		name: 'user-gaji', 			component: () => import('../views/Users/Gaji.vue') },
         ]
     },
     // Admin Routes
@@ -70,36 +57,31 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-    const authStore = useAuthStore();
-    const isPublicRoute = !to.meta.requiresAuth; // Public routes don't require authentication
-    const hasToken = authStore.authToken;
+    const authStore 	= useAuthStore();
+    const isPublicRoute = !to.meta.requiresAuth; 
+    const hasToken 		= authStore.authToken;
 
-    // Allow access if the route is public
     if (isPublicRoute) return true;
 
-    // Check authentication
     if (!hasToken) {
         await authStore.getToken();
         if (!authStore.authToken) {
-            return { name: 'login' }; // Redirect to login if not authenticated
+            return { name: 'login' }; 
         }
     }
-
-    // Fetch user data if it's not already available
+    
     if (!authStore.userRole) {
         try {
             await authStore.getUser();
         } catch {
-            return { name: 'login' }; // Redirect to login if fetching user data fails
+            return { name: 'login' }; 
         }
     }
-
-    // Check for required role on protected routes
+    
     if (to.meta.requiresAuth && to.meta.role !== undefined && authStore.userRole !== to.meta.role) {
-        return { name: 'not-found' }; // Redirect to 404 if user role doesn’t match
+        return { name: 'not-found' }; 
     }
 
-    // If all checks pass, allow navigation
     return true;
 });
 
