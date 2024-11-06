@@ -5,7 +5,7 @@
 				Reset Password
 			</template>
 			<template #content>
-				<!-- <div class="flex flex-col gap-2">
+				<div class="flex flex-col gap-2">
 					<div class="flex justify-center">
 						<RouterLink to="dashboard" v-show="token">
 							<Button label="Kembali ke Dashboard"></Button>
@@ -14,7 +14,7 @@
 							<Button label="Login"></Button>
 						</RouterLink>
 					</div>
-				</div> -->
+				</div>
 				<!-- Input -->
 				<form @submit="prevent" class="flex flex-col gap-2">					
 					<InputGroup>
@@ -39,29 +39,29 @@
 </template>
 
 <script>
-import { useVuelidate } from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
+// import { useVuelidate } from '@vuelidate/core'
+// import { required, email } from '@vuelidate/validators'
 export default {
 	name:'NotFound',
 	inject:['default'],
-	setup () {
-		return { v$: useVuelidate() }
-	},
+	// setup () {
+	// 	return { v$: useVuelidate() }
+	// },
 	data() {
 		return {
 			password: '',
 			password_confirm: '',
 		}
 	},
-	validations() {
-		return {
-			firstName: { required },
-			lastName: { required },
-			contact: {
-				email: { required, email }
-			}
-		}
-	},
+	// validations() {
+	// 	return {
+	// 		firstName: { required },
+	// 		lastName: { required },
+	// 		contact: {
+	// 			email: { required, email }
+	// 		}
+	// 	}
+	// },
 	methods: {
 		getToken () {
 			localStorage.setItem('token', this.$route.query.token)

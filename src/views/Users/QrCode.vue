@@ -5,7 +5,7 @@
         </div>
 	</div>
 
-    <div class="grid grid-cols-12 m-5 mb-24 lg:mb-5" v-else>
+    <div class="grid grid-cols-12 m-5 mb-24 lg:mb-5 gap-5" v-else>
         <div class="col-span-12 xl:col-span-6">
             <div class="flex justify-center">
                 <Card class="shadow-md w-full">
@@ -42,6 +42,17 @@
                     </template>
                 </Card>
             </div>
+        </div>
+
+        <div class="col-span-12 xl:col-span-6">
+            <Card class="col-span-12 shadow-md">
+                <template #title>
+                    History Kehadiran
+                </template>
+                <template #content>
+                    
+                </template>
+            </Card>
         </div>
     </div>
 </template>

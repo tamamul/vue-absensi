@@ -31,19 +31,19 @@
                             {{ slotProps.data.jk == 'l' ? 'Laki-laki' : 'Perempuan' }}
                         </template>
                     </Column>
-                    <Column field="jabatan" header="Jabatan" style="min-width: 200px" />
-                    <Column field="email" header="Email" style="min-width: 250px" />
-                    <Column field="rekening" header="Rekening" style="min-width: 250px" />
-                    <Column field="nik" header="NIK" style="min-width: 250px" />
-                    <Column field="tempat_lahir" header="Tempat Lahir" style="min-width: 200px" class="capitalize" />
-                    <Column field="tgl_lahir" header="Tanggal Lahir" style="min-width: 200px" />
-                    <Column field="alamat" header="Alamat" style="min-width: 250px" class="capitalize" />
-                    <Column field="no_telp" header="No. Telepon" style="min-width: 200px" />
-                    <Column field="kontak_darurat" header="No. Telp Darurat" style="min-width: 200px" />
-                    <Column field="agama" header="Agama" style="min-width: 150px" class="capitalize" />
-                    <Column field="gol_darah" header="Gol. Darah" style="min-width: 150px" />
-                    <Column field="pendidikan" header="Pendidikan" style="min-width: 150px" class="capitalize" />
-                    <Column field="mulai_kerja" header="Mulai Kerja" style="min-width: 150px" />
+                    <Column field="jabatan"         header="Jabatan" style="min-width: 200px" />
+                    <Column field="email"           header="Email" style="min-width: 250px" />
+                    <Column field="rekening"        header="Rekening" style="min-width: 250px" />
+                    <Column field="nik"             header="NIK" style="min-width: 250px" />
+                    <Column field="tempat_lahir"    header="Tempat Lahir" style="min-width: 200px" class="capitalize" />
+                    <Column field="tgl_lahir"       header="Tanggal Lahir" style="min-width: 200px" />
+                    <Column field="alamat"          header="Alamat" style="min-width: 250px" class="capitalize" />
+                    <Column field="no_telp"         header="No. Telepon" style="min-width: 200px" />
+                    <Column field="kontak_darurat"  header="No. Telp Darurat" style="min-width: 200px" />
+                    <Column field="agama"           header="Agama" style="min-width: 150px" class="capitalize" />
+                    <Column field="gol_darah"       header="Gol. Darah" style="min-width: 150px" />
+                    <Column field="pendidikan"      header="Pendidikan" style="min-width: 150px" class="capitalize" />
+                    <Column field="mulai_kerja"     header="Mulai Kerja" style="min-width: 150px" />
                     <Column field="" header="Action" frozen alignFrozen="right">
                         <template #body="slotProps">
                             <div class="flex gap-2 bg-white">
@@ -434,16 +434,13 @@ export default {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             }).then((res) => {
                 this.hasValidated = false
-                // console.log(res.data);
                 this.visible = false
                 this.btnIsLoading = false
                 console.log(this.v$)
                 this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
                 this.getPegawaiAll()
             }).catch((err) =>{
-                // this.hasValidated = false
                 console.log(err);
-                // this.v$
                 console.log(this.v$)
                 this.btnIsLoading = false
                 this.$toast.add({ severity: 'error', summary: 'Pegawai gagal ditambahkan!', detail: `Gagal menambahkan pegawai`, life: 5000 });

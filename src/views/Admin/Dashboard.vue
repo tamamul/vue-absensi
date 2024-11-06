@@ -8,10 +8,10 @@
     <div class="grid grid-cols-12 gap-5 m-5">
         <Card class="col-span-12 shadow-md">
             <template #title>
-                Card umum
+                Card Admin Only
             </template>
             <template #content>
-                Absen Sekarang
+                Nice ryan
             </template>
         </Card>
     </div>
