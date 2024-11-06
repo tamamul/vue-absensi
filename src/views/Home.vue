@@ -1,7 +1,7 @@
 <template>
     <Card>
         <template #title>
-            Dashboard
+            Home Page
         </template>
         <template #content>
             <div class="flex gap-2">
@@ -12,7 +12,7 @@
                 <RouterLink to="/login">
                     <Button label="login"></Button>
                 </RouterLink>
-                <Button label="login" @click="logout()"></Button>
+                <Button label="logout" @click="logout()"></Button>
             </div>
         </template>
     </Card>

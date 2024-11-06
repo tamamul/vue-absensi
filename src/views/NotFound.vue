@@ -20,6 +20,7 @@
 							> 
 							</Button>
 						</RouterLink>
+
 						<RouterLink to="/login" v-show="!token">
 							<Button label="Login"></Button>
 						</RouterLink>
