@@ -41,6 +41,8 @@ const routes = [
         component: () => import('../shell/AdminDashboardShell.vue'),
         meta: { requiresAuth: true, role: UserRoles.ADMIN },
         children: [
+            { path: 'profile', 		            name: 'admin-profile',              component: () => import('../views/Admin/Profile.vue') },
+            { path: 'settings', 	            name: 'admin-settings',             component: () => import('../views/Admin/Settings.vue') },
             { path: 'dashboard', 				name: 'admin-dashboard', 			component: () => import('../views/Admin/Dashboard.vue') },
             { path: 'perusahaan/pegawai', 		name: 'admin-pegawai', 				component: () => import('../views/Admin/Perusahaan/Pegawai.vue') },
             { path: 'perusahaan/gaji', 			name: 'admin-gaji', 				component: () => import('../views/Admin/Perusahaan/Gaji.vue') },

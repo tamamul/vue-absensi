@@ -31,6 +31,7 @@ axios.interceptors.request.use((axiosConfig) => {
     if (authStore.authToken) {
         axiosConfig.headers.Authorization = `Bearer ${authStore.authToken}`;
     }
+
     return axiosConfig;
 }, (error) => {
     return Promise.reject(error);

@@ -1,66 +1,28 @@
 <template>
     <ConfirmPopup />
-    <PageLoading v-if="isLoading"></PageLoading>
-	<div class="grid grid-cols-12 gap-5 m-5 mb-24 lg:mb-5" v-else>
+	<div class="grid grid-cols-12 gap-5 m-5 mb-24 lg:mb-5">
+        <PageHeader title="Pegawai" />
 		<Card class="shadow-md col-span-12 lg:col-span-12 xl:col-span-12">
 			<template #title>
                 <div class="flex justify-between">
                     <h3>Daftar Pegawai</h3>
                     <div class="flex gap-2">
-                        <!-- <RouterLink to="/pegawai/tambah">     -->
-                        <!-- </RouterLink> -->
                         <Button icon="pi pi-user-plus" label="Tambah" @click="openPost"></Button>
                         <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" severity="success" />
                     </div>
                 </div>
             </template>
             <template #content>
-				<DataTable 
-                    :value="pegawai" 
-                    paginator  
-                    :rows="10" 
-                    :rowsPerPageOptions="[5, 10, 20, 50]"
-                    scrollable 
-                    tableStyle="min-width: 50rem"
-                >
-                    <!-- Columns -->
-                    <Column field="id_pegawai" header="No" />
-                    <Column field="nama_lengkap" header="Nama" style="min-width: 300px" class="capitalize" />
-                    <Column field="" header="Jenis Kelamin" style="min-width: 150px">
-                        <template #body="slotProps">
-                            {{ slotProps.data.jk == 'l' ? 'Laki-laki' : 'Perempuan' }}
-                        </template>
-                    </Column>
-                    <Column field="jabatan"         header="Jabatan" style="min-width: 200px" />
-                    <Column field="email"           header="Email" style="min-width: 250px" />
-                    <Column field="rekening"        header="Rekening" style="min-width: 250px" />
-                    <Column field="nik"             header="NIK" style="min-width: 250px" />
-                    <Column field="tempat_lahir"    header="Tempat Lahir" style="min-width: 200px" class="capitalize" />
-                    <Column field="tgl_lahir"       header="Tanggal Lahir" style="min-width: 200px" />
-                    <Column field="alamat"          header="Alamat" style="min-width: 250px" class="capitalize" />
-                    <Column field="no_telp"         header="No. Telepon" style="min-width: 200px" />
-                    <Column field="kontak_darurat"  header="No. Telp Darurat" style="min-width: 200px" />
-                    <Column field="agama"           header="Agama" style="min-width: 150px" class="capitalize" />
-                    <Column field="gol_darah"       header="Gol. Darah" style="min-width: 150px" />
-                    <Column field="pendidikan"      header="Pendidikan" style="min-width: 150px" class="capitalize" />
-                    <Column field="mulai_kerja"     header="Mulai Kerja" style="min-width: 150px" />
-                    <Column field="" header="Action" frozen alignFrozen="right">
-                        <template #body="slotProps">
-                            <div class="flex gap-2 bg-white">
-                                <Button icon="pi pi-envelope" severity="success" aria-label="Notification" @click="openEmailVerification($event, slotProps.data.email)" />
-                                <Button icon="pi pi-trash" severity="danger" aria-label="Notification" @click="deletePegawai($event, slotProps.data.id_pegawai)" />
-                                <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="openEdit(slotProps.data.id_pegawai)" />
-                                <!-- <RouterLink :to="`edit/${slotProps.data.id_pegawai}`"> -->
-                                <!-- </RouterLink> -->
-                            </div>
-                        </template>
-                    </Column>
-                </DataTable>
+				<TablePegawai
+                    @email-verification="openEmailVerification"
+                    @delete-pegawai="deletePegawai"
+                    @edit-pegawai="openEdit"
+                />
             </template>
         </Card>
 	</div>
 
-    <Dialog v-model:visible="visible" modal :header="dialogTitle" :style="{ width: '75rem' }">
+    <Dialog v-model:visible="visible" :closable="false" :draggable="false" :closeOnEscape="false" modal :header="dialogTitle" :style="{ width: '75rem' }">
         <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ dialogDeskripsi }}</span>
         <div class="grid grid-cols-12 gap-5 h-96 m-5" v-if="formIsLoading">
             <div class="col-span-12 w-full flex justify-center items-center">
@@ -68,118 +30,71 @@
             </div>
         </div>
         <form class="w-full grid grid-cols-12 gap-2" v-else>
+            <InputVuelidate name="nama_lengkap" label="Nama Lengkap" :hasValidated="hasValidated">
+                <InputText id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.name.$invalid" />
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="nama_lengkap">Nama Lengkap <span class="text-red-500">*</span></label>
-                <InputText id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_lengkap.$invalid" />
-                <small v-if="hasValidated && v$.nama_lengkap.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
+            <InputVuelidate name="email" label="Email" :hasValidated="hasValidated">
                 <InputText id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
-                <small v-if="hasValidated && v$.email.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="nik">NIK <span class="text-red-500">*</span></label>
+            <InputVuelidate name="nik" label="Nik" :hasValidated="hasValidated">
                 <InputText v-model="nik" id="nik" :useGrouping="false" fluid class="col-span-12" :invalid="hasValidated && v$.nik.$invalid" />
-                <small v-if="hasValidated && v$.nik.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="tempat_lahir">Tempat Lahir <span class="text-red-500">*</span></label>
+            <InputVuelidate name="tempat_lahir" label="Tempat Lahir" :hasValidated="hasValidated">
                 <InputText id="tempat_lahir" v-model="tempat_lahir" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tempat_lahir.$invalid" />
-                <small v-if="hasValidated && v$.tempat_lahir.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="tgl_lahir">Tanggal Lahir <span class="text-red-500">*</span></label>
-                <DatePicker inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
-                <small v-if="hasValidated && v$.tgl_lahir.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            <InputVuelidate name="tgl_lahir" label="Tanggal Lahir" :hasValidated="hasValidated">
+                <DatePicker inputId="tgl_lahir" v-model="tgl_lahir" dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="alamat">Alamat <span class="text-red-500">*</span></label>
+            <InputVuelidate name="alamat" label="Alamat" :hasValidated="hasValidated">
                 <InputText id="alamat" v-model="alamat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.alamat.$invalid" />
-                <small v-if="hasValidated && v$.alamat.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="jk">Jenis Kelamin <span class="text-red-500">*</span></label>
+            <InputVuelidate name="jk" label="Jenis Kelamin" :hasValidated="hasValidated">
                 <Select inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
-                <small v-if="hasValidated && v$.jk.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-            
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="agama">Agama <span class="text-red-500">*</span></label>
+            </InputVuelidate>
+
+            <InputVuelidate name="agama" label="Agama" :hasValidated="hasValidated">
                 <Select inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
-                <small v-if="hasValidated && v$.agama.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-            
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah <span class="text-red-500">*</span></label>
+            </InputVuelidate>
+
+            <InputVuelidate name="gol_darah" label="Golongan Darah" :hasValidated="hasValidated">
                 <Select inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
-                <small v-if="hasValidated && v$.gol_darah.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="no_telp">Nomor Telpon <span class="text-red-500">*</span></label>
+            <InputVuelidate name="no_telp" label="Nomor Telepon" :hasValidated="hasValidated">
                 <InputText id="no_telp" :useGrouping="false" fluid v-model="no_telp" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.no_telp.$invalid" />
-                <small v-if="hasValidated && v$.no_telp.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-            
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="kontak_darurat">Kontak Darurat <span class="text-red-500">*</span></label>
+            </InputVuelidate>
+
+            <InputVuelidate name="kontak_darurat" label="Kontak Darurat" :hasValidated="hasValidated">
                 <InputText id="kontak_darurat" :useGrouping="false" fluid v-model="kontak_darurat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.kontak_darurat.$invalid" />
-                <small v-if="hasValidated && v$.kontak_darurat.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="rekening">Rekening <span class="text-red-500">*</span></label>
+            <InputVuelidate name="rekening" label="Nomor Rekening" :hasValidated="hasValidated">
                 <InputText id="rekening" v-model="rekening" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.rekening.$invalid" />
-                <small v-if="hasValidated && v$.rekening.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-            
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="mulai_kerja">Mulai Kerja <span class="text-red-500">*</span></label>
-                <DatePicker inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
-                <small v-if="hasValidated && v$.mulai_kerja.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
-            
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="jabatan">Jabatan <span class="text-red-500">*</span></label>
-                <InputText id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
-                <small v-if="hasValidated && v$.jabatan.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
-            <div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-                <label class="max-h-6 col-span-12" for="pendidikan">Pendidikan <span class="text-red-500">*</span></label>
+            <InputVuelidate name="mulai_kerja" label="Tanggal Mulai Kerja" :hasValidated="hasValidated">
+                <DatePicker inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
+            </InputVuelidate>
+
+            <InputVuelidate name="jabatan" label="Jabatan" :hasValidated="hasValidated">
+                <InputText id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
+            </InputVuelidate>
+
+            <InputVuelidate name="pendidikan" label="Pendidikan" :hasValidated="hasValidated">
                 <InputText id="pendidikan" v-model="pendidikan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.pendidikan.$invalid" />
-                <small v-if="hasValidated && v$.pendidikan.$error" class="text-red-500 col-span-12">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+            </InputVuelidate>
 
             <div class="col-span-12 flex justify-end gap-2">
                 <Button type="button" label="Tutup" severity="secondary" @click="close"></Button>
                 <Button type="button" label="Edit" :loading="btnIsLoading" @click="editPegawai(id_pegawai)" v-if="!formPost"></Button>
                 <Button type="button" label="Tambah" :loading="btnIsLoading" @click="postPegawai" v-else></Button>
             </div>
-
         </form>
     </Dialog>
 </template>
@@ -194,7 +109,6 @@ export default {
             // Table
 			pegawai: [],
             // Loading State
-			isLoading: true,
             btnIsLoading: false,
 			formIsLoading: true,
             // Dialog
@@ -533,8 +447,5 @@ export default {
 <style>
 .p-datatable-header{
     background: white;
-}
-.p-dialog-close-button {
-    display: none;
 }
 </style>

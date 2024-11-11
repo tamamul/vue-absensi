@@ -113,6 +113,29 @@ export default {
                     }
                 },
             ],
+            adminItems: [
+                {
+                    label: 'Profile',
+                    icon: 'pi pi-user',
+                    route: '/admin/profile'
+                },
+                {
+                    label: 'Settings',
+                    icon: 'pi pi-cog',
+                    route: '/admin/settings'
+                },
+                {
+                    separator: true
+                },
+                {
+                    label: 'Logout',
+                    icon: 'pi pi-sign-out',
+                    command: () => {
+                        this.logout()
+                        this.$router.push('/login');
+                    }
+                },
+            ],
         }
     },
     methods: {

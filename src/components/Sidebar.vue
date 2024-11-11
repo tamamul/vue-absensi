@@ -102,18 +102,13 @@ export default {
             authStore: useAuthStore(),
             sidebarItemsUser: [
                 {
-                    label: 'Home',
+                    label: 'User',
                     items: [
                         {
                             label: 'Dashboard',
                             icon: 'pi pi-home',
                             route: '/user/dashboard'
-                        }
-                    ]
-                },
-                {
-                    label: 'User',
-                    items: [
+                        },
                         {
                             label: 'QR CODE',
                             icon: 'pi pi-qrcode',
