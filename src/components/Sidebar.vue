@@ -156,6 +156,11 @@ export default {
                             icon: 'pi pi-calendar-clock',
                             route: '/admin/kehadiran/shift-kerja'
                         },
+                        {
+                            label: 'Jadwal Kerja',
+                            icon: 'pi pi-briefcase',
+                            route: '/admin/kehadiran/jadwal-kerja'
+                        },
                     ]
                 },
                 {
