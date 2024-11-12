@@ -17,10 +17,8 @@
                     <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
                 </div>
             </template>
-            <template #empty> Pegawai tidak ditemukan. </template>
-            <template #loading> Memuat data pegawai. Mohon ditunggu. </template>
+            <template #empty> Data tidak ditemukan. </template>
 
-            <!-- Columns with Filters -->
             <Column field="id_pegawai" header="No" />
             <Column field="nama_lengkap" header="Nama" style="min-width: 300px" class="capitalize" />
 			<Column field="" header="Jenis Kelamin" style="min-width: 150px">
@@ -41,6 +39,7 @@
 			<Column field="gol_darah"       header="Gol. Darah" style="min-width: 150px" />
 			<Column field="pendidikan"      header="Pendidikan" style="min-width: 150px" class="capitalize" />
 			<Column field="mulai_kerja"     header="Mulai Kerja" style="min-width: 150px" />
+
             <Column header="Action" frozen alignFrozen="right">
                 <template #body="slotProps">
                     <div class="flex gap-2 bg-white">
@@ -51,20 +50,21 @@
 							@click="handleEmailVerification(slotProps.data.email)" 
 						/>
 						<Button 
-							icon="pi pi-trash" 
-							severity="danger" 
-							aria-label="Notification" 
-							@click="handleDelete(slotProps.data.id_pegawai)" 
-						/>
-						<Button 
 							icon="pi pi-pencil" 
 							severity="info" 
 							aria-label="Notification" 
 							@click="handleEdit(slotProps.data.id_pegawai)" 
 						/>
+						<Button 
+							icon="pi pi-trash" 
+							severity="danger" 
+							aria-label="Notification" 
+							@click="handleDelete(slotProps.data.id_pegawai)" 
+						/>
                     </div>
                 </template>
             </Column>
+
         </DataTable>
     </div>
 </template>
@@ -98,13 +98,13 @@ export default {
             this.filters = { global: { value: null, matchMode: 'contains' } };
         },
 		handleEmailVerification(email) {
-			this.$emit('email-verification', email); // Emit the event with email
+			this.$emit('email-verification', email);
 		},
 		handleDelete(id) {
-			this.$emit('delete-pegawai', id); // Emit the event with the id of pegawai
+			this.$emit('delete-pegawai', id);
 		},
 		handleEdit(id) {
-			this.$emit('edit-pegawai', id); // Emit the event with the id of pegawai
+			this.$emit('edit-pegawai', id);
 		},
     },
     mounted() {

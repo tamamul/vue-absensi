@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import PageLoading from '@/components/PageLoading.vue';
 import router from '@/router'
 export default {
 	name: 'AdminPegawai',

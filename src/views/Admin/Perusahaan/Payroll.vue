@@ -18,7 +18,9 @@
                 </div>
 			</template>
 			<template #content>
-				<DataTable :value="dataPayroll"></DataTable>
+				<DataTable :value="dataPayroll" tableStyle="min-width: 50rem">
+					<Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header"></Column>
+				</DataTable>
 			</template>
 		</Card>
 		<Card class="col-span-12 xl:col-span-4 shadow-md">
@@ -39,17 +41,22 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			dataPayroll: []
+			dataPayroll: [],
+			columns: [
+				{ field: 'id_payroll', header: 'No.' },
+				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
+				{ field: 'periode', header: 'Periode' },
+				{ field: 'total_gaji', header: 'Total Gaji' },
+			],
 		}
 	},
 	methods: {
 		async getPayroll() {
-			await axios.get('payroll', {
-				headers: {
-					'Authorization': `Bearer ${this.default.token}`
-				}
-			}).then((res) => {
-				console.log(res)
+			await axios.get('/payroll').then((res) => {
+				console.log(res.data.data)
+				this.dataPayroll = (res.data.data)
+			}).catch((error) => {
+				console.error(error)
 			})
 		}
 	},
