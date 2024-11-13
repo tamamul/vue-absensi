@@ -15,7 +15,7 @@
                 </div>
 			</template>
 			<template #content>
-				<TableGaji />
+				<TableDefault :columns="columns" api="/gaji" id="id_gaji" />
 			</template>
 		</Card>
 		<Card class="col-span-12 xl:col-span-4 shadow-md">
@@ -32,6 +32,13 @@ export default {
     data() {
         return {
             isLoading: true,
+			columns: [
+				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
+				{ field: 'gaji_pokok', header: 'Gaji Pokok' },
+				{ field: 'tunjangan', header: 'Tunjangan' },
+				{ field: 'nama_bank', header: 'Nama Bank' },
+				{ field: 'rekening', header: 'No. Rekening' },
+			]
         };
     },
 };

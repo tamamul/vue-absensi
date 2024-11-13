@@ -18,9 +18,7 @@
                 </div>
 			</template>
 			<template #content>
-				<DataTable :value="dataPayroll" tableStyle="min-width: 50rem">
-					<Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header"></Column>
-				</DataTable>
+				<TableDefault :columns="columns" api="/payroll" id="id_payroll" />
 			</template>
 		</Card>
 		<Card class="col-span-12 xl:col-span-4 shadow-md">

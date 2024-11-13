@@ -1,22 +1,18 @@
 <template>
-	<Column header="Action" frozen alignFrozen="right">
-		<template #body="{ id }">
-			<div class="flex gap-2 bg-white">
-				<Button 
-					icon="pi pi-pencil" 
-					severity="info" 
-					aria-label="Notification" 
-					@click="emitEdit(id)" 
-				/>
-				<Button 
-					icon="pi pi-trash" 
-					severity="danger" 
-					aria-label="Notification" 
-					@click="emitDelete(id)"
-				/>
-			</div>
-		</template>
-	</Column>
+	<div class="flex gap-2 bg-white">
+		<Button 
+			icon="pi pi-pencil" 
+			severity="info" 
+			aria-label="Notification" 
+			@click="emitEdit(id)" 
+		/>
+		<Button 
+			icon="pi pi-trash" 
+			severity="danger" 
+			aria-label="Notification" 
+			@click="emitDelete(id)"
+		/>
+	</div>
 </template>
 
 <script>
@@ -32,8 +28,8 @@ export default {
 			type: Function,
 			required: true
 		},
-		id: {
-			type: String,
+		id:{
+			type: Number,
 			required: true
 		}
 	},
