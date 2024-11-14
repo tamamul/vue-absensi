@@ -76,11 +76,7 @@ export default {
     },
     methods: {
         async getQrCode() {
-            await axios.get('kehadiran/get-kode', {
-                headers: {
-                    'Authorization': `Bearer ${this.default.token}`
-                }
-            }).then((res) => {
+            await axios.get('kehadiran/get-kode').then((res) => {
                 console.log(res.data.data.token)
                 this.data = res.data.data.token
                 this.isLoading = false
@@ -88,18 +84,14 @@ export default {
                 console.log('errorbro' + err)
             })
         },
-        async getQrCodeS() {
+        async getQrCodeAfter30seccond() {
             if (this.intervalId) {
                 clearInterval(this.intervalId);
             }
             this.isLoading = false
 
             this.intervalId = setInterval(async () => {
-                await axios.get('kehadiran/get-kode', {
-                    headers: {
-                        'Authorization': `Bearer ${this.default.token}`
-                    }
-                }).then((res) => {
+                await axios.get('kehadiran/get-kode').then((res) => {
                     this.data = res.data.data.token;
                     console.log(res.data.data.token)
                 }).catch((error) => {
@@ -110,7 +102,7 @@ export default {
     },
     mounted() {
         this.getQrCode()
-        this.getQrCodeS()
+        this.getQrCodeAfter30seccond()
     },
     beforeUnmount() {
         if (this.intervalId) {

@@ -12,29 +12,9 @@
                 </div>
 			</template>
 			<template #content>
-				<DataTable 
-					:value="shift"
-					paginator  
-                    :rows="10" 
-                    :rowsPerPageOptions="[5, 10, 20, 50]"
-                    scrollable 
-                    tableStyle="min-width: 50rem"
-				>
-					<Column field="" header="No">
-						<template #body="slotProps">
-							{{ slotProps.index + 1 }}
-                        </template>
-					</Column>
-                    <Column field="nama_shift" header="Nama Shift" style="min-width: 300px" class="capitalize" />
-					<Column field="" header="Action" frozen alignFrozen="right">
-                        <template #body="slotProps">
-                            <div class="flex gap-2 bg-white">
-                                <Button icon="pi pi-trash" severity="danger" aria-label="Notification" @click="delete($event, slotProps.data.id_pegawai)" />
-                                <Button icon="pi pi-pencil" severity="info" aria-label="Notification" @click="edit(slotProps.data.id_pegawai)" />
-                            </div>
-                        </template>
-                    </Column>
-				</DataTable>
+				<TableDefault :columns="columns" api="/jadwal/pegawai" id="jabatan">
+					
+				</TableDefault>
 			</template>
 		</Card>
 
@@ -177,6 +157,11 @@ export default {
 		return {
 			// Table
 			shift	: [],
+			columns: [
+				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
+				{ field: 'jabatan', header: 'Jabatan' },
+				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal' },
+			],
 
 			// Loading State
 			isLoading		: true,

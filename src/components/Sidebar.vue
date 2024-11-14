@@ -5,7 +5,7 @@
 
         <!-- ? Sidebar Header -->
         <div class="flex items-center justify-between gap-2 px-6 py-5 lg:py-6">
-            <RouterLink to="/dashboard" class="flex gap-2 items-center font-semibold text-xl icon-nav">
+            <RouterLink :to="isAdmin ? '/admin/dashboard' : '/user/dashboard'" class="flex gap-2 items-center font-semibold text-xl icon-nav">
                 <img src="../assets/app-logo.png" alt="Logo" class="w-12" />
                 Absensi Qr Code
             </RouterLink>
@@ -100,6 +100,7 @@ export default {
     data() {
         return {
             authStore: useAuthStore(),
+            linkDashboard: true,
             sidebarItemsUser: [
                 {
                     label: 'User',
@@ -157,9 +158,9 @@ export default {
                             route: '/admin/kehadiran/shift-kerja'
                         },
                         {
-                            label: 'Jadwal Kerja',
+                            label: 'Jadwal',
                             icon: 'pi pi-briefcase',
-                            route: '/admin/kehadiran/jadwal-kerja'
+                            route: '/admin/kehadiran/jadwal'
                         },
                     ]
                 },

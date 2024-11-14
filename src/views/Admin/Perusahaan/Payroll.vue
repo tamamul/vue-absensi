@@ -41,7 +41,6 @@ export default {
 			isLoading: false,
 			dataPayroll: [],
 			columns: [
-				{ field: 'id_payroll', header: 'No.' },
 				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
 				{ field: 'periode', header: 'Periode' },
 				{ field: 'total_gaji', header: 'Total Gaji' },

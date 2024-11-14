@@ -1,12 +1,14 @@
 <template> 
-    <DataTable  
+    <DataTable
+		editMode="cell"
+		@cell-edit-complete="onCellEditComplete"
         v-model:filters="filters" 
         :value="data" 
         tableStyle="min-width: 50rem" 
         paginator 
         :rows="10"  
         :rowsPerPageOptions="[5, 10, 20, 50]" 
-        scrollable 
+        scrollable
         :loading="loading" 
         filterDisplay="menu" 
     > 
@@ -18,14 +20,29 @@
         </template> 
         <template #empty> Data tidak ditemukan. </template> 
 
+		<!-- Column No -->
         <Column field="no" header="No.">
             <template #body="slotProps">
-                {{ calculateRowNumber(slotProps) + `.` }}
+				{{ calculateRowNumber(slotProps) + `.` }}
             </template>
         </Column>
-        <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header"></Column> 
-        <slot /> 
 
+		<!-- Column Dinamis -->
+        <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header">
+			<template #body="{ data, field }">
+				{{ data[field] }}
+			</template>
+			<template #editor="{ data, field }">
+				<template v-if="true">
+					<InputText v-model="data[field]" autofocus fluid />
+				</template>
+			</template>
+		</Column>
+
+		<!-- Column Custom -->
+        <slot /> 
+		
+		<!-- Column CRUD -->
         <Column header="Action" frozen alignFrozen="right"> 
             <template #body="slotProps"> 
                 <TableActionStandard 
@@ -44,7 +61,8 @@ export default {
     inject:['default'], 
     props: { 
         columns: Array, 
-        api: String, 
+        api: String,
+        apiEdit: String,
         id: String 
     }, 
     data() { 
@@ -54,7 +72,12 @@ export default {
             loading: true, 
         } 
     }, 
-    methods: { 
+    methods: {
+		onCellEditComplete(event) {
+            let { data, newValue, field } = event;
+
+            console.log({data, newValue, field})
+        },
         async getData() { 
             await axios.get(this.api).then((res) => { 
                 this.data = res.data.data; 
