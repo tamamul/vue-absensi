@@ -8,11 +8,13 @@
 	<div class="grid grid-cols-12 gap-5 m-5 mb-24 lg:mb-5" v-else>
 		<Card class="col-span-12 shadow-md">
 			<template #title>
-				Konfirmasi Absensi
+				<div class="w-full text-center">
+					Konfirmasi Absensi
+				</div>
 			</template>
 			<template #content>
 				<div class="flex flex-col">
-					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" :loading="inputIsLoading" />
+					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" />
 				</div>
 			</template>
 		</Card>
@@ -59,14 +61,12 @@ export default {
 	},
 	methods: {
 		async postKodeAbsensi () {
-			this.inputIsLoading = true
+			console.log(this.kodeAbsensi)
 			const data = {token: this.kodeAbsensi}
 			await axios.post('kehadiran/confirm', data).then((res) => {
-				this.inputIsLoading = false
 				console.log(res)
 				this.kodeAbsensi = ''
 			}).catch((err) => {
-				this.inputIsLoading = false
 				console.log('Err Bro' + err)
 				this.kodeAbsensi = ''
 			})

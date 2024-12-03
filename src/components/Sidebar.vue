@@ -15,77 +15,11 @@
             </button>
         </div>
 
-        <div v-if="isLoading" class="flex flex-col overflow-y-auto duration-300 ease-linear">
-            <nav class="mt-5 px-4 lg:mt-9 lg:px-6">
-
-                <!-- Menu Group -->
-
-                <div v-for="n in 3" :key="n">
-                    <h3 class="mb-4 ml-4 text-sm font-medium">
-                        <Skeleton height="1.5rem" width="50%" />
-                    </h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Skeleton Menu Item -->
-                        <li v-for="i in 4" :key="i">
-                            <div class="group relative flex items-center gap-2 rounded-sm px-4 py-2 duration-300 ease-in-out">
-                                <Skeleton shape="circle" width="2rem" height="2rem" />
-                                <Skeleton height="2rem" width="80%" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-            </nav>
-        </div>
-
-        <div v-else class="flex flex-col overflow-y-auto duration-300 ease-linear">
-
+        <div class="flex flex-col overflow-y-auto duration-300 ease-linear">
             <!-- Sidebar Menu -->
-            <nav v-if="isAdmin" class="mt-5 px-4 lg:mt-9 lg:px-6">
+            <AdminSidebar v-if="isAdmin === 1" class="mt-5 px-4 lg:mt-9 lg:px-6"></AdminSidebar>
 
-                <!-- Menu Group -->
-                <div v-for="item in sidebarItemsAdmin" :key="item.label">
-                    <h3 class="mb-4 ml-4 text-sm font-medium">{{item.label}}</h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <li v-for="menuItem in item.items" :key="menuItem.label" >
-                            <RouterLink class="group relative flex items-center gap-2 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out menu"
-                                :to="menuItem.route"
-                            >
-                                <i class="text-lg" :class="menuItem.icon"></i>
-
-                                {{menuItem.label}}
-                            </RouterLink>
-                        </li>
-                    </ul>
-                </div>
-
-            </nav>
-
-            <nav v-else class="mt-5 px-4 lg:mt-9 lg:px-6">
-
-                <!-- Menu Group -->
-                <div v-for="item in sidebarItemsUser" :key="item.label">
-                    <h3 class="mb-4 ml-4 text-sm font-medium">{{item.label}}</h3>
-
-                    <ul class="mb-6 flex flex-col gap-1">
-                        <!-- Menu Item -->
-                        <li v-for="menuItem in item.items" :key="menuItem.label" >
-                            <RouterLink class="group relative flex items-center gap-2 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out menu"
-                                :to="menuItem.route"
-                            >
-                                <i class="text-lg" :class="menuItem.icon"></i>
-
-                                {{menuItem.label}}
-                            </RouterLink>
-                        </li>
-                    </ul>
-                </div>
-
-            </nav>
-
+            <UserSidebar v-else></UserSidebar>
         </div>
     </aside>
 
@@ -96,131 +30,40 @@ import { useAuthStore } from '@/stores/auth';
 
 // ? ambil dulu info admin dari authStore terus tentukan sidebarItems mana yang di pakai
 export default {
-    props:['sidebarToggle'],
+    emits: ['toggleSidebar'],
+    props: { 
+        'sidebarToggle' : Boolean,
+        'dataRole' : Number
+    },
     data() {
         return {
             authStore: useAuthStore(),
             linkDashboard: true,
-            sidebarItemsUser: [
-                {
-                    label: 'User',
-                    items: [
-                        {
-                            label: 'Dashboard',
-                            icon: 'pi pi-home',
-                            route: '/user/dashboard'
-                        },
-                        {
-                            label: 'QR CODE',
-                            icon: 'pi pi-qrcode',
-                            route: '/user/qr-code'
-                        },
-                        // {
-                        //     label: 'Kehadiran',
-                        //     icon: 'pi pi-qrcode',
-                        //     route: '/user/kehadiran'
-                        // },
-                        {
-                            label: 'Shift Kerja',
-                            icon: 'pi pi-briefcase',
-                            route: '/user/shift-kerja'
-                        },
-                        {
-                            label: 'Gaji',
-                            icon: 'pi pi-wallet',
-                            route: '/user/gaji'
-                        },
-                    ]
-                },
-            ],
-            sidebarItemsAdmin: [
-                {
-                    label: 'Home',
-                    items: [
-                        {
-                            label: 'Dashboard',
-                            icon: 'pi pi-home',
-                            route: '/admin/dashboard'
-                        }
-                    ]
-                },
-                {
-                    label: 'Kehadiran',
-                    items: [
-                        {
-                            label: 'Konfirmasi Absensi',
-                            icon: 'pi pi-check-square',
-                            route: '/admin/kehadiran/absensi'
-                        },
-                        {
-                            label: 'Shift Kerja',
-                            icon: 'pi pi-calendar-clock',
-                            route: '/admin/kehadiran/shift-kerja'
-                        },
-                        {
-                            label: 'Jadwal',
-                            icon: 'pi pi-briefcase',
-                            route: '/admin/kehadiran/jadwal'
-                        },
-                    ]
-                },
-                {
-                    label: 'Perusahaan',
-                    items: [
-                        {
-                            label: 'Pegawai',
-                            icon: 'pi pi-users',
-                            route: '/admin/perusahaan/pegawai'
-                        },
-                        {
-                            label: 'Gaji',
-                            icon: 'pi pi-wallet',
-                            route: '/admin/perusahaan/gaji'
-                        },
-                        {
-                            label: 'Payroll',
-                            icon: 'pi pi-credit-card',
-                            route: '/admin/perusahaan/payroll'
-                        },
-                    ]
-                },
-                {
-                    label: 'Kerjaan',
-                    items: [
-                        {
-                            label: 'Workspaces',
-                            icon: 'pi pi-briefcase',
-                            route: '/admin/kerjaan/workspaces'
-                        },
-                        {
-                            label: 'Kanban',
-                            icon: 'pi pi-list',
-                            route: '/admin/kerjaan/kanban'
-                        },
-                    ]
-                },
-            ],
-            isLoading: true,
-            isAdmin: ''
+            isAdmin: 0
         }
     },
-    emits: ['toggleSidebar'],
+    // watch: {
+    //     dataRole(newRole) {
+    //         this.isAdmin = newRole;
+    //         console.log(`Data role updated: ${this.isAdmin}`);
+    //         this.isLoading = false;
+    //     },
+    // },
     methods: {
         toggleSidebar() {
             this.$emit('toggleSidebar')
         },
 
         async getAdmin() {
-            await this.authStore.getUser()
-
-            this.isAdmin  = this.authStore.authUser.data.is_admin
-
-            console.log('sidebar ngambil lagi')
-            this.isLoading = false
+            if (this.dataRole !== null) {
+                this.isAdmin = this.dataRole;
+            } else {
+                console.warn('Data role not yet available.');
+            }
         },
     },
-    mounted() {
-        this.getAdmin()
+    async mounted() {
+        await this.getAdmin()
     },
 }
 </script>

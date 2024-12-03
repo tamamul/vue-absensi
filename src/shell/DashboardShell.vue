@@ -38,18 +38,6 @@ export default {
         callback() {
             this.sidebarToggle = !this.sidebarToggle;
         },
-        // Check if login
-        // ifLogin() {
-        //     const token = localStorage.getItem('token');
-            
-        //     if (!token) {
-        //         router.push({name: 'login'});
-        //     }
-        // },
-        // get user
-        // async getUser() {
-        //     await this.authStore.getUser()
-        // }
     },
     mounted() {
         // this.getUser()

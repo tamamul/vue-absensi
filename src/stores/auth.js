@@ -1,7 +1,7 @@
-// auth.js
+
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import router from '@/router'; // Import the router instance
+import router from '@/router'; 
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -13,11 +13,11 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async getUser() {
             try {
-                const res = await axios.get('/user', {
-                    headers: { Authorization: `Bearer ${this.authToken}` },
-                });
+                const res = await axios.get('/user');
                 this.authUser = res.data;
                 this.userRole = res.data.data.is_admin;
+                // console.log(this.authUser);
+                // console.log(this.userRole);
             } catch (err) {
                 console.error('Error fetching user data:', err);
             }
@@ -30,12 +30,11 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.setItem('token', token);
                 this.authToken = token;
 
-                await this.getUser(); // Fetch user data after setting the token
+                await this.getUser(); 
 
-                // Redirect based on user role
-                if (this.userRole === 1) { // Admin
+                if (this.userRole === 1) { 
                     router.push({ name: 'admin-dashboard' });
-                } else { // Regular user
+                } else { 
                     router.push({ name: 'user-dashboard' });
                 }
             } catch (err) {
@@ -52,7 +51,7 @@ export const useAuthStore = defineStore('auth', {
             this.authToken = null;
             this.authUser = null;
             this.userRole = null;
-            router.push({ name: 'login' }); // Redirect to login page on logout
+            router.push({ name: 'login' }); 
         },
     },
 });

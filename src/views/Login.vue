@@ -84,13 +84,12 @@ export default {
     methods: {
         // Login method
         async login() {
-            // this.hasValidated = true
             this.v$.$validate();
             this.btnIsLoading = true;
             const data = { email: this.email, password: this.password };
             await this.authStore.login(data)
-            
-            this.authStore.userRole == 1 ? router.push({ name: 'admin-dashboard' }) : router.push({ name: 'user-dashboard' })
+
+            // this.authStore.userRole == 1 ? router.push({ name: 'admin-dashboard' }) : router.push({ name: 'user-dashboard' })
             this.btnIsLoading = false;
         },
 

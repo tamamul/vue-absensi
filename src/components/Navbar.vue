@@ -54,7 +54,7 @@
                         <i :class="{'rotate-180' : dropdownOpen}" class="hidden fill-current sm:block transition-all ease-in-out pi pi-angle-down"></i>
                     </button>
 
-                    <TieredMenu ref="menu" id="overlay_tmenu" :model="userItems" popup >
+                    <TieredMenu ref="menu" id="overlay_tmenu" :model="dataRole == 1 ? adminItems : userItems" popup >
                         <template #item="{ item, props, hasSubmenu }">
                             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
                                 <a v-ripple :href="href" v-bind="props.action" @click="navigate">
@@ -77,13 +77,12 @@
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/auth';
 import router from '@/router'
 export default {
     emits: ['toggleSidebar'],
+    props: ['dataRole', 'dataUser'],
     data() {
         return {
-            authStore: useAuthStore(),
             isLoading : true,
             username: '',
             jabatan: '',
@@ -140,10 +139,7 @@ export default {
     },
     methods: {
         async getUser() {
-            await this.authStore.getUser()
-            // console.log(this.authStore.authUser.data.pegawai)
-            this.isAdmin  = this.authStore.authUser.is_admin
-            const pegawai = this.authStore.authUser.data.pegawai
+            const pegawai = this.dataUser.data.pegawai
             this.isLoading = false
 
             if (pegawai === null) {
@@ -155,7 +151,6 @@ export default {
                 this.jabatan = pegawai.jabatan
             }
 
-            console.log('navbar ngambil lagi')
             this.isLoading  = false
         },
 

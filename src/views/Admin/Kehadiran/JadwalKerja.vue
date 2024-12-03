@@ -4,20 +4,23 @@
 			<template #title>
 				<div class="flex justify-between">
                     <h3>
-						Jadwal
+						Jadwal Kerja
 					</h3>
                     <div class="flex gap-2">
-                        <RouterLink to="/gaji/tambah">    
-                            <Button icon="pi pi-plus-circle" label="Tambah Jadwal"></Button>
-                        </RouterLink>
+						<Button icon="pi pi-plus-circle" label="Tambah Jadwal" @click="toggleDialog"></Button>
                         <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
                     </div>
                 </div>
 			</template>
 			<template #content>
+				<div>
+					
+				</div>
 				<TableDefault :columns="columns" api="/jadwal" id="id_jadwal" />
 			</template>
 		</Card>
+
+		<DialogJadwalKerja :test="visible" @toggle="toggleDialog" />
 	</div>
 </template>
 
@@ -27,12 +30,18 @@ export default {
 	inject:['default'],
 	data() {
 		return {
+			visible: false,
 			columns: [
-				{ field: 'id_jadwal', header: 'No.' },
 				{ field: 'nama_jadwal', header: 'Nama Jadwal' },
 				{ field: 'gaji_pokok', header: 'Default' },
 			]
 		}
 	},
+	methods: {
+		toggleDialog() {
+			this.visible = !this.visible
+			console.log(this.visible)
+		}
+	}
 }
 </script>
