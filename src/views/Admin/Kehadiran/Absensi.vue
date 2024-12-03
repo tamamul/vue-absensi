@@ -14,7 +14,7 @@
 			</template>
 			<template #content>
 				<div class="flex flex-col">
-					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" />
+					<InputText type="text" v-model="kodeAbsensi"  @keydown.enter="postKodeAbsensi" autofocus  />
 				</div>
 			</template>
 		</Card>

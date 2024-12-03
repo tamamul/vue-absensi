@@ -4,7 +4,7 @@
 			<template #title>
 				<div class="flex justify-between">
                     <h3>
-						Jadwal Shift
+						Jadwal Pegawai
 					</h3>
                     <div class="flex gap-2">
                         <RouterLink to="/gaji/tambah">    

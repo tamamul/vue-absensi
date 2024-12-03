@@ -16,29 +16,28 @@ const routes = [
 	// 404
     { path: '/:pathMatch(.*)*', 	name: 'not-found', 			component: () => import('../views/NotFound.vue') },
 	// KANBAN
-	{ path: '/kerjaan/workspaces', 	name: 'user-workspaces', 	component: () => import('../views/KANBAN/Workspaces.vue') },
-	{ path: '/kerjaan/kanban',		name: 'user-kanban', 		component: () => import('../views/KANBAN/Kanban.vue') },
+	{ path: '/kerjaan/workspaces', 	name: 'workspaces',         component: () => import('../views/KANBAN/Workspaces.vue') },
+	{ path: '/kerjaan/kanban',		name: 'kanban',             component: () => import('../views/KANBAN/Kanban.vue') },
 
     // User Routes
     {
         path: '/user',
         name: 'user',
-        component: () => import('../shell/AdminDashboardShell.vue'),
+        component: () => import('../shell/DashboardShell.vue'),
         meta: { requiresAuth: true, role: UserRoles.USER },
         children: [
-            { path: 'dashboard', 	name: 'user-dashboard',		component: () => import('../views/Users/Dashboard.vue') },
-            { path: 'profile', 		name: 'user-profile', 		component: () => import('../views/Users/Profile.vue') },
-            { path: 'settings', 	name: 'user-settings', 		component: () => import('../views/Users/Settings.vue') },
-            { path: 'qr-code', 		name: 'user-qr-code', 		component: () => import('../views/Users/QrCode.vue') },
-            { path: 'shift-kerja', 	name: 'user-shift-kerja', 	component: () => import('../views/Users/ShiftKerja.vue') },
-            { path: 'gaji', 		name: 'user-gaji', 			component: () => import('../views/Users/Gaji.vue') },
+            { path: 'dashboard', 	    name: 'user-dashboard',		    component: () => import('../views/Users/Dashboard.vue') },
+            { path: 'profile', 		    name: 'user-profile', 		    component: () => import('../views/Users/Profile.vue') },
+            { path: 'settings', 	    name: 'user-settings', 		    component: () => import('../views/Users/Settings.vue') },
+            { path: 'qr-code', 		    name: 'user-qr-code', 		    component: () => import('../views/Users/QrCode.vue') },
+            { path: 'gaji', 		    name: 'user-gaji', 			    component: () => import('../views/Users/Gaji.vue') },
         ]
     },
     // Admin Routes
     {
         path: '/admin',
         name: 'admin',
-        component: () => import('../shell/AdminDashboardShell.vue'),
+        component: () => import('../shell/DashboardShell.vue'),
         meta: { requiresAuth: true, role: UserRoles.ADMIN },
         children: [
             { path: 'dashboard', 				name: 'admin-dashboard', 			component: () => import('../views/Admin/Dashboard.vue') },
@@ -50,7 +49,7 @@ const routes = [
             { path: 'kehadiran/absensi', 		name: 'admin-kehadiran-absensi', 	component: () => import('../views/Admin/Kehadiran/Absensi.vue') },
             { path: 'kehadiran/jadwal-kerja',   name: 'admin-jadwal',               component: () => import('../views/Admin/Kehadiran/JadwalKerja.vue') },
             { path: 'kehadiran/jadwal-pegawai', name: 'admin-jadwal-pegawai',       component: () => import('../views/Admin/Kehadiran/JadwalPegawai.vue') },
-            { path: 'kehadiran/shift-kerja',	name: 'admin-shift-kerja', 			component: () => import('../views/Admin/Kehadiran/ShiftKerja.vue') },
+            // { path: 'kehadiran/shift-kerja',	name: 'admin-shift-kerja', 			component: () => import('../views/Admin/Kehadiran/ShiftKerja.vue') },
         ]
     }
 ];
