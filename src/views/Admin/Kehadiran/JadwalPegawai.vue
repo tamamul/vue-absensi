@@ -8,12 +8,12 @@
 					</h3>
 					<div class="flex gap-2">
 						<Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
-						<Button icon="pi pi-plus-circle" label="Tambah" @click="openPost()"></Button>
+						<Button icon="pi pi-plus-circle" label="Tambah" @click="toggleJadwalKerja()"></Button>
 					</div>
                 </div>
 			</template>
 			<template #content>
-				<TableDefault :columns="columns" api="/jadwal/pegawai" id="jabatan" />
+				<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" />
 			</template>
 		</Card>
 
@@ -151,6 +151,9 @@
         </form>
 
     </Dialog>
+
+	<DialogJadwalKerja :visible="visibleJadwalKerja" @toggle="toggleJadwalKerja" :shift="shift" />
+
 </template>
 
 <script>
@@ -166,6 +169,9 @@ export default {
 				{ field: 'jabatan', header: 'Jabatan' },
 				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal' },
 			],
+
+			// Jadwal Kerja
+			visibleJadwalKerja	: false,
 
 			// Loading State
 			isLoading		: true,
@@ -213,6 +219,10 @@ export default {
 
 	methods: {
 		formattedTime,
+		toggleJadwalKerja() {
+			this.visibleJadwalKerja = !this.visibleJadwalKerja;
+		},
+
 		ensureHashtag() {
 			if (this.warna && !this.warna.startsWith('#')) {
 				this.warna = `#${this.warna}`;
