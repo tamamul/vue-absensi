@@ -165,9 +165,9 @@ export default {
 			// Table
 			shift	: [],
 			columns: [
-				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
-				{ field: 'jabatan', header: 'Jabatan' },
-				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal' },
+				{ field: 'nama_pegawai', header: 'Nama Pegawai', editable: false },
+				{ field: 'jabatan', header: 'Jabatan', editable: false },
+				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal', editable: true },
 			],
 
 			// Jadwal Kerja
