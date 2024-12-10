@@ -153,7 +153,6 @@
     </Dialog>
 
 	<DialogJadwalKerja :visible="visibleJadwalKerja" @toggle="toggleJadwalKerja" :shift="shift" />
-
 </template>
 
 <script>

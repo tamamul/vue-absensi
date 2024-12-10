@@ -7,7 +7,7 @@
 						Jadwal Kerja
 					</h3>
                     <div class="flex gap-2">
-						<Button icon="pi pi-plus-circle" label="Tambah Jadwal" @click="toggleDialog"></Button>
+						<Button icon="pi pi-plus-circle" label="Tambah" @click="toggleJadwalKerja()"></Button>
                         <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
                     </div>
                 </div>
@@ -20,7 +20,7 @@
 			</template>
 		</Card>
 
-		<DialogJadwalKerja :test="visible" @toggle="toggleDialog" />
+		<DialogJadwalKerja :visible="visible" @toggle="toggleJadwalKerja" />
 	</div>
 </template>
 
@@ -38,10 +38,9 @@ export default {
 		}
 	},
 	methods: {
-		toggleDialog() {
-			this.visible = !this.visible
-			console.log(this.visible)
-		}
+		toggleJadwalKerja() {
+			this.visible = !this.visible;
+		},
 	}
 }
 </script>

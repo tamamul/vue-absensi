@@ -26,17 +26,8 @@
 			</div>
 
 			<div class="w-full overflow-y-auto flex flex-col gap-2 mb-3">
-				<h3>Daftar Shift Kerja</h3>
-				<AddShift
-					v-for		 = "item in shift" 
-					:key		 = "item.id_shift"
-					:id			 = "item.id_shift"
-					:nama_shift	 = "item.nama_shift"
-					:warna		 = "item.warna"
-					:jam_masuk	 = "item.jam_masuk"
-					:jam_keluar	 = "item.jam_keluar"
-					@click 		 = "selectShift(item.nama_shift)"
-				/>
+				<h3>Pilih Shift Kerja</h3>
+				<Button label="Tambah Shift Kerja" severity="secondary" @click="openShift()"></Button>
 			</div>
 
 			<div class="flex justify-end gap-2">
@@ -44,6 +35,21 @@
 				<Button type="button" label="Save" @click="$emit('toggle')"></Button>
 			</div>
 		</form>
+	</Dialog>
+
+	<Dialog v-model:visible="visibleShift" modal header="Pilih Shift Kerja" :style="{ width: '30rem' }">
+		<div class="flex flex-col gap-2">
+			<AddShift
+				v-for		 = "item in shift" 
+				:key		 = "item.id_shift"
+				:id			 = "item.id_shift"
+				:nama_shift	 = "item.nama_shift"
+				:warna		 = "item.warna"
+				:jam_masuk	 = "item.jam_masuk"
+				:jam_keluar	 = "item.jam_keluar"
+				@click 		 = "selectShift(item.nama_shift)"
+			/>
+		</div>
 	</Dialog>
 </template>
 
@@ -55,12 +61,13 @@ export default {
 	inject: ['default'],
 	props: {
 		visible: Boolean,
-		shift: Array
 	},
 	emits: ['toggle'],
 	data() {
 		return {
 			value: [],
+			shift: [],
+			visibleShift: false,
 			pesan: 'Pilih hari dan shift kerja.',
 			selectedShift: null,
 			options: [
@@ -89,6 +96,10 @@ export default {
 	methods: {
 		selectShift(nama_shift) {
 			this.selectedShift = nama_shift;
+			this.visibleShift = false
+		},
+		openShift() {
+			this.visibleShift = !this.visibleShift
 		},
 		updatePesan() {
 			const namaJadwal = this.nama_jadwal || '[Belum Ada Jadwal]';
@@ -98,7 +109,19 @@ export default {
 			this.pesan = namaJadwal && hari && shift 
 				? `${namaJadwal} berlaku dari hari ${hari} ${shift}.`
 				: 'Pilih hari dan shift kerja.';
-		}
+		},
+		async getAllShift() {
+			await axios.get('shift').then((res) => {
+				this.isLoading = false
+				this.shift = res.data.data
+				console.log(res.data.data)
+			}).catch((err) => {
+				console.log(err)
+			})
+		},
+	},
+	mounted() {
+		this.getAllShift()
 	}
 };
 </script>
