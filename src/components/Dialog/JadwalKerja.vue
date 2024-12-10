@@ -47,7 +47,7 @@
 				:warna		 = "item.warna"
 				:jam_masuk	 = "item.jam_masuk"
 				:jam_keluar	 = "item.jam_keluar"
-				@click 		 = "selectShift(item.nama_shift)"
+				@click 		 = "selectShift(item.nama_shift, item.id_shift)"
 			/>
 		</div>
 	</Dialog>
@@ -70,6 +70,7 @@ export default {
 			visibleShift: false,
 			pesan: 'Pilih hari dan shift kerja.',
 			selectedShift: null,
+			selectedShiftId: null,
 			options: [
 				{ name: 'Senin', 	value: 'Senin' 	},
 				{ name: 'Selasa', 	value: 'Selasa' },
@@ -94,8 +95,9 @@ export default {
 		nama_jadwal: 'updatePesan'
 	},
 	methods: {
-		selectShift(nama_shift) {
+		selectShift(nama_shift, id_shift) {
 			this.selectedShift = nama_shift;
+			this.selectedShiftId = id_shift;
 			this.visibleShift = false
 		},
 		openShift() {
@@ -105,7 +107,10 @@ export default {
 			const namaJadwal = this.nama_jadwal || '[Belum Ada Jadwal]';
 			const hari = this.value.join(', ').toLowerCase();
 			const shift = this.selectedShift ? `menggunakan shift kerja ${this.selectedShift}` : '';
-			
+			console.log(this.value)
+			console.log(this.nama_jadwal)
+			console.log(this.selectedShift)
+			console.log(this.selectedShiftId)
 			this.pesan = namaJadwal && hari && shift 
 				? `${namaJadwal} berlaku dari hari ${hari} ${shift}.`
 				: 'Pilih hari dan shift kerja.';
