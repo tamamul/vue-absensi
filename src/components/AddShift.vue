@@ -10,7 +10,7 @@
 		<div class="flex items-center gap-2">
 			<i class="pi pi-clock"></i>
 			<p>{{ jam_masuk }}-{{ jam_keluar }}</p>
-			<Button aria-controls="overlay_tmenu" icon="pi pi-plus-circle" unstyled class="flex justify-center items-center" />
+			<Button aria-controls="overlay_tmenu" icon="" unstyled class="flex justify-center items-center" />
 		</div>
 	</div>
 </template>

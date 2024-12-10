@@ -1,6 +1,6 @@
 <template>
-	<Dialog :visible="visible" modal header="Tambahkan Jadwal Kerja" :style="{ width: '40rem' }">
-		<span class="text-surface-500 dark:text-surface-400 block mb-8">{{ pesan }}</span>
+	<Dialog visible="visible" modal header="Tambahkan Jadwal Kerja" :style="{ width: '40rem' }">
+		<!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ pesan }}</span> -->
 		<form>
 			<div class="gap-1">
 				<label class="max-h-6 col-span-12" for="nama_jadwal">Nama Jadwal <span class="text-red-500">*</span></label>
@@ -14,20 +14,30 @@
 				<small v-else class="invisible">...</small>
 			</div>
 			
-			<div class="flex w-full overflow-x-auto mb-3">
-				<SelectButton 
+			<div class="flex overflow-x-auto mb-3 gap-2">
+				<!-- <SelectButton 
 					v-model="value" 
 					:options="options" 
 					optionLabel="name" 
 					optionValue="value"
 					multiple 
 					aria-labelledby="multiple" 
-				/>
+				/> -->
+					<BtnJadwalKerja hari="Senin"	@openShift="openShift('Senin')" />
+					<BtnJadwalKerja hari="Selasa"	@openShift="openShift('Selasa')" />
+					<BtnJadwalKerja hari="Rabu"		@openShift="openShift('Rabu')" />
+					<BtnJadwalKerja hari="Kamis"	@openShift="openShift('Kamis')" />
+					<BtnJadwalKerja hari="Jum'at"	@openShift="openShift('Jum\'at')" />
+					<BtnJadwalKerja hari="Sabtu"	@openShift="openShift('Sabtu')" />
+					<BtnJadwalKerja hari="Minggu"	@openShift="openShift('Minggu')" />
 			</div>
 
 			<div class="w-full overflow-y-auto flex flex-col gap-2 mb-3">
-				<h3>Pilih Shift Kerja</h3>
-				<Button label="Tambah Shift Kerja" severity="secondary" @click="openShift()"></Button>
+				<p>Pilih Shift Kerja</p>
+				<div v-for="item in data" :key="item.id_shift">
+					<p>Hari : {{ item.hari }}</p>
+					<Shift :api="`shift/${selectedShiftId}`" />
+				</div>
 			</div>
 
 			<div class="flex justify-end gap-2">
@@ -65,21 +75,12 @@ export default {
 	emits: ['toggle'],
 	data() {
 		return {
-			value: [],
+			data: [],
 			shift: [],
+			hari: '',
 			visibleShift: false,
-			pesan: 'Pilih hari dan shift kerja.',
 			selectedShift: null,
 			selectedShiftId: null,
-			options: [
-				{ name: 'Senin', 	value: 'Senin' 	},
-				{ name: 'Selasa', 	value: 'Selasa' },
-				{ name: 'Rabu', 	value: 'Rabu' 	},
-				{ name: 'Kamis', 	value: 'Kamis' 	},
-				{ name: "Jum'at", 	value: "Jum'at" },
-				{ name: 'Sabtu', 	value: 'Sabtu' 	},
-				{ name: 'Minggu', 	value: 'Minggu' },
-			],
 			nama_jadwal: '',
 			hasValidated: false
 		};
@@ -90,30 +91,32 @@ export default {
 		};
 	},
 	watch: {
-		value: 'updatePesan',
-		selectedShift: 'updatePesan',
-		nama_jadwal: 'updatePesan'
+		data: 'updateData',
+		selectedShift: 'updateData',
+		nama_jadwal: 'updateData'
 	},
 	methods: {
 		selectShift(nama_shift, id_shift) {
 			this.selectedShift = nama_shift;
 			this.selectedShiftId = id_shift;
-			this.visibleShift = false
-		},
-		openShift() {
 			this.visibleShift = !this.visibleShift
 		},
-		updatePesan() {
-			const namaJadwal = this.nama_jadwal || '[Belum Ada Jadwal]';
-			const hari = this.value.join(', ').toLowerCase();
-			const shift = this.selectedShift ? `menggunakan shift kerja ${this.selectedShift}` : '';
-			console.log(this.value)
+		openShift(hari) {
+			this.hari = hari;
+			this.visibleShift = !this.visibleShift
+		},
+		updateData() {
+			const temp = {
+				hari: this.hari,
+				id_shift: this.selectedShiftId,
+			}
+			console.log(temp)
+			this.data.push(temp)
+			console.log(this.data)
+			console.log(this.hari)
 			console.log(this.nama_jadwal)
 			console.log(this.selectedShift)
 			console.log(this.selectedShiftId)
-			this.pesan = namaJadwal && hari && shift 
-				? `${namaJadwal} berlaku dari hari ${hari} ${shift}.`
-				: 'Pilih hari dan shift kerja.';
 		},
 		async getAllShift() {
 			await axios.get('shift').then((res) => {

@@ -6,8 +6,7 @@
             <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
 
                 <button
-                    class="z-50 flex rounded-sm border border-stroke bg-white p-1 shadow-sm w-12 h-12 items-center justify-center lg:hidden"
-                    @click="$emit('toggleSidebar')">
+                    class="z-50 flex rounded-sm border border-stroke bg-white p-1 shadow-sm w-12 h-12 items-center justify-center lg:hidden">
                     <i class="pi pi-bars text-2xl"></i>
                 </button>
 
