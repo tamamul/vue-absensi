@@ -239,11 +239,11 @@ export default {
 		},
 
 		async getShiftById(id) {
-			await axios.get(`shift/${id}`).then((res) => {
+			await axios.get(`shift/` + id).then((res) => {
 				this.isLoading = false
 				this.formIsLoading = false
 				// Form
-				this.id_shift 	= res.data.data.id_shif
+				this.id_shift 	= res.data.data.id_shift
 				this.nama_shift	= res.data.data.nama_shift
 				this.jam_masuk	= res.data.data.jam_masuk
 				this.jam_keluar	= res.data.data.jam_keluar
@@ -254,6 +254,7 @@ export default {
 				console.log(res.data.data.nama_shift)
 			}).catch((err) => {
 				console.log(err)
+				console.log('duh')
 			})
 		},
 
@@ -311,13 +312,11 @@ export default {
 				jam_istirahat_selesai	: this.formattedTime(this.jam_istirahat_selesai),
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,
 			}
-			await axios.put(`shift/${id}`, data, {
-				headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-			}).then((res) => {
-				console.log('berhasil edit' + res)
-				this.visible = false
-				this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-				this.getAllShift()
+			await axios.put(`shift/` + id, data).then((res) => {
+				console.log('berhasil edit' + res);
+				this.visible = false;
+				this.$toast.add({ severity: 'info', summary: 'Edit Berhasil', detail: 'Shift Kerja Berhasil Di Edit', life: 3000 });
+				this.getAllShift();
 			}).catch((err) => {
 				console.log(err)
 			})
@@ -327,6 +326,7 @@ export default {
 			console.log(`Parent handling edit for shift id: ${id}`);
 			this.formPost = false
 			this.visible = true
+
 			this.getShiftById(id)
 		},
 

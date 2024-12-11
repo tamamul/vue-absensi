@@ -58,10 +58,10 @@ export default {
     name:'TableDefault', 
     inject:['default'], 
     props: { 
-        columns: Array, 
+        columns: Array,
         api: String,
         apiEdit: String,
-        id: String 
+        id: String
     }, 
     data() { 
         return { 
@@ -86,10 +86,10 @@ export default {
             }); 
         }, 
         handleEdit(id) { 
-            console.log('Edit ID:', id); 
+            console.log('Edit ID:', id);
         }, 
         handleDelete(id) { 
-            console.log('Hapus ID:', id); 
+            console.log('Hapus ID:', id);
         }, 
         clearFilter() { 
             this.filters = { global: { value: null, matchMode: 'contains' } }; 
