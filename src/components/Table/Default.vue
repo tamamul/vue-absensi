@@ -41,7 +41,7 @@
         <slot /> 
 		
 		<!-- Column CRUD -->
-        <Column header="Action" frozen alignFrozen="right"> 
+        <Column header="Action" frozen alignFrozen="right" style="width: 100px;"> 
             <template #body="slotProps"> 
                 <TableActionStandard 
                     :onEdit="handleEdit"  
@@ -76,13 +76,13 @@ export default {
 
             console.log({data, newValue, field})
         },
-        async getData() { 
-            await axios.get(this.api).then((res) => { 
-                this.data = res.data.data; 
-                console.log(res.data.data); 
-                this.loading = false; 
-            }).catch((err) => { 
-                console.log(err); 
+        async getData() {
+            await axios.get(this.api).then((res) => {
+                this.data = res.data.data;
+                console.log(res.data.data);
+                this.loading = false;
+            }).catch((err) => {
+                console.log(err);
             }); 
         }, 
         handleEdit(id) { 

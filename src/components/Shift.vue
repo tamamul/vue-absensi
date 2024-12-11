@@ -1,5 +1,13 @@
 <template>
-	<div v-if="loading"></div>
+	<div 
+		v-if="loading"
+		style="backgroundColor: #07134F"
+		class="rounded-md text-white py-3 px-3 flex justify-between items-center"
+	>
+		<div>
+			Loading...
+		</div>
+	</div>
 	<div 
 		v-else
 		:style="{ backgroundColor: data.warna }"
