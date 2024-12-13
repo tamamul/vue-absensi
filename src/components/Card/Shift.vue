@@ -1,61 +1,40 @@
 <template>
-	<div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5">
-		<Card class="col-span-12 xl:col-span-8 shadow-md">
-			<template #title>
-				<div class="flex justify-between">
-                    <h3>
-						Jadwal Kerja
-					</h3>
-					<div class="flex gap-2">
-						<Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
-						<Button icon="pi pi-plus-circle" label="Tambah" @click="toggleJadwalKerja()"></Button>
-					</div>
-                </div>
-			</template>
-			<template #content>
-				<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" />
-			</template>
-		</Card>
-
-		<Card class="col-span-12 xl:col-span-4 shadow-md">
-			<template #title>
-				<div class="flex justify-between">
-                    <h3>
-						Daftar Shift Kerja
-					</h3>
-					<Button icon="pi pi-plus-circle" label="Tambah" @click="openPost()"></Button>
-                </div>
-			</template>
-			<template #content>
-				<div class="flex flex-col gap-1">
-					<div v-if="isLoading" class="col-span-12 w-full h-80 flex justify-center items-center">
-						<ProgressSpinner></ProgressSpinner>
-					</div>
-
-					<TampilanShift
-						v-else
-						v-for		 = "item in shift" 
-						:key		 = "item.id_shift"
-						:id			 = "item.id_shift"
-						:nama_shift	 = "item.nama_shift"
-						:warna		 = "item.warna"
-						:jam_masuk	 = "item.jam_masuk"
-						:jam_keluar	 = "item.jam_keluar"
-						@editShift	 = "handleEditShift"
-						@deleteShift = "handleDeleteShift"
-					/>
+	<Card class="col-span-12 xl:col-span-4 shadow-md">
+		<template #title>
+			<div class="flex justify-between">
+				<h3>
+					Daftar Shift Kerja
+				</h3>
+				<Button icon="pi pi-plus-circle" label="Tambah" @click="openPost()"></Button>
+			</div>
+		</template>
+		<template #content>
+			<div class="flex flex-col gap-1">
+				<div v-if="loading" class="col-span-12 w-full h-80 flex justify-center items-center">
+					<ProgressSpinner></ProgressSpinner>
 				</div>
-			</template>
-		</Card>
-	</div>
+
+				<TampilanShift
+					v-else
+					v-for		 = "item in shift" 
+					:key		 = "item.id_shift"
+					:id			 = "item.id_shift"
+					:nama_shift	 = "item.nama_shift"
+					:warna		 = "item.warna"
+					:jam_masuk	 = "item.jam_masuk"
+					:jam_keluar	 = "item.jam_keluar"
+					@editShift	 = "handleEditShift"
+					@deleteShift = "handleDeleteShift"
+				/>
+			</div>
+		</template>
+	</Card>
 
 	<Dialog v-model:visible="visible" modal :header="dialogTitle" :style="{ width: '30rem' }">
 
 		<!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ dialogDeskripsi }}</span> -->
 		<div :style="{ backgroundColor: warna }" class="rounded-md text-white py-3 mb-4 px-3 flex justify-between">
-			<div>
-				{{ nama_shift }}
-			</div>
+			<div>{{ nama_shift }}</div>
 			<div class="flex items-center gap-2">
 				<i class="pi pi-clock"></i>
 				<p>{{ formattedTime(jam_masuk) }}-{{ formattedTime(jam_keluar) }}</p>
@@ -68,14 +47,14 @@
 			</div>
 		</div>
 
-        <form class="w-full grid grid-cols-12 gap-2" v-else>
+		<form class="w-full grid grid-cols-12 gap-2" v-else>
 
 			<div class="col-span-12 gap-1">
-                <label class="max-h-6 col-span-12" for="nama_shift">Nama Shift <span class="text-red-500">*</span></label>
-                <InputText id="nama_shift" v-model="nama_shift" class="w-full max-h-[46px]" :invalid="hasValidated && v$.nama_shift.$invalid" />
-                <small v-if="hasValidated && v$.nama_shift.$error" class="text-red-500 w-full">Wajib Diisi</small>
-                <small v-else class="invisible">...</small>
-            </div>
+				<label class="max-h-6 col-span-12" for="nama_shift">Nama Shift <span class="text-red-500">*</span></label>
+				<InputText id="nama_shift" v-model="nama_shift" class="w-full max-h-[46px]" :invalid="hasValidated && v$.nama_shift.$invalid" />
+				<small v-if="hasValidated && v$.nama_shift.$error" class="text-red-500 w-full">Wajib Diisi</small>
+				<small v-else class="invisible">...</small>
+			</div>
 
 			<div class="col-span-12 grid grid-cols-12 gap-2">
 				<div class="col-span-6 gap-1">
@@ -124,13 +103,13 @@
 				</div>
 
 				<div class="col-span-6 gap-1">
-					<label class="max-h-6 col-span-12" for="jam_istirahat_selesai">Jam Istirahat Selesai <span class="text-red-500">*</span></label>
-					<DatePicker inputId="jam_istirahat_selesai" v-model="jam_istirahat_selesai" timeOnly  showIcon fluid iconDisplay="input">
+					<label class="max-h-6 col-span-12" for="jam_selesai_istirahat">Jam Istirahat Selesai <span class="text-red-500">*</span></label>
+					<DatePicker inputId="jam_selesai_istirahat" v-model="jam_selesai_istirahat" timeOnly  showIcon fluid iconDisplay="input">
 						<template #inputicon="slotProps">
 							<i class="pi pi-clock" @click="slotProps.clickCallback" />
 						</template>
 					</DatePicker>
-					<small v-if="hasValidated && v$.jam_istirahat_selesai.$error" class="text-red-500 w-full">Wajib Diisi</small>
+					<small v-if="hasValidated && v$.jam_selesai_istirahat.$error" class="text-red-500 w-full">Wajib Diisi</small>
 					<small v-else class="invisible">...</small>
 				</div>
 			</div>
@@ -142,42 +121,25 @@
 				<small v-else class="invisible">...</small>
 			</div>
 
-            <div class="col-span-12 flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
-                <Button type="button" label="Edit" :loading="btnIsLoading" @click="edit(id_shift)" v-if="!formPost"></Button>
-                <Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post" v-else></Button>
-            </div>
+			<div class="col-span-12 flex justify-end gap-2">
+				<Button type="button" label="Cancel" severity="secondary" @click="close"></Button>
+				<Button type="button" label="Edit" :loading="btnIsLoading" @click="edit(id_shift)" v-if="!formPost"></Button>
+				<Button type="button" label="Tambahkan" :loading="btnIsLoading" @click="post" v-else></Button>
+			</div>
 
-        </form>
+		</form>
 
-    </Dialog>
-
-	<DialogJadwalKerja :visible="visibleJadwalKerja" @toggle="toggleJadwalKerja" :shift="shift" />
+	</Dialog>
 </template>
 
 <script>
 export default {
-	name:'ShiftKerja',
+	name:'CardShift',
 	inject:['default'],
 	data() {
 		return {
-			// Table
 			shift	: [],
-			columns: [
-				{ field: 'nama_pegawai', header: 'Nama Pegawai', editable: false },
-				{ field: 'jabatan', header: 'Jabatan', editable: false },
-				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal', editable: true },
-			],
 
-			// Jadwal Kerja
-			visibleJadwalKerja	: false,
-
-			// Loading State
-			isLoading		: true,
-			btnIsLoading	: false,
-			formIsLoading	: true,
-
-			// Dialog
 			visible			: false,
 			dialogTitle		: '',
             dialogDeskripsi	: '',
@@ -191,6 +153,11 @@ export default {
 			editShift	: [],
 			formPost	: false,
 
+			// Loading State
+			btnIsLoading	: false,
+			formIsLoading	: true,
+			loading: true,
+
 			// theForm
 			id_shift				: null,
 			nama_shift				: "",
@@ -198,7 +165,7 @@ export default {
 			jam_keluar				: null,
 			warna					: "",
 			jam_istirahat_mulai		: null,
-			jam_istirahat_selesai	: null,
+			jam_selesai_istirahat	: null,
 			toleransi_keterlambatan	: 0,
 		}
 	},
@@ -211,36 +178,25 @@ export default {
 			jam_keluar				: { required },
 			warna					: { required },
 			jam_istirahat_mulai		: { required },
-			jam_istirahat_selesai	: { required },
+			jam_selesai_istirahat	: { required },
 			toleransi_keterlambatan	: { required },
 		}
 	},
-
+	
 	methods: {
 		formattedTime,
-		toggleJadwalKerja() {
-			this.visibleJadwalKerja = !this.visibleJadwalKerja;
-		},
-
-		ensureHashtag() {
-			if (this.warna && !this.warna.startsWith('#')) {
-				this.warna = `#${this.warna}`;
-			}
-		},
-
 		async getAllShift() {
 			await axios.get('shift').then((res) => {
-				this.isLoading = false
+				this.loading = false
 				this.shift = res.data.data
 				console.log(res.data.data)
 			}).catch((err) => {
 				console.log(err)
 			})
 		},
-
 		async getShiftById(id) {
 			await axios.get(`shift/` + id).then((res) => {
-				this.isLoading = false
+				this.loading = false
 				this.formIsLoading = false
 				// Form
 				this.id_shift 	= res.data.data.id_shift
@@ -248,16 +204,15 @@ export default {
 				this.jam_masuk	= res.data.data.jam_masuk
 				this.jam_keluar	= res.data.data.jam_keluar
 				this.warna		= res.data.data.warna
-				this.jam_istirahat_mulai		= res.data.data.jam_istirahat_mulai
-				this.jam_istirahat_selesai		= res.data.data.jam_istirahat_selesai
+				this.jam_istirahat_mulai		= res.data.data.jam_istirahat
+				this.jam_selesai_istirahat		= res.data.data.jam_selesai_istirahat
 				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan
-				console.log(res.data.data.nama_shift)
+				console.log(res.data.data)
 			}).catch((err) => {
 				console.log(err)
 				console.log('duh')
 			})
 		},
-
 		openPost() {
 			// Form
 			this.formPost = true
@@ -266,7 +221,7 @@ export default {
 			this.jam_keluar					= "17:00",
 			this.warna						= "#07134f",
 			this.jam_istirahat_mulai		= "12:00",
-			this.jam_istirahat_selesai		= "13:00",
+			this.jam_selesai_istirahat		= "13:00",
 			this.toleransi_keterlambatan	= 0,
 
 			this.formIsLoading = false
@@ -284,7 +239,7 @@ export default {
 				jam_keluar				: this.formattedTime(this.jam_keluar),
 				warna					: this.warna,
 				jam_istirahat_mulai		: this.formattedTime(this.jam_istirahat_mulai),
-				jam_istirahat_selesai	: this.formattedTime(this.jam_istirahat_selesai),
+				jam_selesai_istirahat	: this.formattedTime(this.jam_selesai_istirahat),
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,
 			}
 			await axios.post('shift', data, {
@@ -309,7 +264,7 @@ export default {
 				jam_keluar				: this.formattedTime(this.jam_keluar),
 				warna					: this.warna,
 				jam_istirahat_mulai		: this.formattedTime(this.jam_istirahat_mulai),
-				jam_istirahat_selesai	: this.formattedTime(this.jam_istirahat_selesai),
+				jam_selesai_istirahat	: this.formattedTime(this.jam_selesai_istirahat),
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,
 			}
 			await axios.put(`shift/` + id, data).then((res) => {
@@ -317,25 +272,6 @@ export default {
 				this.visible = false;
 				this.$toast.add({ severity: 'info', summary: 'Edit Berhasil', detail: 'Shift Kerja Berhasil Di Edit', life: 3000 });
 				this.getAllShift();
-			}).catch((err) => {
-				console.log(err)
-			})
-		},
-
-		handleEditShift(id) {
-			console.log(`Parent handling edit for shift id: ${id}`);
-			this.formPost = false
-			this.visible = true
-
-			this.getShiftById(id)
-		},
-
-		async onDelete(id) {
-			await axios.delete(`shift/${id}`, {
-				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
-			}).then((res) => {
-				console.log(res)
-				this.getAllShift()
 			}).catch((err) => {
 				console.log(err)
 			})
@@ -369,12 +305,37 @@ export default {
 		close() {
 			this.visible = false
 		},
+
+		ensureHashtag() {
+			if (this.warna && !this.warna.startsWith('#')) {
+				this.warna = `#${this.warna}`;
+			}
+		},
+
+		handleEditShift(id) {
+			console.log(`Parent handling edit for shift id: ${id}`);
+			this.formPost = false
+			this.visible = true
+
+			this.getShiftById(id)
+		},
+
+		async onDelete(id) {
+			await axios.delete(`shift/${id}`, {
+				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+			}).then((res) => {
+				this.getAllShift()
+			}).catch((err) => {
+				console.log(err)
+			})
+		},
 	},
-	mounted() {
+	async mounted() {
 		this.getAllShift()
 	},
 }
 </script>
+
 
 <style>
 .p-datatable-header{

@@ -40,15 +40,14 @@ const routes = [
         component: () => import('../shell/DashboardShell.vue'),
         meta: { requiresAuth: true, role: UserRoles.ADMIN },
         children: [
-            { path: 'dashboard', 				name: 'admin-dashboard', 			component: () => import('../views/Admin/Dashboard.vue') },
-            { path: 'profile', 		            name: 'admin-profile',              component: () => import('../views/Admin/Profile.vue') },
-            { path: 'settings', 	            name: 'admin-settings',             component: () => import('../views/Admin/Settings.vue') },
-            { path: 'perusahaan/pegawai', 		name: 'admin-pegawai', 				component: () => import('../views/Admin/Perusahaan/Pegawai.vue') },
-            { path: 'perusahaan/gaji', 			name: 'admin-gaji', 				component: () => import('../views/Admin/Perusahaan/Gaji.vue') },
-            { path: 'perusahaan/payroll', 		name: 'admin-payroll', 				component: () => import('../views/Admin/Perusahaan/Payroll.vue') },
-            { path: 'kehadiran/absensi', 		name: 'admin-kehadiran-absensi', 	component: () => import('../views/Admin/Kehadiran/Absensi.vue') },
-            { path: 'kehadiran/jadwal-kerja',   name: 'admin-jadwal',               component: () => import('../views/Admin/Kehadiran/JadwalKerja.vue') },
-            { path: 'kehadiran/jadwal-pegawai', name: 'admin-jadwal-pegawai',       component: () => import('../views/Admin/Kehadiran/JadwalPegawai.vue') },
+            { path: 'dashboard', 				        name: 'admin-dashboard', 			    component: () => import('../views/Admin/Dashboard.vue') },
+            { path: 'profile', 		                    name: 'admin-profile',                  component: () => import('../views/Admin/Profile.vue') },
+            { path: 'settings', 	                    name: 'admin-settings',                 component: () => import('../views/Admin/Settings.vue') },
+            { path: 'perusahaan/pegawai', 		        name: 'admin-pegawai', 				    component: () => import('../views/Admin/Perusahaan/Pegawai.vue') },
+            { path: 'perusahaan/gaji', 			        name: 'admin-gaji', 				    component: () => import('../views/Admin/Perusahaan/Gaji.vue') },
+            { path: 'perusahaan/payroll', 		        name: 'admin-payroll', 				    component: () => import('../views/Admin/Perusahaan/Payroll.vue') },
+            { path: 'kehadiran/absensi', 		        name: 'admin-kehadiran-absensi', 	    component: () => import('../views/Admin/Kehadiran/Absensi.vue') },
+            { path: 'kehadiran/jadwal',                 name: 'admin-jadwal',                   component: () => import('../views/Admin/Kehadiran/Jadwal.vue') },
             // { path: 'kehadiran/shift-kerja',	name: 'admin-shift-kerja', 			component: () => import('../views/Admin/Kehadiran/ShiftKerja.vue') },
         ]
     }

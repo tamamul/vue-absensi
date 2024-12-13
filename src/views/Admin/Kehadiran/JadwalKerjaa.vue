@@ -20,7 +20,8 @@
 			</template>
 		</Card>
 
-		<DialogJadwalKerja :visible="visible" @toggle="toggleJadwalKerja" />
+		<DialogJadwalKerja :visible="visibleJadwalKerja" @toggle="toggleJadwalKerja" :shift="shift" />
+
 	</div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
 	inject:['default'],
 	data() {
 		return {
-			visible: false,
+			visibleJadwalKerja: false,
 			columns: [
 				{ field: 'nama_jadwal', header: 'Nama Jadwal' },
 				{ field: 'gaji_pokok', header: 'Default' },
@@ -39,7 +40,7 @@ export default {
 	},
 	methods: {
 		toggleJadwalKerja() {
-			this.visible = !this.visible;
+			this.visibleJadwalKerja = !this.visibleJadwalKerja;
 		},
 	}
 }

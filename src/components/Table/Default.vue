@@ -4,7 +4,7 @@
         :value="data" 
         tableStyle="min-width: 50rem" 
         paginator 
-        :rows="10"  
+        :rows="5"  
         :rowsPerPageOptions="[5, 10, 20, 50]" 
         scrollable
         :loading="loading" 
@@ -30,6 +30,9 @@
 			<template #body="{ data, field }">
 				<template v-if="field === 'jadwal.nama_jadwal'">
                     {{ data.jadwal ? data.jadwal.nama_jadwal : data[field] }}
+                </template>
+				<template v-else-if="field === 'jadwal.hari'">
+                    {{ data.jadwal ? data.jadwal.hari : '-' }}
                 </template>
                 <template v-else>
                     {{ data[field] }}

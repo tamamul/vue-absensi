@@ -36,8 +36,7 @@ export default {
                     label: 'Kehadiran',
                     items: [
                         { label: 'Konfirmasi Absensi', icon: 'pi pi-check-square', route: '/admin/kehadiran/absensi' },
-                        { label: 'Jadwal Pegawai', icon: 'pi pi-calendar-clock', route: '/admin/kehadiran/jadwal-pegawai' },
-                        { label: 'Jadwal Kerja', icon: 'pi pi-briefcase', route: '/admin/kehadiran/jadwal-kerja' },
+                        { label: 'Jadwal', icon: 'pi pi-calendar-clock', route: '/admin/kehadiran/jadwal' },
                     ]
                 },
                 {
