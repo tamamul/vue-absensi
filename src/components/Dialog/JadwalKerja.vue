@@ -115,9 +115,9 @@ export default {
 			await axios.get('shift').then((res) => {
 				this.isLoading = false
 				this.shift = res.data.data
-				console.log(res.data.data)
+				// console.log(res.data.data)
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 			})
 		},
 		async postJadwalKerja() {
@@ -126,14 +126,14 @@ export default {
 				jadwal: this.data
 			}
 			await axios.post('jadwal', data).then((res) => {
-				console.log(res)
+				// console.log(res)
 				this.visibleShift = false
 				this.$toast.add({ severity: 'success', summary: 'Jadwal kerja berhasil ditambahkan!', detail: `Menambahkan jadwal kerja ${res.data.data.nama_jadwal}`, life: 5000 })
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 				this.$toast.add({ severity: 'error', summary: 'Jadwal kerja gagal ditambahkan!', detail: `Gagal menambahkan jadwal kerja`, life: 5000 });
 				this.visibleShift = false
-				console.log('postJadwalKerja')
+				// console.log('postJadwalKerja')
 			})
 		},
 		async postJadwalKerjaDefault() {
@@ -143,14 +143,14 @@ export default {
 				jadwal: this.data
 			}
 			await axios.post('jadwal', data).then((res) => {
-				console.log(res)
+				// console.log(res)
 				this.visibleShift = false
 				this.$toast.add({ severity: 'success', summary: 'Jadwal kerja berhasil ditambahkan!', detail: `Menambahkan jadwal kerja ${res.data.data.nama_jadwal}`, life: 5000 })
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 				this.visibleShift = false
 				this.$toast.add({ severity: 'error', summary: 'Jadwal kerja gagal ditambahkan!', detail: `Gagal menambahkan jadwal kerja`, life: 5000 });
-				console.log('postJadwalKerjaDefault')
+				// console.log('postJadwalKerjaDefault')
 			})
 		},
 		post() {

@@ -189,9 +189,9 @@ export default {
 			await axios.get('shift').then((res) => {
 				this.loading = false
 				this.shift = res.data.data
-				console.log(res.data.data)
+				// console.log(res.data.data)
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 			})
 		},
 		async getShiftById(id) {
@@ -207,10 +207,10 @@ export default {
 				this.jam_istirahat_mulai		= res.data.data.jam_istirahat
 				this.jam_selesai_istirahat		= res.data.data.jam_selesai_istirahat
 				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan
-				console.log(res.data.data)
+				// console.log(res.data.data)
 			}).catch((err) => {
-				console.log(err)
-				console.log('duh')
+				// console.log(err)
+				// console.log('duh')
 			})
 		},
 		openPost() {
@@ -245,14 +245,14 @@ export default {
 			await axios.post('shift', data, {
 				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
 			}).then((res) => {
-				console.log(res)
+				// console.log(res)
 				this.$toast.add({ severity: 'success', summary: 'Shift kerja sukses ditambahkan', detail: 'Shift kerja telah di tambahkan', life: 3000 });
 				this.getAllShift()
 				this.visible = false
 				this.btnIsLoading = false
 			}).catch((err) => {
-				console.log(err)
-				console.log(data)
+				// console.log(err)
+				// console.log(data)
 				this.btnIsLoading = false
 			})
 		},
@@ -268,12 +268,12 @@ export default {
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,
 			}
 			await axios.put(`shift/` + id, data).then((res) => {
-				console.log('berhasil edit' + res);
+				// console.log('berhasil edit' + res);
 				this.visible = false;
 				this.$toast.add({ severity: 'info', summary: 'Edit Berhasil', detail: 'Shift Kerja Berhasil Di Edit', life: 3000 });
 				this.getAllShift();
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 			})
 		},
 
@@ -292,7 +292,7 @@ export default {
                 },
                 accept: () => {
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-					console.log(`Parent handling delete for shift id: ${id}`);
+					// console.log(`Parent handling delete for shift id: ${id}`);
 					this.onDelete(id)
 					this.getAllShift()
                 },
@@ -313,7 +313,7 @@ export default {
 		},
 
 		handleEditShift(id) {
-			console.log(`Parent handling edit for shift id: ${id}`);
+			// console.log(`Parent handling edit for shift id: ${id}`);
 			this.formPost = false
 			this.visible = true
 
@@ -326,7 +326,7 @@ export default {
 			}).then((res) => {
 				this.getAllShift()
 			}).catch((err) => {
-				console.log(err)
+				// console.log(err)
 			})
 		},
 	},
