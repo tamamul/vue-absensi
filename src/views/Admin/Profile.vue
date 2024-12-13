@@ -25,7 +25,7 @@
 						</div>
 						<div class="col-span-12 md:col-span-6 flex items-center gap-3 justify-center">
 							<!-- <FileUpload ref="fileupload" mode="basic" name="demo[]" url="/api/upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" /> -->
-							<FileUpload mode="basic" class="py-3 px-4" name="demo[]" url="/api/upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :auto="true" chooseLabel="Foto Profil" />
+							<!-- <FileUpload mode="basic" class="py-3 px-4" name="demo[]" url="/api/upload" accept="image/*" :maxFileSize="1000000" @upload="onUpload" :auto="true" chooseLabel="Foto Profil" /> -->
 							<Button label="Hapus Foto" class="py-3 px-4" outlined severity="danger"></Button>
 						</div>
 					</div>
@@ -39,28 +39,10 @@
 						</TabList>
 						<TabPanels>
 							<TabPanel value="0">
-								<form class="w-full grid grid-cols-12 gap-2">
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
-										<InputTextid v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
-									</div>
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password">Password <span class="text-red-500">*</span></label>
-										<InputTextid v-model="password" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password.$invalid" />
-									</div>
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password_confirm">Konfirmasi Password <span class="text-red-500">*</span></label>
-										<InputTextid v-model="password_confirm" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password_confirm.$invalid" />
-									</div>
-
-									<!-- CP itu Change Password  -->
-									<div class="col-span-12">
-										<Button label="Kirim" class="px-14 py-3" :loading="btnCPIsLoading" @click="kirim" />
-									</div>
-								</form>
+								Test
 							</TabPanel>
 
-							TabJadwalKerjaUmum
+							<TabJadwalKerjaUmum></TabJadwalKerjaUmum>
 						</TabPanels>
 					</Tabs>
 
@@ -68,6 +50,7 @@
 			</template>
 		</Card>
 	</div>
+
 </template>
 
 <script>

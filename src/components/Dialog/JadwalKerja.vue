@@ -2,39 +2,24 @@
 	<Dialog :visible="visible" modal header="Tambahkan Jadwal Kerja" :style="{ width: '40rem' }">
 		<template #container>
 			<!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ pesan }}</span> -->
-			<form class="p-7">
-				<p class="text-xl mb-6 font-semibold">Tambahkan Jadwal Kerja</p>
-				<div class="gap-1">
-					<label class="max-h-6 col-span-12" for="nama_jadwal">Nama Jadwal <span class="text-red-500">*</span></label>
-					<InputText 
-						id="nama_jadwal" 
-						v-model="nama_jadwal" 
-						class="w-full max-h-[46px]" 
-						:invalid="hasValidated && v$.nama_jadwal.$invalid" 
-					/>
-					<small v-if="hasValidated && v$.nama_jadwal.$error" class="text-red-500 w-full">Wajib Diisi</small>
-					<small v-else class="invisible">...</small>
+			<form class="p-7 grid grid-cols-12">
+				<p class="col-span-12 text-xl mb-6 font-semibold">Tambahkan Jadwal Kerja</p>
+				<div class="col-span-12 w-full gap-1">
+					<InputVuelidate name="nama_jadwal" label="Nama Jadwal" :hasValidated="hasValidated">
+						<InputText id="nama_jadwal" v-model="nama_jadwal" class="col-span-12 max-h-[46px]" :disabled="selectedShift ? false : true" :invalid="hasValidated && v$.nama_jadwal.$invalid" />
+					</InputVuelidate>
 				</div>
 				
-				<div class="flex overflow-x-auto mb-3 gap-2">
-					<!-- <SelectButton 
-						v-model="value" 
-						:options="options" 
-						optionLabel="name" 
-						optionValue="value"
-						multiple 
-						aria-labelledby="multiple" 
-					/> -->
-						<BtnJadwalKerja hari="Senin"	@openShift="openShift('Senin')" />
-						<BtnJadwalKerja hari="Selasa"	@openShift="openShift('Selasa')" />
-						<BtnJadwalKerja hari="Rabu"		@openShift="openShift('Rabu')" />
-						<BtnJadwalKerja hari="Kamis"	@openShift="openShift('Kamis')" />
-						<BtnJadwalKerja hari="Jum'at"	@openShift="openShift('Jum\'at')" />
-						<BtnJadwalKerja hari="Sabtu"	@openShift="openShift('Sabtu')" />
-						<BtnJadwalKerja hari="Minggu"	@openShift="openShift('Minggu')" />
+				<div class="col-span-12 flex justify-center overflow-x-auto mb-3 gap-2">
+					<BtnJadwalKerja hari="Selasa"	@openShift="openShift('Selasa')" />
+					<BtnJadwalKerja hari="Rabu"		@openShift="openShift('Rabu')" />
+					<BtnJadwalKerja hari="Kamis"	@openShift="openShift('Kamis')" />
+					<BtnJadwalKerja hari="Jum'at"	@openShift="openShift('Jum\'at')" />
+					<BtnJadwalKerja hari="Sabtu"	@openShift="openShift('Sabtu')" />
+					<BtnJadwalKerja hari="Minggu"	@openShift="openShift('Minggu')" />
 				</div>
 
-				<div class="w-full overflow-y-auto flex flex-col gap-2 mb-3">
+				<div class="col-span-12 w-full overflow-y-auto flex flex-col gap-2 mb-3">
 					<p>Pilih Shift Kerja</p>
 					<div v-for="item in data" :key="item.id_shift">
 						<p>Hari : {{ item.hari }}</p>
@@ -42,9 +27,9 @@
 					</div>
 				</div>
 
-				<div class="flex justify-end gap-2">
+				<div class="col-span-12 flex justify-end gap-2">
 					<Button type="button" label="Cancel" severity="secondary" @click="$emit('toggle')"></Button>
-					<Button type="button" label="Save" @click="postJadwalKerja"></Button>
+					<Button type="button" label="Save" @click="post"></Button>
 				</div>
 			</form>
 		</template>
@@ -74,6 +59,11 @@ export default {
 	inject: ['default'],
 	props: {
 		visible: Boolean,
+		is_default: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
 	},
 	emits: ['toggle'],
 	data() {
@@ -132,15 +122,39 @@ export default {
 		},
 		async postJadwalKerja() {
 			const data = {
-				nama_jadwal: this.selectedShift,
+				nama_jadwal: this.nama_jadwal,
 				jadwal: this.data
 			}
-			console.log(data)
 			await axios.post('jadwal', data).then((res) => {
 				console.log(res)
+				this.visibleShift = false
+				this.$toast.add({ severity: 'success', summary: 'Jadwal kerja berhasil ditambahkan!', detail: `Menambahkan jadwal kerja ${res.data.data.nama_jadwal}`, life: 5000 })
 			}).catch((err) => {
 				console.log(err)
+				this.$toast.add({ severity: 'error', summary: 'Jadwal kerja gagal ditambahkan!', detail: `Gagal menambahkan jadwal kerja`, life: 5000 });
+				this.visibleShift = false
+				console.log('postJadwalKerja')
 			})
+		},
+		async postJadwalKerjaDefault() {
+			const data = {
+				nama_jadwal: this.nama_jadwal,
+				is_default: true,
+				jadwal: this.data
+			}
+			await axios.post('jadwal', data).then((res) => {
+				console.log(res)
+				this.visibleShift = false
+				this.$toast.add({ severity: 'success', summary: 'Jadwal kerja berhasil ditambahkan!', detail: `Menambahkan jadwal kerja ${res.data.data.nama_jadwal}`, life: 5000 })
+			}).catch((err) => {
+				console.log(err)
+				this.visibleShift = false
+				this.$toast.add({ severity: 'error', summary: 'Jadwal kerja gagal ditambahkan!', detail: `Gagal menambahkan jadwal kerja`, life: 5000 });
+				console.log('postJadwalKerjaDefault')
+			})
+		},
+		post() {
+			this.is_default ? this.postJadwalKerjaDefault() : this.postJadwalKerja()
 		}
 	},
 	mounted() {

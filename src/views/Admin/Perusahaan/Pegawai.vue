@@ -100,7 +100,6 @@
 </template>
 
 <script>
-import PageLoading from '@/components/PageLoading.vue';
 import router from '@/router'
 export default {
 	name: 'AdminPegawai',
@@ -351,12 +350,10 @@ export default {
                 this.hasValidated = false
                 this.visible = false
                 this.btnIsLoading = false
-                console.log(this.v$)
                 this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
                 this.getPegawaiAll()
             }).catch((err) =>{
                 console.log(err);
-                console.log(this.v$)
                 this.btnIsLoading = false
                 this.$toast.add({ severity: 'error', summary: 'Pegawai gagal ditambahkan!', detail: `Gagal menambahkan pegawai`, life: 5000 });
                 this.getPegawaiAll()
