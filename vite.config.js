@@ -31,7 +31,7 @@ export default defineConfig({
 				'@vuelidate/validators'		: ['required', 'email'],
 				'@/utils/date'				: ['formattedTime', 'formattedDate'],
 				'@/utils/fetch'				: ['getData'],
-				'@/router'					: ['router'],
+				'@/router'					: [['default', 'router']],
 				}
 			],
 		})

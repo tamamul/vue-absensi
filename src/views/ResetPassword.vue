@@ -7,7 +7,7 @@
 			<template #content>
 				<div class="flex flex-col gap-2">
 					<div class="flex justify-center">
-						<RouterLink to="dashboard" v-show="token">
+						<RouterLink :to="dashboard" v-show="token">
 							<Button label="Kembali ke Dashboard"></Button>
 						</RouterLink>
 						<RouterLink to="login" v-show="!token">
@@ -39,10 +39,8 @@
 </template>
 
 <script>
-// import { useVuelidate } from '@vuelidate/core'
-// import { required, email } from '@vuelidate/validators'
 export default {
-	name:'NotFound',
+	name:'ResetPassword',
 	inject:['default'],
 	// setup () {
 	// 	return { v$: useVuelidate() }
@@ -51,6 +49,10 @@ export default {
 		return {
 			password: '',
 			password_confirm: '',
+			dashboard: '',
+			authStore: useAuthStore(),
+            dataUser : 0,
+            dataRole : 0,
 		}
 	},
 	// validations() {
@@ -72,23 +74,31 @@ export default {
 				password: this.password,
 				password_confirmation: this.password_confirm,
 			}
-			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data, {
-				headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-			}).then((res) => {
+			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data).then((res) => {
 				console.log(res)
-                this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Halo `, life: 5000 });
-				router.push({name: 'dashboard'})
+                this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Masuk dengan password baru `, life: 5000 });
+				router.push({name: this.dashboard})
 			}).catch((err) => {
 				console.log(err)
-                this.$toast.add({ severity: 'error', summary: 'Gagal bro', detail: `Halo `, life: 5000 });
+                this.$toast.add({ severity: 'error', summary: 'Password Gagal diganti', detail: `Login dengan password lama `, life: 5000 });
 			})
 		},
-	},
-	
-	mounted() {
-		this.getToken();
-	},
+		async getUser() {
+            await this.authStore.getUser();
+            this.dataUser = this.authStore.authUser;
+            this.dataRole = this.authStore.userRole;
+
+			if (this.dataRole == 'admin') {
+				this.dashboard = 'AdminDashboard';
+			} else {
+				this.dashboard = 'UserDashboard';
+			}
+        },
+    },
+    async mounted() {
+        await this.getUser();
+        this.getToken();
+        this.isLoading = false;
+    }
 }
 </script>
