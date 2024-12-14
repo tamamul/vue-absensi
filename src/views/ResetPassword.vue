@@ -75,7 +75,7 @@ export default {
 				password_confirmation: this.password_confirm,
 			}
 			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data).then((res) => {
-				console.log(res)
+				// console.log(res)
                 this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Masuk dengan password baru `, life: 5000 });
 				router.push({name: this.dashboard})
 			}).catch((err) => {

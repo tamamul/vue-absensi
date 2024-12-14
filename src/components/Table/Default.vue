@@ -74,11 +74,6 @@ export default {
         } 
     }, 
     methods: {
-		onCellEditComplete(event) {
-            let { data, newValue, field } = event;
-
-            console.log({data, newValue, field})
-        },
         async created() {
             try {
                 this.data = await getData(this.api);

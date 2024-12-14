@@ -309,7 +309,7 @@ export default {
                 }
             }).then((res) => {
                 this.hasValidated = false
-                console.log(res.data)
+                // console.log(res.data)
                 this.visible = false
                 this.btnIsLoading = false
                 this.getPegawaiAll()

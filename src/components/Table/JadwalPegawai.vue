@@ -29,7 +29,7 @@ export default {
 		async getData() { 
             await axios.get('/jadwal/pegawai').then((res) => { 
                 this.dataJadwal = res.data.data; 
-                console.log(res.data.data); 
+                // console.log(res.data.data); 
                 this.loading = false; 
             }).catch((err) => { 
                 console.log(err); 

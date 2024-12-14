@@ -191,7 +191,7 @@ export default {
 				this.shift = res.data.data
 				// console.log(res.data.data)
 			}).catch((err) => {
-				// console.log(err)
+				console.log(err)
 			})
 		},
 		async getShiftById(id) {
@@ -209,8 +209,7 @@ export default {
 				this.toleransi_keterlambatan	= res.data.data.toleransi_keterlambatan
 				// console.log(res.data.data)
 			}).catch((err) => {
-				// console.log(err)
-				// console.log('duh')
+				console.log(err)
 			})
 		},
 		openPost() {
@@ -249,8 +248,8 @@ export default {
 				this.visible = false
 				this.btnIsLoading = false
 			}).catch((err) => {
-				// console.log(err)
-				// console.log(data)
+				console.log(err)
+				console.log(data)
 				this.btnIsLoading = false
 			})
 		},
@@ -271,7 +270,7 @@ export default {
 				this.$toast.add({ severity: 'info', summary: 'Edit Berhasil', detail: 'Shift Kerja Berhasil Di Edit', life: 3000 });
 				this.getAllShift();
 			}).catch((err) => {
-				// console.log(err)
+				console.log(err)
 			})
 		},
 

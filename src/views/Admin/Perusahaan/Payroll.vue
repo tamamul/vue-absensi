@@ -50,10 +50,10 @@ export default {
 	methods: {
 		async getPayroll() {
 			await axios.get('/payroll').then((res) => {
-				console.log(res.data.data)
+				// console.log(res.data.data)
 				this.dataPayroll = (res.data.data)
-			}).catch((error) => {
-				console.error(error)
+			}).catch((err) => {
+				console.log(err)
 			})
 		}
 	},

@@ -33,7 +33,7 @@ export default {
             axios.post('/logout', {}, {
                 headers: {'Authorization': `Bearer ${this.token}`}
             }).then((response) => {
-                console.log(response);
+                // console.log(response);
                 localStorage.removeItem('token')
                 localStorage.removeItem('is_admin')
 

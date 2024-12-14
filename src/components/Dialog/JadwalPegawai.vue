@@ -79,7 +79,7 @@ export default {
 					life: 3000
 				})
 				this.created()
-				console.log(res)
+				// console.log(res)
 			}).catch((err)=>{
 				console.log(err)
 				this.$toast.add({
