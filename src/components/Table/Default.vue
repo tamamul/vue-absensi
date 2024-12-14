@@ -79,15 +79,14 @@ export default {
 
             console.log({data, newValue, field})
         },
-        async getData() {
-            await axios.get(this.api).then((res) => {
-                this.data = res.data.data;
-                console.log(res.data.data);
+        async created() {
+            try {
+                this.data = await getData(this.api);
                 this.loading = false;
-            }).catch((err) => {
-                console.log(err);
-            }); 
-        }, 
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            }
+        },
         handleEdit(id) { 
             console.log('Edit ID:', id);
         }, 
@@ -103,7 +102,7 @@ export default {
         }
     }, 
     mounted() { 
-        this.getData(); 
+        this.created(); 
     } 
 } 
 </script>

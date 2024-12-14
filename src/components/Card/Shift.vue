@@ -242,9 +242,7 @@ export default {
 				jam_selesai_istirahat	: this.formattedTime(this.jam_selesai_istirahat),
 				toleransi_keterlambatan	: this.toleransi_keterlambatan,
 			}
-			await axios.post('shift', data, {
-				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
-			}).then((res) => {
+			await axios.post('shift', data).then((res) => {
 				// console.log(res)
 				this.$toast.add({ severity: 'success', summary: 'Shift kerja sukses ditambahkan', detail: 'Shift kerja telah di tambahkan', life: 3000 });
 				this.getAllShift()

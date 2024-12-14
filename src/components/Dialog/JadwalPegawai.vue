@@ -3,10 +3,10 @@
 		<span class="text-surface-500 dark:text-surface-400 block mb-8">Pilih pegawai dan jadwal kerja yang ingin digunakan.</span>
 		<form class="">
 			<InputVuelidate name="nama_lengkap" label="Pilih Pegawai" :hasValidated="hasValidated">
-				<Select class="col-span-12" v-model="pegawai" :options="daftarPegawai" optionLabel="nama_lengkap" :loading="loadingPegawai" :placeholder="phPegawai" filter />
+				<Select class="col-span-12" v-model="pegawai" :options="daftarPegawai" optionLabel="nama_lengkap" :loading="loadingPegawai" :placeholder="phPegawai" filter></Select>
 			</InputVuelidate>
 			<InputVuelidate name="nama_jadwal" label="Pilih Pegawai" :hasValidated="hasValidated">
-				<Select class="col-span-12" v-model="jadwalKerja" :options="daftarJadwalkerja" optionLabel="nama_jadwal" :loading="loadingJadwalKerja" :placeholder="phJadwalKerja" filter />
+				<Select class="col-span-12" v-model="jadwalKerja" :options="daftarJadwalkerja" optionLabel="nama_jadwal" :loading="loadingJadwalKerja" :placeholder="phJadwalKerja" filter></Select>
 			</InputVuelidate>
 		</form>
 
@@ -31,7 +31,7 @@ export default {
 	data() {
 		return {
 			pegawai: null,
-            daftarPegawai: null,
+			daftarPegawai: null,
 			phPegawai: 'Loading...',
 			loadingPegawai: true,
 			
@@ -39,27 +39,49 @@ export default {
 			daftarJadwalkerja: null,
 			phJadwalKerja: 'Loading...',
 			loadingJadwalKerja: true,
+
+			v$: useVuelidate(),
+			hasValidated: false
 		}
+	},
+	validations() {
+		return {
+			id_jadwal: { required },
+			id_pegawai: { required },
+		};
 	},
 	methods: {
 		toggle() {
 			this.$emit('toggle')
 		},
-		async post() {
-			const data = {
-				id_pegawai: this.pegawai.id,
-				id_jadwal: this.jadwalKerja.id
+		async created() {
+			try {
+				this.data = await getData('/jadwal/pegawai');
+				this.loading = false;
+			} catch (error) {
+				console.error('Failed to fetch data:', error);
 			}
+		},
+		async post() {
+			this.toggle()
+			const data = {
+				id_pegawai: this.pegawai.id_pegawai,
+				id_jadwal: this.jadwalKerja.id_jadwal
+			}
+			// console.log(data)
+			this.hasValidated = true
 
-			await axios.put('/jadwal/pegawai').then((res)=>{
+			await axios.put('/jadwal/pegawai', data).then((res)=>{
 				this.$toast.add({
 					severity: 'success',
 					summary: 'Success',
 					detail: res.data.message,
 					life: 3000
 				})
+				this.created()
 				console.log(res)
 			}).catch((err)=>{
+				console.log(err)
 				this.$toast.add({
 					severity: 'error',
 					summary: 'Error',
@@ -69,17 +91,17 @@ export default {
 			})
 		},
 		async getPegawaiAll() {
-            try {
-                const res = await axios.get('pegawai');
-                this.daftarPegawai = res.data.data;
-                this.loadingPegawai = false;
+			try {
+				const res = await axios.get('pegawai');
+				this.daftarPegawai = res.data.data;
+				this.loadingPegawai = false;
 				this.phPegawai = 'Pilih pegawai'
-            } catch (err) {
+			} catch (err) {
 				console.log("Error:" + err);
 				this.phPegawai = 'Error'
-                this.loadingPegawai = false;
-            }
-        },
+				this.loadingPegawai = false;
+			}
+		},
 		async getJadwalKerja() {
 			await axios.get('jadwal').then((res) => {
 				this.daftarJadwalkerja = res.data.data

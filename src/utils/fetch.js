@@ -1,9 +1,13 @@
-import axios from "axios"
+// src/utils/apiUtils.js
+import axios from 'axios';
 
-export async function fetchAllData(api, fetchWhat, storeData) {
-	await axios.get(api).then((res) => {
-		storeData = res.data.data;
-		console.log(res.data.data);
-		return storeData
-	})
-} fetchAllData(url) 
+export async function getData(apiUrl) {
+    try {
+        const response = await axios.get(apiUrl);
+        console.log(response.data.data);
+        return response.data.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}

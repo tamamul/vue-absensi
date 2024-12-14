@@ -8,36 +8,37 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    Components({
-      include: [/\.vue$/, /\.vue\?vue/],
-      dirs: ['./src/components'],
-      resolvers:[PrimeVueResolver()],
-      directoryAsNamespace: true,
-    }),
-    AutoImport({
-      include: [
-        /\.vue$/,
-        /\.vue\?vue/, // .vue
-      ],
-      imports: [
-        'vue',
-        'vue-router',
-        {
-          'axios'                             : [['default', 'axios']],
-          'pinia'                             : ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
-          '@vuelidate/core'                   : ['useVuelidate'],
-          '@vuelidate/validators'             : ['required', 'email'],
-          '@/utils/date'                      : ['formattedTime', 'formattedDate'],
-          '@/router'                          : ['router'],
-        }
-      ],
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+	plugins: [
+		vue(),
+		Components({
+			include: [/\.vue$/, /\.vue\?vue/],
+			dirs: ['./src/components'],
+			resolvers:[PrimeVueResolver()],
+			directoryAsNamespace: true,
+		}),
+		AutoImport({
+			include: [
+				/\.vue$/,
+				/\.vue\?vue/, // .vue
+			],
+			imports: [
+				'vue',
+				'vue-router',
+				{
+				'axios'						: [['default', 'axios']],
+				'pinia'						: ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
+				'@vuelidate/core'			: ['useVuelidate'],
+				'@vuelidate/validators'		: ['required', 'email'],
+				'@/utils/date'				: ['formattedTime', 'formattedDate'],
+				'@/utils/fetch'				: ['getData'],
+				'@/router'					: ['router'],
+				}
+			],
+		})
+	],
+	resolve: {
+		alias: {
+			'@': fileURLToPath(new URL('./src', import.meta.url))
+		}
+	}
 })
