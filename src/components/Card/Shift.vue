@@ -318,9 +318,7 @@ export default {
 		},
 
 		async onDelete(id) {
-			await axios.delete(`shift/${id}`, {
-				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
-			}).then((res) => {
+			await axios.delete(`shift/${id}`).then((res) => {
 				this.getAllShift()
 			}).catch((err) => {
 				// console.log(err)

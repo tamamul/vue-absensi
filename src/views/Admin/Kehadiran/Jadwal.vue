@@ -12,13 +12,11 @@
 <script>
 export default {
 	name:'ShiftKerja',
-	inject:['default'],
 	data() {
 		return {
 		}
 	},
 	methods: {
-		formattedTime,
 	},
 }
 </script>

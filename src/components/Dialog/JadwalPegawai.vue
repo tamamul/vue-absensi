@@ -1,5 +1,5 @@
 <template>
-	<Dialog :visible="visible" modal header="Edit Profile" :style="{ width: '50rem' }">
+	<Dialog :visible="visible" modal header="Edit Profile" :style="{ width: '40rem' }">
 		<span class="text-surface-500 dark:text-surface-400 block mb-8">Pilih pegawai dan jadwal kerja yang ingin digunakan.</span>
 		<form class="">
 			<InputVuelidate name="nama_lengkap" label="Pilih Pegawai" :hasValidated="hasValidated">
@@ -26,6 +26,10 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+		id: {
+			type: Number,
+			default: null
+		}
 	},
 	emits: ['toggle'],
 	data() {
@@ -34,7 +38,7 @@ export default {
 			daftarPegawai: null,
 			phPegawai: 'Loading...',
 			loadingPegawai: true,
-			
+
 			jadwalKerja : null,
 			daftarJadwalkerja: null,
 			phJadwalKerja: 'Loading...',

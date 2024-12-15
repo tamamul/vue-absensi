@@ -44,12 +44,8 @@ export default {
 	},
 	methods: {
 		async getGaji() {
-			await axios.get('gaji', {
-				headers: {
-					'Authorization': `Bearer ${this.default.token}`
-				}
-			}).then((res) => {
-				console.log(res)
+			await axios.get('gaji').then((res) => {
+				// console.log(res)
 			})
 		}
 	},

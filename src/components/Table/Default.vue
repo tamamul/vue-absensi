@@ -43,7 +43,7 @@
 		<!-- Column Custom -->
         <slot /> 
 		
-		<!-- Column CRUD -->
+		<!-- Column UD -->
         <Column header="Action" frozen alignFrozen="right" style="width: 100px;"> 
             <template #body="slotProps"> 
                 <TableActionStandard 
@@ -60,6 +60,7 @@
 export default { 
     name:'TableDefault', 
     inject:['default'], 
+    emits: ['openEdit', 'openDelete'],
     props: { 
         columns: Array,
         api: String,
@@ -84,9 +85,11 @@ export default {
         },
         handleEdit(id) { 
             console.log('Edit ID:', id);
+            this.$emit('openEdit', id);
         }, 
         handleDelete(id) { 
             console.log('Hapus ID:', id);
+            this.$emit('openDelete', id);
         }, 
         clearFilter() { 
             this.filters = { global: { value: null, matchMode: 'contains' } }; 

@@ -54,7 +54,7 @@ export default {
                 }
 			}).then((res) => {
 				this.inputIsLoading = false
-				console.log(res)
+				// console.log(res)
 				this.kodeAbsensi = ''
 			}).catch((err) => {
 				this.inputIsLoading = false
@@ -69,7 +69,7 @@ export default {
 				}
 			}).then((res) => {
 				this.telahAbsen = (res.data.data)
-				console.log(res)
+				// console.log(res)
 			}).catch((err) => {
 				console.log(err)
 				// router.push({name: 'not-found'})

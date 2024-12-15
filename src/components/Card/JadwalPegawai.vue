@@ -11,32 +11,45 @@
 			</div>
 		</template>
 		<template #content>
-			<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" />
+			<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" @openEdit="handleEdit" @openDelete="handleDelete" />
 		</template>
 	</Card>
 
-	<DialogJadwalPegawai :visible="visible" @toggle="toggleJadwalPegawai"></DialogJadwalPegawai>
+	<DialogJadwalPegawai 
+		:visible="visible" 
+		@toggle="toggleJadwalPegawai"
+		:id="id"
+	/>
 </template>
 
 <script>
 export default {
 	name:'CardJadwalPegawai',
-	inject:['default'],
 	data() {
 		return {
 			// Table
 			columns: [
-				{ field: 'nama_pegawai', header: 'Nama Pegawai', editable: false },
-				{ field: 'jabatan', header: 'Jabatan', editable: false },
-				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal', editable: true },
+				{ field: 'nama_pegawai', header: 'Nama Pegawai' },
+				{ field: 'jadwal.nama_jadwal', header: 'Nama Jadwal' },
 			],
-			visible: false
+			visible: false,
+			id: null,
 		}
 	},
 	methods: {
 		toggleJadwalPegawai() {
 			this.visible = !this.visible
-		}
+		},
+		handleEdit(id) {
+			console.log(id)
+			this.visible = true
+			this.id = id
+		},
+		handleDelete(id) {
+			console.log(id)
+			deleteData('/jadwal/pegawai', id)
+			getData('jadwal/pegawai')
+		},
 	},
 	mounted() {
 	},

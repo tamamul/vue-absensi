@@ -3,43 +3,26 @@
 		<Button 
 			icon="pi pi-pencil" 
 			severity="info" 
-			aria-label="Notification" 
-			@click="emitEdit(id)" 
+			aria-label="Edit" 
+			@click="$emit('edit', id)" 
 		/>
 		<Button 
 			icon="pi pi-trash" 
 			severity="danger" 
-			aria-label="Notification" 
-			@click="emitDelete(id)"
+			aria-label="Delete" 
+			@click="$emit('delete', id)"
 		/>
 	</div>
 </template>
 
 <script>
 export default {
-	name:'TableActionStandard',
-	inject:['default'],
+	name: 'TableActionStandard',
 	props: {
-		onEdit: {
-			type: Function,
-			required: true
-		},
-		onDelete: {
-			type: Function,
-			required: true
-		},
-		id:{
+		id: {
 			type: Number,
 			required: true
 		}
-	},
-	methods: {
-		emitEdit(id) {
-			this.onEdit(id);
-		},
-		emitDelete(id) {
-			this.onDelete(id);
-		}
 	}
-}
+};
 </script>

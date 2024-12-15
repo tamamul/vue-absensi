@@ -81,7 +81,7 @@ export default {
                 this.data = res.data.data.token
                 this.isLoading = false
             }).catch((err) => {
-                console.log('errorbro' + err)
+                console.log(err)
             })
         },
         async getQrCodeAfter30seccond() {
@@ -95,7 +95,7 @@ export default {
                     this.data = res.data.data.token;
                     console.log(res.data.data.token)
                 }).catch((error) => {
-                    console.error("errorbro", error);
+                    console.error(error);
                 })
             }, 30000);
         }

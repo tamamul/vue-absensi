@@ -9,12 +9,13 @@
 						<InputText id="nama_jadwal" v-model="nama_jadwal" class="col-span-12 max-h-[46px]" :disabled="selectedShift ? false : true" :invalid="hasValidated && v$.nama_jadwal.$invalid" />
 					</InputVuelidate>
 				</div>
-				
+
 				<div class="col-span-12 flex justify-center overflow-x-auto mb-3 gap-2">
+					<BtnJadwalKerja hari="Senin"	@openShift="openShift('Senin')" />
 					<BtnJadwalKerja hari="Selasa"	@openShift="openShift('Selasa')" />
 					<BtnJadwalKerja hari="Rabu"		@openShift="openShift('Rabu')" />
 					<BtnJadwalKerja hari="Kamis"	@openShift="openShift('Kamis')" />
-					<BtnJadwalKerja hari="Jum'at"	@openShift="openShift('Jum\'at')" />
+					<BtnJadwalKerja hari="Jum'at"	@openShift="openShift('Jumat')" />
 					<BtnJadwalKerja hari="Sabtu"	@openShift="openShift('Sabtu')" />
 					<BtnJadwalKerja hari="Minggu"	@openShift="openShift('Minggu')" />
 				</div>
@@ -29,7 +30,7 @@
 
 				<div class="col-span-12 flex justify-end gap-2">
 					<Button type="button" label="Cancel" severity="secondary" @click="$emit('toggle')"></Button>
-					<Button type="button" label="Save" @click="post"></Button>
+					<Button type="button" label="Save" @click="post()"></Button>
 				</div>
 			</form>
 		</template>
@@ -126,11 +127,9 @@ export default {
 				jadwal: this.data
 			}
 			await axios.post('jadwal', data).then((res) => {
-				// console.log(res)
 				this.visibleShift = false
 				this.$toast.add({ severity: 'success', summary: 'Jadwal kerja berhasil ditambahkan!', detail: `Menambahkan jadwal kerja ${res.data.data.nama_jadwal}`, life: 5000 })
 			}).catch((err) => {
-				// console.log(err)
 				this.$toast.add({ severity: 'error', summary: 'Jadwal kerja gagal ditambahkan!', detail: `Gagal menambahkan jadwal kerja`, life: 5000 });
 				this.visibleShift = false
 				console.log(err)

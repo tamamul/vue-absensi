@@ -302,7 +302,7 @@ export default {
                 this.rekening        = mainData.pegawai.rekening
 				// Avatar If null
 				mainData.avatar == null ? this.avatar = '/src/assets/app-logo.png' : this.avatar = (mainData.avatar)
-				console.log(mainData)
+				// console.log(mainData)
 				this.isLoading = false
 			}).catch((err) => {
 				console.log(err)

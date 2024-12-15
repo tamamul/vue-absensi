@@ -54,8 +54,6 @@ export default {
 				{'field': 'status', 'header': 'Status'},
 				{'field': 'jam_masuk', 'header': 'Jam Masuk'},
 				{'field': 'jam_keluar', 'header': 'Jam Keluar'},
-				// {'field': 'tgl_kehadiran', 'header': 'Tanggal Kehadiran'},
-				// {'field': 'hari', 'header': 'Hari'},
 			]
 		}
 	},
@@ -67,7 +65,7 @@ export default {
 				console.log(res)
 				this.kodeAbsensi = ''
 			}).catch((err) => {
-				console.log('Err Bro' + err)
+				console.log(err)
 				this.kodeAbsensi = ''
 			})
 		},

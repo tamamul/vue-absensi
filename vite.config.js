@@ -26,11 +26,12 @@ export default defineConfig({
 				'vue-router',
 				{
 				'axios'						: [['default', 'axios']],
+				'draggable'					: ['vuedraggable'],
 				'pinia'						: ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
 				'@vuelidate/core'			: ['useVuelidate'],
 				'@vuelidate/validators'		: ['required', 'email'],
 				'@/utils/date'				: ['formattedTime', 'formattedDate'],
-				'@/utils/fetch'				: ['getData'],
+				'@/utils/fetch'				: ['getData', 'deleteData'],
 				'@/router'					: [['default', 'router']],
 				}
 			],

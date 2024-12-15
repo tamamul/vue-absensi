@@ -31,7 +31,7 @@
         </div>
         <form class="w-full grid grid-cols-12 gap-2" v-else>
             <InputVuelidate name="nama_lengkap" label="Nama Lengkap" :hasValidated="hasValidated">
-                <InputText id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.name.$invalid" />
+                <InputText id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.name.$invalid" placeholder="Masukkan nama lengkap pegawai" />
             </InputVuelidate>
 
             <InputVuelidate name="email" label="Email" :hasValidated="hasValidated">
@@ -233,11 +233,7 @@ export default {
 
         // GET
         async getPegawaiAll() {
-            await axios.get('pegawai', {
-                // headers: {
-                //     'Authorization': `Bearer ${this.default.token}`
-                // }
-            }).then((res) => {
+            await axios.get('pegawai').then((res) => {
                 this.isLoading = false
                 this.pegawai = res.data.data;
             }).catch((err) => {
@@ -247,9 +243,7 @@ export default {
         },
 
         async getPegawaiById(id){
-            await axios.get(`pegawai/${id}`, {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-            }).then((res) => {
+            await axios.get(`pegawai/${id}`).then((res) => {
                 // this.isLoading = false
                 const response = res.data.data
                 this.editPegawaiData = response
@@ -303,11 +297,7 @@ export default {
                 no_telp         : this.no_telp,
                 rekening        : this.rekening,
             }
-            await axios.put(`pegawai/${id}`, data, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            }).then((res) => {
+            await axios.put(`pegawai/${id}`, data).then((res) => {
                 this.hasValidated = false
                 // console.log(res.data)
                 this.visible = false
@@ -344,9 +334,7 @@ export default {
                 no_telp         : this.no_telp,
                 rekening        : this.rekening,
             }
-            await axios.post('pegawai', data, {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-            }).then((res) => {
+            await axios.post('pegawai', data).then((res) => {
                 this.hasValidated = false
                 this.visible = false
                 this.btnIsLoading = false
@@ -362,9 +350,7 @@ export default {
 
         // DELETE
         async funDelete(id){
-            await axios.delete(`pegawai/${id}`, {
-                headers: { 'Authorization': `Bearer ${this.default.token}` }
-            }).then((res) => {
+            await axios.delete(`pegawai/${id}`).then((res) => {
                 this.getPegawaiAll()
                 console.log('berhasil delete')
                 console.log(res)
@@ -376,7 +362,7 @@ export default {
         deletePegawai(event, id) {
             this.$confirm.require({
                 target: event.currentTarget,
-                message: 'Do you want to delete this record?',
+                message: 'Apakah kamu yakin menghapus data ini?',
                 icon: 'pi pi-info-circle',
                 rejectProps: {
                     label: 'Cancel',
@@ -401,9 +387,7 @@ export default {
             const data = {
                 'email' : email
             }
-            await axios.post('email/send-verification', data, {
-                headers: {'Authorization': `Bearer ${this.default.token}`}
-            }).then((res) => {
+            await axios.post('email/send-verification', data).then((res) => {
                 this.$toast.add({ severity: 'success', summary: 'Pegawai berhasil ditambahkan!', detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`, life: 5000 });
                 console.log(res)
             }).catch((err) => {
