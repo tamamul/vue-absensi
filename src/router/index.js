@@ -16,8 +16,8 @@ const routes = [
 	// 404
     { path: '/:pathMatch(.*)*', 	name: 'not-found', 			component: () => import('../views/NotFound.vue') },
 	// KANBAN
-	{ path: '/kerjaan/workspaces', 	name: 'workspaces',         component: () => import('../views/KANBAN/Workspaces.vue') },
-	{ path: '/kerjaan/kanban',		name: 'kanban',             component: () => import('../views/KANBAN/Kanban.vue') },
+	{ path: '/workspaces', 	name: 'workspaces',         component: () => import('../views/KANBAN/Workspaces.vue') },
+	{ path: '/kanban',		name: 'kanban',             component: () => import('../views/KANBAN/Kanban.vue') },
 
     // User Routes
     {

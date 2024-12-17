@@ -19,7 +19,13 @@
             </template>
             <template #empty> Data tidak ditemukan. </template>
 
-            <Column field="id_pegawai" header="No" />
+            <!-- Column No -->
+            <!-- <Column field="no" header="No.">
+                <template #body="slotProps">
+                    {{ `.` }}
+                </template>
+            </Column> -->
+
             <Column field="nama_lengkap" header="Nama" style="min-width: 300px" class="capitalize" />
 			<Column field="" header="Jenis Kelamin" style="min-width: 150px">
 				<template #body="slotProps">
@@ -80,10 +86,14 @@ export default {
                 { label: 'Laki-laki', value: 'l' },
                 { label: 'Perempuan', value: 'p' }
             ],
+            no: 1,
             loading: true,
         };
     },
     methods: {
+        calculateRowNumber(slotProps) {
+            console.log(slotProps);
+        },
         async getPegawaiAll() {
             try {
                 const res = await axios.get('pegawai');

@@ -11,7 +11,7 @@
 			</div>
 		</template>
 		<template #content>
-			<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" @openEdit="handleEdit" @openDelete="handleDelete" />
+			<TableDefault :columns="columns" api="/jadwal/pegawai" id="id" @openEdit="handleEdit" @openDelete="handleDelete" @fetchData="handleFetch" deleteText="Jadwal Pegawai" />
 		</template>
 	</Card>
 
@@ -50,6 +50,9 @@ export default {
 			deleteData('/jadwal/pegawai', id)
 			getData('jadwal/pegawai')
 		},
+		handleFetch() {
+			getData('jadwal/pegawai')
+		}
 	},
 	mounted() {
 	},

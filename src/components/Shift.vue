@@ -41,7 +41,7 @@ export default {
 	},
 	methods: {
 		async getShift() {
-			await axios.get(this.api).then(res => {
+			await axios.get(this.api ? this.api : '/shift').then(res => {
 				this.data = res.data.data
 				this.loading = false
 			}).catch(err => {

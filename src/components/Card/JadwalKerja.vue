@@ -8,6 +8,11 @@
 		</template>
 		<template #content>
 			<TableDefault :columns="columns" api="/jadwal" id="id_jadwal" @openEdit="handleEdit" @openDelete="handleDelete">
+				<Column header="Nama Jadwal">
+					<template #body="slotProps">
+						{{ slotProps.data.is_default ? 'Default ' + slotProps.data.nama_jadwal : slotProps.data.nama_jadwal }}
+					</template>
+				</Column>
 				<Column header="Menggunakan Shift" style="max-width: 400px;">
 					<template #body="slotProps">
 						<div class="flex gap-2 flex-wrap">
@@ -26,7 +31,7 @@
 		</template>
 	</Card>
 
-	<DialogJadwalKerja :visible="visible" @toggle="toggleJadwalKerja" :id="jadwalKerja" />
+	<DialogJadwalKerja ref="dialogJadwalKerja" :visible="visible" @toggle="toggleJadwalKerja" :id="jadwalKerja" />
 </template>
 
 <script>
@@ -36,15 +41,10 @@ export default {
 		return {
 			jadwalKerja: null,
 			visible: false,
-			columns: [
-				{ field: 'nama_jadwal', header: 'Nama Jadwal' },
-			],
 		};
 	},
 	computed: {
-		// Jika Anda ingin menghitung data dari API di luar slotProps
 		getColors() {
-			// Placeholder warna, misalkan Anda memproses data di sini
 			return this.dataFromAPI?.jadwal?.map(item => item.warna) || [];
 		},
 	},
@@ -53,9 +53,11 @@ export default {
 			this.visible = !this.visible;
 		},
 		handleEdit(id) {
-			console.log(id);
 			this.visible = true;
 			this.jadwalKerja = id;
+			this.$nextTick(() => {
+				this.$refs.dialogJadwalKerja.updateData(id);
+			});
 		},
 		handleDelete(id) {
 			console.log(id);
@@ -72,7 +74,7 @@ export default {
 	padding: 8px;
 	margin: 4px;
 	text-align: center;
-	color: white; /* Supaya warna teks kontras */
+	color: white;
 	border-radius: 4px;
 }
 </style>

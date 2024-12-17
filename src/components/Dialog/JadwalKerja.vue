@@ -37,7 +37,7 @@
 	</Dialog>
 
 	<Dialog v-model:visible="visibleShift" modal header="Pilih Shift Kerja" :style="{ width: '30rem' }">
-		<div class="flex flex-col gap-2">
+		<div class="flex flex-col gap-2 mb-3">
 			<AddShift
 				v-for		 = "item in shift" 
 				:key		 = "item.id_shift"
@@ -48,6 +48,10 @@
 				:jam_keluar	 = "item.jam_keluar"
 				@click 		 = "selectShift(item.nama_shift, item.id_shift)"
 			/>
+		</div>
+
+		<div class="flex justify-end gap-2">
+			<Button type="button" label="Cancel" severity="secondary" @click="visibleShift = false"></Button>
 		</div>
 	</Dialog>
 </template>

@@ -198,9 +198,6 @@
 import draggable from 'vuedraggable'
 
 export default {
-    components: {
-        draggable
-    },
     data() {
         return {
             // ? Data frontend yang di fetch dari di getFrontend()
