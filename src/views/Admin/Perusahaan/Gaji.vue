@@ -65,6 +65,7 @@
                         >
                             <Select
                                 class="col-span-12 max-h-[46px]"
+                                :disabled="!formPost"
                                 v-model="pegawai"
                                 :options="daftarPegawai"
                                 optionLabel="nama_lengkap"
@@ -206,8 +207,8 @@ export default {
             this.visibleGajiDialog = !this.visibleGajiDialog;
         },
         handleDelete(id) {
-            console.log(id);
             deleteData("/gaji", id);
+            this.created();
         },
         handleEdit(id) {
             this.idGaji = id;
