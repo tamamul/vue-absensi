@@ -26,7 +26,7 @@ export default defineConfig({
 				'vue-router',
 				{
 				'axios'						: [['default', 'axios']],
-				'draggable'					: ['vuedraggable'],
+				'vuedraggable'				: ['draggable'],
 				'pinia'						: ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
 				'@vuelidate/core'			: ['useVuelidate'],
 				'@vuelidate/validators'		: ['required', 'email'],

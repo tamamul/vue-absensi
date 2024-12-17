@@ -141,10 +141,14 @@ export default {
                 { label: "Laki-laki", value: "l" },
                 { label: "Perempuan", value: "p" },
             ],
+            no: 1,
             loading: true,
         };
     },
     methods: {
+        calculateRowNumber(slotProps) {
+            console.log(slotProps);
+        },
         async getPegawaiAll() {
             try {
                 const res = await axios.get("pegawai");
