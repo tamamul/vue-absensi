@@ -1,7 +1,7 @@
 <template>
     <DataTable
         v-model:filters="filters"
-        :value="data"
+        :value="dataLuar ?? data"
         tableStyle="min-width: 50rem"
         paginator
         :rows="5"
@@ -77,6 +77,7 @@ export default {
         api: String,
         apiEdit: String,
         id: String,
+        dataLuar: Array,
     },
     data() {
         return {
@@ -109,7 +110,13 @@ export default {
         calculateRowNumber(slotProps) {
             const firstIndex =
                 this.$refs.dt && this.$refs.dt.first ? this.$refs.dt.first : 0;
-            return firstIndex + this.data.indexOf(slotProps.data) + 1;
+            return (
+                firstIndex +
+                (this.dataLuar
+                    ? this.dataLuar.indexOf(slotProps.data)
+                    : this.data.indexOf(slotProps.data)) +
+                1
+            );
         },
     },
     mounted() {
