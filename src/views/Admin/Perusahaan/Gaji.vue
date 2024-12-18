@@ -214,6 +214,7 @@ export default {
             this.idGaji = id;
             this.formIsLoading = true;
             this.dialogTitle = "Edit Gaji Pegawai";
+            this.formPost = false;
             this.getPegawaiAll();
 
             this.toggleGajiDialog();
