@@ -224,7 +224,7 @@ export default {
         async created() {
             try {
                 this.data = await getData("/gaji");
-                this.loading = false;
+                this.isLoading = false;
             } catch (error) {
                 console.error("Failed to fetch data:", error);
             }
@@ -291,7 +291,7 @@ export default {
                     this.$toast.add({
                         severity: "info",
                         summary: "Edit Berhasil",
-                        detail: "Gaji Pegawai Berhasil Di Edit",
+                        detail: `Gaji ${res.data.data.pegawai.nama_lengkap} Berhasil Di Edit`,
                         life: 3000,
                     });
                     this.created();

@@ -46,7 +46,7 @@ export default {
                     this.$toast.add({
                         severity: "info",
                         summary: "Confirmed",
-                        detail: "Record deleted",
+                        detail: "Data berhasl dihapus.",
                         life: 3000,
                     });
                 },
