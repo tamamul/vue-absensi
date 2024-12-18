@@ -65,6 +65,7 @@
                         >
                             <Select
                                 class="col-span-12 max-h-[46px]"
+                                :disabled="!formPost"
                                 v-model="pegawai"
                                 :options="daftarPegawai"
                                 optionLabel="nama_lengkap"
@@ -206,13 +207,14 @@ export default {
             this.visibleGajiDialog = !this.visibleGajiDialog;
         },
         handleDelete(id) {
-            console.log(id);
             deleteData("/gaji", id);
+            this.created();
         },
         handleEdit(id) {
             this.idGaji = id;
             this.formIsLoading = true;
             this.dialogTitle = "Edit Gaji Pegawai";
+            this.formPost = false;
             this.getPegawaiAll();
 
             this.toggleGajiDialog();
@@ -222,7 +224,7 @@ export default {
         async created() {
             try {
                 this.data = await getData("/gaji");
-                this.loading = false;
+                this.isLoading = false;
             } catch (error) {
                 console.error("Failed to fetch data:", error);
             }
@@ -289,7 +291,7 @@ export default {
                     this.$toast.add({
                         severity: "info",
                         summary: "Edit Berhasil",
-                        detail: "Gaji Pegawai Berhasil Di Edit",
+                        detail: `Gaji ${res.data.data.pegawai.nama_lengkap} Berhasil Di Edit`,
                         life: 3000,
                     });
                     this.created();
