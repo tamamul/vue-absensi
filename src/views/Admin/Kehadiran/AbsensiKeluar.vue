@@ -38,7 +38,7 @@
 
 <script>
 export default {
-	name:'Absensi',
+	name:'AbsensiKeluar',
 	inject:['default'],
 	data() {
 		return {
@@ -62,7 +62,6 @@ export default {
 			await axios.post('kehadiran/confirm', data).then((res) => {
 				console.log(res)
 				this.kodeAbsensi = ''
-				
 			}).catch((err) => {
 				console.log(err)
 				this.kodeAbsensi = ''
