@@ -197,6 +197,7 @@
                     v-model="email"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.email.$invalid"
+                    placeholder="Masukkan email pegawai"
                 />
             </InputVuelidate>
 
@@ -208,6 +209,7 @@
                     fluid
                     class="col-span-12"
                     :invalid="hasValidated && v$.nik.$invalid"
+                    placeholder="Masukkan NIK pegawai"
                 />
             </InputVuelidate>
 
@@ -221,6 +223,7 @@
                     v-model="tempat_lahir"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.tempat_lahir.$invalid"
+                    placeholder="Masukkan tempat lahir pegawai"
                 />
             </InputVuelidate>
 
@@ -235,6 +238,7 @@
                     dateFormat="yy-mm-dd"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.tgl_lahir.$invalid"
+                    placeholder="Masukkan tanggal lahir pegawai"
                 />
             </InputVuelidate>
 
@@ -248,6 +252,7 @@
                     v-model="alamat"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.alamat.$invalid"
+                    placeholder="Masukkan alamat pegawai"
                 />
             </InputVuelidate>
 
@@ -264,6 +269,7 @@
                     optionValue="code"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.jk.$invalid"
+                    placeholder="Masukkan jenis kelamin pegawai"
                 />
             </InputVuelidate>
 
@@ -280,6 +286,7 @@
                     optionValue="code"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.agama.$invalid"
+                    placeholder="Masukkan agama pegawai"
                 />
             </InputVuelidate>
 
@@ -296,6 +303,7 @@
                     optionValue="code"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.gol_darah.$invalid"
+                    placeholder="Masukkan golongan darah pegawai"
                 />
             </InputVuelidate>
 
@@ -311,6 +319,7 @@
                     v-model="no_telp"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.no_telp.$invalid"
+                    placeholder="Masukkan nomor telepon pegawai"
                 />
             </InputVuelidate>
 
@@ -326,6 +335,7 @@
                     v-model="kontak_darurat"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.kontak_darurat.$invalid"
+                    placeholder="Masukkan kontak darurat pegawai"
                 />
             </InputVuelidate>
 
@@ -339,6 +349,7 @@
                     v-model="rekening"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.rekening.$invalid"
+                    placeholder="Masukkan nomor rekening pegawai"
                 />
             </InputVuelidate>
 
@@ -353,6 +364,7 @@
                     dateFormat="dd-mm-yy"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.mulai_kerja.$invalid"
+                    placeholder="Masukkan tanggal mulai kerja pegawai"
                 />
             </InputVuelidate>
 
@@ -366,6 +378,7 @@
                     v-model="jabatan"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.jabatan.$invalid"
+                    placeholder="Masukkan jabatan pegawai"
                 />
             </InputVuelidate>
 
@@ -379,13 +392,14 @@
                     v-model="pendidikan"
                     class="col-span-12 max-h-[46px]"
                     :invalid="hasValidated && v$.pendidikan.$invalid"
+                    placeholder="Masukkan pendidikan pegawai"
                 />
             </InputVuelidate>
 
             <div class="col-span-12 flex justify-end gap-2">
                 <Button
                     type="button"
-                    label="Tutup"
+                    label="Close"
                     severity="secondary"
                     @click="close"
                 ></Button>
@@ -620,6 +634,7 @@ export default {
                 no_telp: this.no_telp,
                 rekening: this.rekening,
             };
+            this.visible = false
             await axios
                 .put(`pegawai/${id}`, data)
                 .then((res) => {
@@ -745,7 +760,7 @@ export default {
                     this.$toast.add({
                         severity: "success",
                         summary: "Pegawai berhasil ditambahkan!",
-                        detail: `Menambahkan pegawai ${res.data.data.nama_lengkap}`,
+                        detail: `Menambahkan pegawai aja`,
                         life: 5000,
                     });
                     console.log(res);
@@ -753,8 +768,8 @@ export default {
                 .catch((err) => {
                     this.$toast.add({
                         severity: "error",
-                        summary: "Pegawai gagal ditambahkan!",
-                        detail: `Gagal menambahkan pegawai`,
+                        summary: `Gagal mengirimkan validasi email`,
+                        detail: `Email tidak terkirim`,
                         life: 5000,
                     });
                     console.log(err);
