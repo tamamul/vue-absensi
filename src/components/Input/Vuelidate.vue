@@ -7,7 +7,7 @@
         >
         <slot />
         <small
-            v-if="hasValidated && v$.name.$error"
+            v-if="hasValidated && name.$error"
             class="text-red-500 col-span-12"
             >{{ label + "Wajib Diisi" }}</small
         >

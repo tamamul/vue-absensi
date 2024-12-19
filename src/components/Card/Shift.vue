@@ -190,13 +190,13 @@
                 <div class="col-span-6 gap-1">
                     <label
                         class="max-h-6 col-span-12"
-                        for="jam_selesai_istirahat"
+                        for="jam_istirahat_selesai"
                         >Jam Istirahat Selesai
                         <span class="text-red-500">*</span></label
                     >
                     <DatePicker
-                        inputId="jam_selesai_istirahat"
-                        v-model="jam_selesai_istirahat"
+                        inputId="jam_istirahat_selesai"
+                        v-model="jam_istirahat_selesai"
                         timeOnly
                         showIcon
                         fluid
@@ -210,7 +210,7 @@
                         </template>
                     </DatePicker>
                     <small
-                        v-if="hasValidated && v$.jam_selesai_istirahat.$error"
+                        v-if="hasValidated && v$.jam_istirahat_selesai.$error"
                         class="text-red-500 w-full"
                         >Wajib Diisi</small
                     >
@@ -297,7 +297,7 @@ export default {
             jam_keluar: null,
             warna: "",
             jam_istirahat_mulai: null,
-            jam_selesai_istirahat: null,
+            jam_istirahat_selesai: null,
             toleransi_keterlambatan: 0,
         };
     },
@@ -310,7 +310,7 @@ export default {
             jam_keluar: { required },
             warna: { required },
             jam_istirahat_mulai: { required },
-            jam_selesai_istirahat: { required },
+            jam_istirahat_selesai: { required },
             toleransi_keterlambatan: { required },
         };
     },
@@ -341,9 +341,10 @@ export default {
                     this.jam_masuk = res.data.data.jam_masuk;
                     this.jam_keluar = res.data.data.jam_keluar;
                     this.warna = res.data.data.warna;
-                    this.jam_istirahat_mulai = res.data.data.jam_istirahat;
-                    this.jam_selesai_istirahat =
-                        res.data.data.jam_selesai_istirahat;
+                    this.jam_istirahat_mulai =
+                        res.data.data.jam_istirahat_mulai;
+                    this.jam_istirahat_selesai =
+                        res.data.data.jam_istirahat_selesai;
                     this.toleransi_keterlambatan =
                         res.data.data.toleransi_keterlambatan;
                     // console.log(res.data.data)
@@ -360,7 +361,7 @@ export default {
                 (this.jam_keluar = "17:00"),
                 (this.warna = "#07134f"),
                 (this.jam_istirahat_mulai = "12:00"),
-                (this.jam_selesai_istirahat = "13:00"),
+                (this.jam_istirahat_selesai = "13:00"),
                 (this.toleransi_keterlambatan = 0),
                 (this.formIsLoading = false);
             this.visible = true;
@@ -379,8 +380,8 @@ export default {
                 jam_istirahat_mulai: this.formattedTime(
                     this.jam_istirahat_mulai
                 ),
-                jam_selesai_istirahat: this.formattedTime(
-                    this.jam_selesai_istirahat
+                jam_istirahat_selesai: this.formattedTime(
+                    this.jam_istirahat_selesai
                 ),
                 toleransi_keterlambatan: this.toleransi_keterlambatan,
             };
@@ -414,13 +415,13 @@ export default {
                 jam_istirahat_mulai: this.formattedTime(
                     this.jam_istirahat_mulai
                 ),
-                jam_selesai_istirahat: this.formattedTime(
-                    this.jam_selesai_istirahat
+                jam_istirahat_selesai: this.formattedTime(
+                    this.jam_istirahat_selesai
                 ),
                 toleransi_keterlambatan: this.toleransi_keterlambatan,
             };
             await axios
-                .put(`shift/` + id, data)
+                .patch(`shift/` + id, data)
                 .then((res) => {
                     // console.log('berhasil edit' + res);
                     this.visible = false;
@@ -486,6 +487,7 @@ export default {
             // console.log(`Parent handling edit for shift id: ${id}`);
             this.formPost = false;
             this.visible = true;
+            this.dialogTitle = "Edit Shift Kerja";
 
             this.getShiftById(id);
         },
