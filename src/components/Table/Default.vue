@@ -60,6 +60,7 @@
                 <TableActionStandard
                     :onEdit="handleEdit"
                     :onDelete="handleDelete"
+                    :deleteAble="deleteAble"
                     :id="slotProps.data[id]"
                 />
             </template>
@@ -78,6 +79,10 @@ export default {
         apiEdit: String,
         id: String,
         dataLuar: Array,
+        deleteAble: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         return {
@@ -102,7 +107,6 @@ export default {
         handleDelete(id) {
             console.log("Hapus ID:", id);
             this.$emit("openDelete", id);
-            this.created();
         },
         clearFilter() {
             this.filters = { global: { value: null, matchMode: "contains" } };

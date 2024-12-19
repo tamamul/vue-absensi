@@ -13,6 +13,7 @@
             severity="danger"
             class="bg-red-500 text-white"
             outlined
+            v-if="deleteAble"
         ></Button>
     </div>
 </template>
@@ -25,6 +26,7 @@ export default {
             type: Number,
             required: true,
         },
+        deleteAble: Boolean,
     },
     methods: {
         confirmDelete(event) {
