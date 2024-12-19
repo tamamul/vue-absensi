@@ -17,7 +17,7 @@ export default {
 		return {
 			menuItemsAdmin: [
 				{ label: 'Dashboard', 	icon: 'pi pi-home', route:'/admin/dashboard' },
-				{ label: 'Absen', 		icon: 'pi pi-qrcode', route:'/admin/qr-code' },
+				{ label: 'Absen', 		icon: 'pi pi-qrcode', route:'/admin/kehadiran' },
 				{ label: 'Profile', 	icon: 'pi pi-user', route:'/admin/profile' },
 			],
 		}
