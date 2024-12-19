@@ -215,6 +215,7 @@ export default {
         handleDelete(id) {
             console.log(id);
             deleteData("/jadwal", id);
+            this.getAllJadwalKerja();
         },
 
         selectShift(nama_shift, id_shift) {
