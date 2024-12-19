@@ -70,6 +70,7 @@ export default {
 			kodeAbsensi: '',
 			pesan: true,
 			data: [],
+			date: null,
 			tanggal: '',
 			columns: [
 				{'field': 'nama_pegawai', 'header': 'Nama Pegawai'},
@@ -88,8 +89,6 @@ export default {
                 console.error("Failed to fetch data:", error);
             }
 		},
-		get
-		,
 		togglePesan() {
 			this.pesan = !this.pesan
 		},

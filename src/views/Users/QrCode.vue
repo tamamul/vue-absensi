@@ -91,7 +91,7 @@ export default {
             this.isLoading = false
 
             this.intervalId = setInterval(async () => {
-                await axios.get('kehadiran/get-kode').then((res) => {
+                await axios.get('kehadiran/masuk/get-kode').then((res) => {
                     this.data = res.data.data.token;
                     console.log(res.data.data.token)
                 }).catch((error) => {

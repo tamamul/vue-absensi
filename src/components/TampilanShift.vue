@@ -1,5 +1,4 @@
 <template>
-    <ConfirmDialog />
 	<div 
 		:style="{ backgroundColor: warna }" 
 		class="rounded-md text-white py-3 px-3 flex justify-between items-center"

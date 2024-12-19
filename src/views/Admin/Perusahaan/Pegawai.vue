@@ -56,7 +56,6 @@
                         </template>
                         <template #empty> Data tidak ditemukan. </template>
 
-                        <Column field="id_pegawai" header="No" />
                         <Column
                             field="nama_lengkap"
                             header="Nama"
