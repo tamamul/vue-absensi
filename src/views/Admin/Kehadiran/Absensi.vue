@@ -43,7 +43,15 @@
 					<Button type="button" label="Submit" severity="primary" @click="getDataKehadiran(date)"></Button>
 				</div>
 				<div class="flex mt-4 overflow-x-auto whitespace-nowrap gap-2">
-					<Button type="button" label="30" severity="primary" :outlined="true"></Button>
+					<Button
+						v-for="item in daftarHari"
+						:key="item.tanggal" type="button"
+						:label="tahun + `/` + bulan + `/` + item.tanggal + ` ` + item.hari"
+						@click="getDataKehadiran(tahun, bulan, item.tanggal)"
+						severity="primary"
+						class="flex-shrink-0"
+						:outlined="true"
+					/>
 				</div>
 			</template>
 			<template #content>
@@ -70,6 +78,9 @@ export default {
 			kodeAbsensi: '',
 			pesan: true,
 			data: [],
+			daftarHari: [],
+			tahun: '',
+			bulan: '',
 			date: null,
 			tanggal: '',
 			columns: [
@@ -83,6 +94,7 @@ export default {
 	methods: {
 		justMonth,
 		justYear,
+		getTanggalDanHari,
 		async created() {
 			try {
                 this.data = await getData("/kehadiran");
@@ -95,9 +107,9 @@ export default {
 			this.pesan = !this.pesan
 		},
 		getDataKehadiran(date) {
-			const month = (this.justMonth(date))
-			const year 	= (this.justYear(date))
-			console.log(month, year)
+			this.bulan = (this.justMonth(date))
+			this.tahun = (this.justYear(date))
+			this.daftarHari = this.getTanggalDanHari(this.bulan, this.tahun)
 		},
 		async postKodeAbsensi () {
 			console.log(this.kodeAbsensi)

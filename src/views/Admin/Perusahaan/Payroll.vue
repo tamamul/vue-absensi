@@ -1,9 +1,6 @@
 <template>
-    <div class="grid grid-cols-12 m-5 gap-5" v-if="isLoading">
-        <Skeleton height="50vh" width="100%" class="col-span-12"></Skeleton>
-    </div>
-    <div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5" v-else>
-        <Card class="col-span-12 xl:col-span-8 shadow-md">
+    <div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5">
+        <Card class="col-span-12 shadow-md">
             <template #title>
                 <div class="flex justify-between">
                     <h3>Data Payroll Pegawai</h3>
@@ -31,10 +28,6 @@
                     id="id_payroll"
                 />
             </template>
-        </Card>
-        <Card class="col-span-12 xl:col-span-4 shadow-md">
-            <template #title> Total Payroll Bulan Ini </template>
-            <template #content> </template>
         </Card>
 
         <Dialog

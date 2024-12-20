@@ -49,3 +49,21 @@ export function justYear(date) {
 		return `${year}`;
 	}
 }
+
+export function getTanggalDanHari(tahun, bulan) {
+    const hasil = [];
+    // Bulan di JavaScript adalah 0-index, jadi 3 = April. Maka kurangi 1 untuk Maret.
+    const bulanIndex = bulan - 1;
+
+    // Dapatkan jumlah hari dalam bulan dan tahun tersebut
+    const jumlahHari = new Date(tahun, bulan, 0).getDate();
+
+    // Loop dari tanggal 1 sampai jumlah hari
+    for (let tanggal = 1; tanggal <= jumlahHari; tanggal++) {
+        const tanggalObjek = new Date(tahun, bulanIndex, tanggal);
+        const hari = tanggalObjek.toLocaleString('id-ID', { weekday: 'long' });
+        hasil.push({ tanggal, hari });
+    }
+
+    return hasil;
+}

@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-12 m-5 gap-5">
-        <Card class="col-span-12 xl:col-span-8 shadow-md">
+        <Card class="col-span-12 shadow-md">
             <template #title>
                 <div class="flex justify-between">
                     <h3>Data Gaji Pokok Pegawai</h3>
@@ -28,10 +28,6 @@
                     id="id_gaji"
                 />
             </template>
-        </Card>
-        <Card class="col-span-12 xl:col-span-4 shadow-md">
-            <template #title> Total Gaji Bulan Ini </template>
-            <template #content> </template>
         </Card>
 
         <Dialog
