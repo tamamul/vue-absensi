@@ -30,7 +30,7 @@ export default defineConfig({
 				'pinia'						: ['mapState', 'mapGetters', 'mapMutations', 'mapActions'],
 				'@vuelidate/core'			: ['useVuelidate'],
 				'@vuelidate/validators'		: ['required', 'email'],
-				'@/utils/date'				: ['formattedTime', 'formattedDate'],
+				'@/utils/date'				: ['formattedTime', 'formattedDate', 'justMonth', 'justYear'],
 				'@/utils/fetch'				: ['getData', 'deleteData'],
 				'@/router'					: [['default', 'router']],
 				}

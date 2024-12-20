@@ -37,11 +37,13 @@
 		<Card class="col-span-12 shadow-md">
 			<template #title>
 				Daftar Pegawai Telah Absen
-				<div class="mt-4">
-					<DatePicker v-model="date" view="month" dateFormat="mm/yy" placeholder="Pilih tahun dan bulan" />
+				<div class="mt-4 flex gap-3 items-center">
+					<label for="date" class="font-semibold">Pilih tahun dan bulan:</label>
+					<DatePicker v-model="date" name="date" id="date" view="month" dateFormat="mm/yy" placeholder="Masukkan tahun dan bulan" />
+					<Button type="button" label="Submit" severity="primary" @click="getDataKehadiran(date)"></Button>
 				</div>
 				<div class="flex mt-4 overflow-x-auto whitespace-nowrap gap-2">
-					{{ tanggal }}
+					<Button type="button" label="30" severity="primary" :outlined="true"></Button>
 				</div>
 			</template>
 			<template #content>
@@ -58,8 +60,6 @@
 </template>
 
 <script>
-import { ColumnGroup } from 'primevue';
-
 export default {
 	name:'Absensi',
 	inject:['default'],
@@ -81,6 +81,8 @@ export default {
 		}
 	},
 	methods: {
+		justMonth,
+		justYear,
 		async created() {
 			try {
                 this.data = await getData("/kehadiran");
@@ -91,6 +93,11 @@ export default {
 		},
 		togglePesan() {
 			this.pesan = !this.pesan
+		},
+		getDataKehadiran(date) {
+			const month = (this.justMonth(date))
+			const year 	= (this.justYear(date))
+			console.log(month, year)
 		},
 		async postKodeAbsensi () {
 			console.log(this.kodeAbsensi)
