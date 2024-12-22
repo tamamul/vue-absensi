@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoaddfsfsing">
         <div class="col-span-12 w-full flex justify-center items-center">
             <ProgressSpinner />
         </div>
@@ -47,10 +47,10 @@
 						v-for="item in daftarHari"
 						:key="item.tanggal" type="button"
 						:label="tahun + `/` + bulan + `/` + item.tanggal + ` ` + item.hari"
-						@click="getDataKehadiran(tahun, bulan, item.tanggal)"
 						severity="primary"
+						@click="toggleOutline"
 						class="flex-shrink-0"
-						:outlined="true"
+						:outlined="outline"
 					/>
 				</div>
 			</template>
@@ -82,6 +82,7 @@ export default {
 			tahun: '',
 			bulan: '',
 			date: null,
+			outline: false,
 			tanggal: '',
 			columns: [
 				{'field': 'nama_pegawai', 'header': 'Nama Pegawai'},
@@ -105,6 +106,9 @@ export default {
 		},
 		togglePesan() {
 			this.pesan = !this.pesan
+		},
+		toggleOutline() {
+			this.outline = !this.outline
 		},
 		getDataKehadiran(date) {
 			this.bulan = (this.justMonth(date))
