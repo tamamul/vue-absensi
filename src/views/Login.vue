@@ -1,45 +1,41 @@
 <template>
     <div class="w-full h-dvh flex justify-center items-center bg-[#F1F5F9]">
-        <Card class="shadow-md w-96 h-80 flex flex-col justify-center">
+        <Card class="shadow-md">
             <template #title>
-                <div class="flex flex-col gap-2">
+                <div class="">
                     <h1 class="text-3xl">Login</h1>
                     <p class="font-normal text-sm">Masuk kedalam aplikasi absensi</p>
                 </div>
             </template>
             <template #content>
-                <form id="login" @submit.prevent="login" class="flex flex-col gap-2">
+                <form id="login" @submit.prevent="login" class="flex flex-col ">
                     <!-- Input for Email -->
-                    <InputGroup>
-                        <InputGroupAddon>
-                            <i class="pi pi-user"></i>
-                        </InputGroupAddon>
-                        <InputText 
+                    <FloatLabel variant="in">
+                        <InputText
+                            class="w-full"
+                            inputId="email"
                             v-model="email" 
-                            placeholder="Email" 
                             required
                             autofocus
                         />
-                    </InputGroup>
+                        <label for="email">Email</label>
+                    </FloatLabel>
                     <small class="text-red-500" v-if="hasValidated && v$.email.$error">
                         {{ v$.email.email ? 'Invalid email format' : 'Email is required' }}
                     </small>
                     <small v-else class="invisible">...</small>
 
                     <!-- Input for Password -->
-                    <InputGroup>
-                        <InputGroupAddon>
-                            <i class="pi pi-lock"></i>
-                        </InputGroupAddon>
+                    <FloatLabel variant="in">
                         <Password 
-                            class="border border-[#CBD5E1]" 
                             v-model="password" 
                             toggleMask 
-                            placeholder="Password" 
                             :feedback="false" 
+                            inputId="password"
                             required 
                         />
-                    </InputGroup>
+                        <label for="password">Password</label>
+                    </FloatLabel>
                     <small class="text-red-500" v-if="hasValidated && v$.password.$error">
                         Password is required
                     </small>
@@ -93,26 +89,7 @@ export default {
             this.btnIsLoading = false;
         },
 
-        // alreadyLogin() {
-        //     localStorage.removeItem('token')
-        //     if (localStorage.getItem('token') != null) {J
-        //         router.push({name: 'dashboard'})
-        //     }
-        // }
-    },
-
-    mounted() {
-        // this.alreadyLogin();
     },
 }
 
 </script>
-
-<style scoped>
-	.borderDanger {
-		@apply border-red-500
-	}
-	.p-password-input.p-inputtext{
-		border: none;
-	}
-</style>

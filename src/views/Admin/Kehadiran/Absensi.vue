@@ -38,9 +38,9 @@
 			<template #title>
 				Daftar Pegawai Telah Absen
 				<div class="mt-4 flex gap-3 items-center">
-					<label for="date" class="font-semibold">Pilih tahun dan bulan:</label>
-					<DatePicker v-model="date" name="date" id="date" view="month" dateFormat="mm/yy" placeholder="Masukkan tahun dan bulan" />
-					<Button type="button" label="Submit" severity="primary" @click="getDataKehadiran(date)"></Button>
+					<label for="date" class="font-semibold">Data Absen Tanggal :</label>
+					<DatePicker v-model="date" name="date" id="date" view="date" dateFormat="dd/mm/yy" placeholder="Pilih tanggal" />
+					<Button type="button" label="Filter" severity="primary" @click="getDataKehadiran(date)"></Button>
 				</div>
 				<div class="flex mt-4 overflow-x-auto whitespace-nowrap gap-2">
 					<Button
@@ -81,7 +81,7 @@ export default {
 			daftarHari: [],
 			tahun: '',
 			bulan: '',
-			date: null,
+			date: new Date(),
 			outline: false,
 			tanggal: '',
 			columns: [

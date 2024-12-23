@@ -44,15 +44,18 @@
                                 <Button
                                     type="button"
                                     icon="pi pi-filter-slash"
-                                    label="Clear"
+                                    label="Bersihkan Filter"
                                     outlined
                                     @click="clearFilter()"
                                 />
                                 <InputText
                                     v-model="filters['global'].value"
-                                    placeholder="Keyword Search"
+                                    placeholder="Cari data"
                                 />
                             </div>
+                        </template>
+                        <template #loading>
+                            <ProgressSpinner></ProgressSpinner>
                         </template>
                         <template #empty> Data tidak ditemukan. </template>
 
