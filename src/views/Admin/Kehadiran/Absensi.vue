@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoaddfsfsing">
+	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
         <div class="col-span-12 w-full flex justify-center items-center">
             <ProgressSpinner />
         </div>
@@ -9,14 +9,14 @@
 		<Card class="col-span-12 shadow-md">
 			<template #title>
 				<div class="w-full text-center">
-					{{ pesan ? 'Konfirmasi Absen Masuk' : 'Konfirmasi Absen Keluar' }}
+					Konfirmasi Absensi Pegawai
 				</div>
 			</template>
 			<template #content>
 				<Tabs value="0">
 					<TabList>
-						<Tab value="0" @click="togglePesan()">Absen Masuk</Tab>
-						<Tab value="1" @click="togglePesan()">Absen Keluar</Tab>
+						<Tab value="0">Absen Masuk</Tab>
+						<Tab value="1">Absen Keluar</Tab>
 					</TabList>
 					<TabPanels>
 						<TabPanel value="0">
@@ -76,7 +76,6 @@ export default {
 			isLoading: false,
 			inputIsLoading: false,
 			kodeAbsensi: '',
-			pesan: true,
 			data: [],
 			daftarHari: [],
 			tahun: '',
@@ -104,9 +103,6 @@ export default {
                 console.error("Failed to fetch data:", error);
             }
 		},
-		togglePesan() {
-			this.pesan = !this.pesan
-		},
 		toggleOutline() {
 			this.outline = !this.outline
 		},
@@ -118,8 +114,9 @@ export default {
 		async postKodeAbsensi () {
 			console.log(this.kodeAbsensi)
 			const data = {token: this.kodeAbsensi}
-			await axios.post('kehadiran/confirm', data).then((res) => {
+			await axios.post('kehadiran/masuk/confirm', data).then((res) => {
 				console.log(res)
+				this.created()
 				this.kodeAbsensi = ''
 				this.$toast.add({
 					severity: "success",
@@ -131,8 +128,8 @@ export default {
 				console.log(err)
 				this.$toast.add({
 					severity: "error",
-					summary: "Success",
-					detail: err.data.message,
+					summary: "Error",
+					detail: `${err.request.response.message}`,
 					life: 3000,
 				});
 				this.kodeAbsensi = ''
@@ -141,9 +138,10 @@ export default {
 		async postKodeAbsensiKeluar () {
 			console.log(this.kodeAbsensi)
 			const data = {token: this.kodeAbsensi}
-			await axios.post('kehadiran/confirm', data).then((res) => {
+			await axios.post('kehadiran/keluar/confirm', data).then((res) => {
 				console.log(res)
 				this.kodeAbsensi = ''
+				this.created()
 				this.$toast.add({
 					severity: "success",
 					summary: "Success",
@@ -154,7 +152,7 @@ export default {
 				console.log(err)
 				this.$toast.add({
 					severity: "error",
-					summary: "Success",
+					summary: "Error",
 					detail: err.data.message,
 					life: 3000,
 				});
