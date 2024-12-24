@@ -81,6 +81,7 @@ export default {
         api: String,
         apiEdit: String,
         id: String,
+        idPegawai: String,
         dataLuar: Array,
         deleteAble: {
             type: Boolean,
@@ -104,12 +105,12 @@ export default {
             }
         },
         handleEdit(id) {
-            console.log("Edit ID:", id);
             this.$emit("openEdit", id);
+            console.log("Edit ID:", id);
         },
         handleDelete(id) {
-            console.log("Hapus ID:", id);
             this.$emit("openDelete", id);
+            console.log("Hapus ID:", id);
         },
         clearFilter() {
             this.filters = { global: { value: null, matchMode: "contains" } };

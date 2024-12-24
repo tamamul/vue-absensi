@@ -67,3 +67,38 @@ export function getTanggalDanHari(tahun, bulan) {
 
     return hasil;
 }
+
+export function parseDate(dateString) {
+    // Check if the date is already in ISO format (e.g., "2024-09-25")
+    if (!isNaN(Date.parse(dateString))) {
+        return new Date(dateString);
+    }
+
+    // Handle format like "18 Oktober 1972"
+    const monthsMap = {
+        Januari: "01",
+        Februari: "02",
+        Maret: "03",
+        April: "04",
+        Mei: "05",
+        Juni: "06",
+        Juli: "07",
+        Agustus: "08",
+        September: "09",
+        Oktober: "10",
+        November: "11",
+        Desember: "12",
+    };
+
+    // Split the date into parts
+    const [day, monthName, year] = dateString.split(" ");
+    const month = monthsMap[monthName];
+    if (!month) {
+        console.error(`Invalid month in date: ${monthName}`);
+        return null; // Return null if parsing fails
+    }
+
+    // Construct the ISO date string
+    return new Date(`${year}-${month}-${day.padStart(2, "0")}`);
+}
+

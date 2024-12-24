@@ -31,7 +31,7 @@
         :style="{ width: '40rem' }"
     >
         <span class="text-surface-500 dark:text-surface-400 block mb-8"
-            >Pilih pegawai dan jadwal kerja yang ingin digunakan.</span
+            >Pilih pegawai dan jadwal kerja yang ingin diedit.</span
         >
         <form class="">
             <InputVuelidate
