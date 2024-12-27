@@ -60,87 +60,44 @@
                         severity="primary"
                         @click="getDataKehadiran(date)"></Button>
                 </div>
+                <div class="flex mt-4 overflow-x-auto whitespace-nowrap gap-2">
+                    <Button
+                        v-for="item in daftarHari"
+                        :key="item.tanggal"
+                        type="button"
+                        :label="
+                            tahun +
+                            `/` +
+                            bulan +
+                            `/` +
+                            item.tanggal +
+                            ` ` +
+                            item.hari
+                        "
+                        severity="primary"
+                        @click="toggleOutline"
+                        class="flex-shrink-0"
+                        :outlined="outline" />
+                </div>
             </template>
             <template #content>
-                <!-- <TableDefault
+                <TableDefault
                     :columns="columns"
                     api="/kehadiran"
                     id="id_kehadiran"
-                    idPegawai="id_pegawai"
                     :dataLuar="data"
                     :deleteAble="false"
                     @openEdit="handleEdit">
                     <Column header="Waktu Kehadiran" field="hari">
                         <template #body="slotProps">
                             {{
-                                slotProps.data.hari == "Selasa" ? slotProps.data.tgl_kehadiran : slotProps.data.hari +
+                                slotProps.data.hari +
                                 ", " +
-                                slotProps.data.tgl_kehadiran ?? "-"
+                                slotProps.data.tgl_kehadiran
                             }}
                         </template>
                     </Column>
-                </TableDefault> -->
-                <DataTable
-                    v-model:filters="filters"
-                    :value="data"
-                    tableStyle="min-width: 50rem"
-                    paginator
-                    :rows="5"
-                    :rowsPerPageOptions="[5, 10, 20, 50]"
-                    scrollable
-                    :loading="loading"
-                    filterDisplay="menu"
-                >
-                    <template #header>
-                        <div class="flex justify-between">
-                            <Button
-                                type="button"
-                                icon="pi pi-filter-slash"
-                                label="Bersihkan Filter"
-                                outlined
-                                @click="clearFilter()"
-                            />
-                            <InputText
-                                v-model="filters['global'].value"
-                                placeholder="Cari data"
-                            />
-                        </div>
-                    </template>
-                    <template #loading>
-                        <ProgressSpinner></ProgressSpinner>
-                    </template>
-                    <template #empty> Data tidak ditemukan. </template>
-                    <Column field="no" header="No.">
-                        <template #body="slotProps">
-                            {{ calculateRowNumber(slotProps) + `.` }}
-                        </template>
-                    </Column>
-                    <Column field="nama_pegawai" header="Nama Pegawai"></Column>
-                    <Column field="status" header="Status"></Column>
-                    <Column field="jam_masuk" header="Jam Masuk"></Column>
-                    <Column field="jam_keluar" header="Jam Keluar"></Column>
-                    <Column header="Waktu Kehadiran" field="hari">
-                        <template #body="slotProps">
-                            {{
-                                slotProps.data.hari == "Selasa" ? slotProps.data.tgl_kehadiran : slotProps.data.hari +
-                                ", " +
-                                slotProps.data.tgl_kehadiran ?? "-"
-                            }}
-                        </template>
-                    </Column>
-                    <Column header="Action" frozen alignFrozen="right" style="width: 100px">
-                        <template #body="slotProps">
-                            <div class="flex gap-2 bg-white">
-                                <Button
-                                    icon="pi pi-pencil"
-                                    severity="info"
-                                    aria-label="Edit"
-                                    @click="handleEdit(slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
-                                />
-                            </div>
-                        </template>
-                    </Column>
-                </DataTable>
+                </TableDefault>
             </template>
         </Card>
     </div>
@@ -152,16 +109,30 @@
                     Edit Kehadiran Pegawai
                 </p>
 
-                <Select
-                    class="col-span-12 max-h-[46px]"
-                    v-model="pegawai"
-                    :options="daftarPegawai"
-                    optionLabel="nama_lengkap"
-                    :loading="loadingPegawai"
-                    :placeholder="phPegawai"
-                    filter
-					disabled
-                ></Select>
+                <div class="col-span-12 w-full gap-1">
+                    
+                    <InputVuelidate
+                        name="pegawai"
+                        label="Pegawai"
+                        :hasValidated="hasValidated">
+                        <Select
+                            id="pegawai"
+                            v-model="pegawai"
+                            placeholder="Pilih pegawai"
+                            :options="daftarPegawai"
+                            optionLabel="nama_lengkap"
+                            class="col-span-12 max-h-[46px]"
+                            :invalid="hasValidated && v$.pegawai.$invalid" />
+                    </InputVuelidate>
+                </div>
+            <!-- <Select
+                class="col-span-12 max-h-[46px]"
+                v-model="pegawai"
+                :options="daftarPegawai"
+                optionLabel="nama_lengkap"
+                :loading="loadingPegawai"
+                :placeholder="phPegawai"
+                filter></Select> -->
 
                 <div class="col-span-12 w-full gap-1">
                     <InputVuelidate
@@ -212,13 +183,15 @@
                         label="Tanggal Kehadiran"
                         :hasValidated="hasValidated">
                         <DatePicker
-							id="tgl_kehadiran"
-							v-model="tgl_kehadiran"
-							placeholder="Pilih tanggal kehadiran"
-							dateFormat="yy/mm/dd"
-							class="col-span-12 max-h-[46px]"
-							:invalid="hasValidated && v$.tgl_kehadiran.$invalid"
-						/>
+                            id="tgl_kehadiran"
+                            v-model="tgl_kehadiran"
+                            placeholder="Pilih tanggal kehadiran"
+                            :options="tgl_kehadiran"
+                            optionLabel="name"
+                            class="col-span-12 max-h-[46px]"
+                            :invalid="
+                                hasValidated && v$.tgl_kehadiran.$invalid
+                            " />
                     </InputVuelidate>
                 </div>
                 <div class="col-span-12 flex justify-end gap-2">
@@ -227,7 +200,7 @@
                         label="Cancel"
                         severity="secondary"
                         @click="toggleVisible"></Button>
-                    <Button type="button" label="Save" @click="saveData"></Button>
+                    <Button type="button" label="Save" @click="edit"></Button>
                 </div>
             </form>
         </template>
@@ -235,6 +208,8 @@
 </template>
 
 <script>
+import { parseDate } from '@/utils/date';
+
     export default {
         name: "Absensi",
         inject: ["default"],
@@ -245,17 +220,14 @@
                 kodeAbsensi: "",
                 data: [],
                 dataId: [],
-                dataIdPegawai: [],
+                daftarHari: [],
                 tahun: "",
                 bulan: "",
                 visible: false,
                 date: new Date(),
                 outline: false,
-                tanggal: new Date(),
+                tanggal: "",
                 loadingPegawai: true,
-                editMode: false,
-                filters: { global: { value: null, matchMode: "contains" } },
-                loading: true,
                 columns: [
                     { field: "nama_pegawai", header: "Nama Pegawai" },
                     { field: "status", header: "Status" },
@@ -296,13 +268,14 @@
             };
         },
         methods: {
-            formattedDate,
+            justMonth,
+            justYear,
             parseDate,
             getTanggalDanHari,
             async created() {
                 try {
                     this.data = await getData("/kehadiran");
-                    this.loading = false;
+                    this.isLoading = false;
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
                 }
@@ -311,7 +284,6 @@
                 try {
                     const res = await axios.get("pegawai");
                     this.daftarPegawai = res.data.data;
-                    console.log(this.daftarPegawai)
                     this.loadingPegawai = false;
                     this.phPegawai = "Pilih pegawai";
                 } catch (err) {
@@ -320,115 +292,86 @@
                     this.loadingPegawai = false;
                 }
             },
-            toggleVisible() {
-                this.visible = !this.visible;
-            },
+			async getId(id) {
+				try {
+					this.dataId = await getData(`/kehadiran/${id}`);
+					
+					// Map the response data to the form fields
+					this.pegawai = this.daftarPegawai.find(
+						(pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
+					) || null; // Match pegawai by id or set to null if not found
+					this.dataStatus = this.status.find(
+						(item) => item.code === this.dataId.status
+					) || null; // Match status by code or set to null if not found
+					this.kode_kehadiran = this.dataId.kode_kehadiran;
+					this.hari = this.dataId.hari;
 
-            // Handle when editing or creating attendance
-            async handleEdit(id, idPegawai) {
-                if (!id) {
-                    this.$toast.add({
-                        severity: "warn",
-                        summary: "Warning",
-                        detail: "ID tidak valid. Tidak dapat memuat data.",
-                        life: 3000,
-                    });
-                    return;
-                }
+					// Convert tgl_kehadiran to a Date object
+					this.tgl_kehadiran = this.parseDate(this.dataId.tgl_kehadiran);
 
-                this.toggleVisible();
+					// Parse jam_masuk and jam_keluar if necessary
+					this.jam_masuk = this.dataId.jam_masuk;
+					this.jam_keluar = this.dataId.jam_keluar;
 
-                try {
-                    // Fetch attendance data
-                    this.dataId = await getData(`/kehadiran/${id}`);
-                    console.log(this.dataId)
+				} catch (error) {
+					console.error("Failed to fetch data:", error);
+				}
+			},
 
-                    // Populate form for edit mode
-                    this.editMode = true; // EDIT mode
-                    this.daftarPegawai = this.dataId.id_pegawai;
-                    this.dataStatus = this.status.find((item) => item.code === this.dataId.status) || null;
-                    this.kode_kehadiran = this.dataId.kode_kehadiran;
-                    this.hari = this.dataId.hari;
-                    this.tgl_kehadiran = this.parseDate(this.dataId.tgl_kehadiran);
-                    this.jam_masuk = this.dataId.jam_masuk;
-                    this.jam_keluar = this.dataId.jam_keluar;
-                } catch (error) {
-                    console.log(idPegawai)
-
-                    // If no attendance, fetch employee data
-                    this.editMode = false; // POST mode
-                    this.dataIdPegawai = await getData(`/pegawai/${idPegawai}`);
-                    this.daftarPegawai = this.dataIdPegawai.id_pegawai;
-                    this.dataStatus = "";
-                    this.kode_kehadiran = "";
-                    this.hari = this.dataIdPegawai.hari || "Senin"; // Default to current day
-                    this.tgl_kehadiran = this.tanggal; // Default to today's date
-                    this.jam_masuk = "";
-                    this.jam_keluar = "";
-                }
-            },
-            clearFilter() {
-                this.filters = { global: { value: null, matchMode: "contains" } };
-            },
-            // Save the attendance data (POST or PUT)
-            async saveData() {
+            async edit() {
                 this.hasValidated = true;
                 if (!this.v$.$invalid) {
-                const payload = {
-                    id_kehadiran: this.editMode ? this.dataId.id_kehadiran : null,
-                    id_pegawai: this.pegawai,
-                    status: this.dataStatus ? this.dataStatus.code : "",
-                    kode_kehadiran: this.kode_kehadiran,
-                    hari: this.hari,
-                    tgl_kehadiran: this.tgl_kehadiran,
-                    jam_masuk: this.jam_masuk,
-                    jam_keluar: this.jam_keluar,
-                };
-
-                try {
-                    if (this.editMode) {
-                    // Edit (PUT)
-                    const res = await axios.put(`/kehadiran/${payload.id_kehadiran}`, payload);
-                    console.log("Data updated:", res);
-                    this.$toast.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "Data kehadiran berhasil diperbarui.",
-                        life: 3000,
-                    });
-                    } else {
-                    // Create (POST)
-                    const res = await axios.post("/kehadiran", payload);
-                    console.log("Data created:", res);
-                    this.$toast.add({
-                            severity: "success",
-                            summary: "Success",
-                            detail: "Data kehadiran berhasil dibuat.",
-                            life: 3000,
+                    const data = {
+                        id_kehadiran: this.dataId.id_kehadiran,
+                        id_pegawai: this.pegawai,
+                        status: this.dataStatus,
+                        kode_kehadiran: this.kode_kehadiran,
+                        hari: this.hari,
+                        tgl_kehadiran: this.tgl_kehadiran,
+                        jam_masuk: this.jam_masuk,
+                        jam_keluar: this.jam_keluar,
+                    };
+                    await axios
+                        .put("kehadiran", data)
+                        .then((res) => {
+                            console.log(res);
+                            this.created();
+                            this.$toast.add({
+                                severity: "success",
+                                summary: "Success",
+                                detail: res.data.message,
+                                life: 3000,
+                            });
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            this.$toast.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: err,
+                                life: 3000,
+                            });
                         });
-                    }
-                    this.toggleVisible();
-                    this.created(); // Reload data
-                } catch (error) {
-                    console.error("Error saving data:", error);
-                    this.$toast.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: "Gagal menyimpan data.",
-                        life: 3000,
-                        });
-                    }
                 }
+            },
+            handleEdit(id) {
+                this.toggleVisible();
+                this.getId(id);
+                // this.getJadwalKerja();
+            },
+            toggleVisible() {
+                this.visible = !this.visible;
             },
             // toggleOutline() {
             // 	this.outline = !this.outline
             // },
-            async getDataKehadiran(date) {
-                this.tanggal = this.formattedDate(date)
-
-                this.data = await getData(`/kehadiran?tgl_kehadiran=${this.tanggal}`);
-
-                console.log(this.tanggal);
+            getDataKehadiran(date) {
+                this.bulan = this.justMonth(date);
+                this.tahun = this.justYear(date);
+                this.daftarHari = this.getTanggalDanHari(
+                    this.bulan,
+                    this.tahun
+                );
             },
             async postKodeAbsensi() {
                 console.log(this.kodeAbsensi);
@@ -451,18 +394,11 @@
                         this.$toast.add({
                             severity: "error",
                             summary: "Error",
-                            detail: `${err.request.response.message}`,
+                            detail: `${err.response.data.message}`,
                             life: 3000,
                         });
                         this.kodeAbsensi = "";
                     });
-            },
-            calculateRowNumber(slotProps) {
-                const firstIndex =
-                    this.$refs.dt && this.$refs.dt.first ? this.$refs.dt.first : 0;
-                return (
-                    firstIndex + this.data.indexOf(slotProps.data) + 1
-                );
             },
             async postKodeAbsensiKeluar() {
                 console.log(this.kodeAbsensi);

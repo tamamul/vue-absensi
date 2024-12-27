@@ -16,7 +16,7 @@
 				<div class="flex flex-col gap-5">
 					<div class="grid grid-cols-12 gap-2">
 						<div class="col-span-12 md:col-span-6 flex items-center gap-5">
-							<Image :src="avatar" :alt="user.nama_lengkap" class="w-32 border border-white shadow-md items-center justify-center rounded-full" />
+							<Image src="/src/assets/app-logo.png" :alt="user.nama_lengkap" class="w-32 border border-white shadow-md items-center justify-center rounded-full" />
 							<div>
 								<p class="text-xl font-bold">{{ user.nama_lengkap ?? 'Muh. Mahatma Arrayyan' }}</p>
 								<p class="text-xl">{{ user.jabatan ?? 'Frontend Dev' }}</p>
@@ -39,10 +39,35 @@
 						</TabList>
 						<TabPanels>
 							<TabPanel value="0">
-								Test
+								<form class="w-full flex gap-2">
+									<FloatLabel variant="in">
+										<Password 
+											v-model="password" 
+											toggleMask 
+											:feedback="false" 
+											inputId="password"
+											required 
+										/>
+										<label for="password">Password</label>
+									</FloatLabel>
+									<FloatLabel variant="in">
+										<Password 
+											v-model="password_baru" 
+											toggleMask 
+											:feedback="false" 
+											inputId="passwordBaru"
+											required 
+										/>
+										<label for="password_baru">Password Baru</label>
+									</FloatLabel>
+									<Button icon="pi pi-plus-circle" label="Ganti Password"></Button>
+								</form>
 							</TabPanel>
 
-							<TabJadwalKerjaUmum></TabJadwalKerjaUmum>
+							<TabPanel value="1">
+								<Button icon="pi pi-plus-circle" label="Tambah" @click="toggleJadwalKerja()"></Button>
+							</TabPanel>
+
 						</TabPanels>
 					</Tabs>
 
@@ -50,6 +75,8 @@
 			</template>
 		</Card>
 	</div>
+
+	<DialogJadwalKerja :visible="visibleJadwalKerja" @toggle="toggleJadwalKerja" :is_default="true" />
 
 </template>
 
@@ -70,12 +97,23 @@ export default {
             // Validation
             v$: useVuelidate(),
             hasValidated: false,
+			password: '',
             // Form
             no: 1,
             formPost:false,
+
+			jadwalKerja: '',
+			columns: [
+				{ field: 'nama_jadwal', header: 'Nama Jadwal' },
+				{ field: 'jadwal.hari', header: 'Hari' },
+			],
+			visibleJadwalKerja	: false,
 		}
 	},
 	methods: {
+		toggleJadwalKerja() {
+			this.visibleJadwalKerja = !this.visibleJadwalKerja;
+		},
 	},
 	mounted() {
 		this.isAdmin ? this.getUser() : this.isLoading = false

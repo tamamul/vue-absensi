@@ -53,7 +53,7 @@
     >
         <template #container>
             <!-- <span class="text-surface-500 dark:text-surface-400 block mb-8">{{ pesan }}</span> -->
-            <form class="p-7 grid grid-cols-12">
+            <form class="p-7 grid grid-cols-12 overflow-y-auto">
                 <p class="col-span-12 text-xl mb-6 font-semibold">
                     {{ dialogTitle }}
                 </p>
@@ -67,7 +67,6 @@
                             id="nama_jadwal"
                             v-model="nama_jadwal"
                             class="col-span-12 max-h-[46px]"
-                            :disabled="selectedShift ? false : true"
                             :invalid="hasValidated && v$.nama_jadwal.$invalid"
                         />
                     </InputVuelidate>
@@ -107,7 +106,7 @@
                 </div>
 
                 <div
-                    class="col-span-12 w-full overflow-y-auto flex flex-col gap-2 mb-3"
+                    class="col-span-12 w-full flex flex-col gap-2 mb-3"
                 >
                     <p>Pilih Shift Kerja</p>
                     <div v-for="item in data" :key="item.id_shift">
@@ -200,6 +199,10 @@ export default {
             this.visible = !this.visible;
         },
         handlePost() {
+            // this.data = ''
+            // this.nama_jadwal = ''
+            // this.selectedShift = false
+
             this.toggleJadwalKerja();
             this.getAllShift();
             this.dialogTitle = "Tambah Jadwal Kerja";
@@ -228,6 +231,8 @@ export default {
             this.visibleShift = !this.visibleShift;
         },
         updateData() {
+            if (!this.hari || !this.selectedShiftId) return; // Abaikan jika data tidak lengkap
+
             const temp = {
                 hari: this.hari,
                 id_shift: this.selectedShiftId,
@@ -241,6 +246,9 @@ export default {
             } else {
                 this.data.push(temp);
             }
+
+            this.hari = ""; // Reset hari setelah di-update
+            this.selectedShiftId = null; // Reset shift ID setelah di-update
         },
 
         async getAllJadwalKerja() {

@@ -6,7 +6,7 @@
 				<p class="col-span-12 text-xl mb-6 font-semibold">Tambahkan Jadwal Kerja</p>
 				<div class="col-span-12 w-full gap-1">
 					<InputVuelidate name="nama_jadwal" label="Nama Jadwal" :hasValidated="hasValidated">
-						<InputText id="nama_jadwal" v-model="nama_jadwal" class="col-span-12 max-h-[46px]" :disabled="selectedShift ? false : true" :invalid="hasValidated && v$.nama_jadwal.$invalid" />
+						<InputText id="nama_jadwal" v-model="nama_jadwal" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_jadwal.$invalid" />
 					</InputVuelidate>
 				</div>
 
@@ -156,6 +156,7 @@ export default {
 			})
 		},
 		post() {
+			console.log(this.is_default)
 			this.is_default ? this.postJadwalKerjaDefault() : this.postJadwalKerja()
 		}
 	},
