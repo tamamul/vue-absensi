@@ -11,7 +11,27 @@ export function formattedTime(date) {
 		return `${hours}:${minutes}`;
 	}
 }
+export function formatTimee(time) {
+    // Cek jika sudah dalam format waktu
+    const timePattern = /^\d{2}:\d{2}:\d{2}$/; // Pola untuk format "HH:mm:ss"
+    if (timePattern.test(time)) {
+    return time; // Jika sudah dalam format waktu, langsung dikembalikan
+    }
 
+    // Jika bukan format waktu, coba parsing sebagai Date
+    const parsedDate = new Date(time);
+    if (!isNaN(parsedDate)) {
+        // Jika valid, kembalikan hanya bagian waktu
+        return parsedDate.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+        });
+    }
+
+    // Jika tidak valid, kembalikan placeholder
+    return "-";
+}
 // Fungsi untuk format tanggal
 export function formattedDate(date) {
 	const datePattern = /^\d{2}-\d{2}-\d{4}$/;

@@ -68,7 +68,6 @@
                     id="id_kehadiran"
                     :dataLuar="data"
                     :deleteAble="false"
-                    @openEdit="handleEdit"
                     :cusAction = true
                 >
                     <Column header="Waktu Kehadiran" field="tgl_kehadiran">
@@ -88,7 +87,7 @@
                                     icon="pi pi-pencil"
                                     severity="info"
                                     aria-label="Edit"
-                                    @click="handleEdit(slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
+                                    @click="openForm(slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
                                 />
                             </div>
                         </template>
@@ -98,28 +97,27 @@
         </Card>
     </div>
 
-    <Dialog :visible="visible" modal :style="{ width: '40rem' }">
+    <Dialog v-model:visible="visible" modal :style="{ width: '40rem' }">
         <template #container>
             <form class="p-7 grid grid-cols-12 gap-2">
                 <p class="col-span-12 text-xl mb-6 font-semibold">
                     Edit Kehadiran Pegawai
                 </p>
+                <p v-show="pesan" class="col-span-12 font-semibold text-red-500">
+                    Isi Semua Input Data!
+                </p>
 
                 <div class="col-span-12 w-full gap-1">
-                    
-                    <InputVuelidate
+                    <label class="max-h-6 col-span-12 mb-2" for="pegawai">Pegawai <span class="text-red-500">*</span></label>
+                    <Select
+                        input-id="pegawai"
                         name="pegawai"
-                        label="Pegawai"
-                        :hasValidated="hasValidated">
-                        <Select
-                            id="pegawai"
-                            v-model="pegawai"
-                            placeholder="Pilih pegawai"
-                            :options="daftarPegawai"
-                            optionLabel="nama_lengkap"
-                            class="col-span-12 max-h-[46px]"
-                            :invalid="hasValidated && v$.pegawai.$invalid" />
-                    </InputVuelidate>
+                        v-model="pegawai"
+                        placeholder="Pilih pegawai"
+                        :options="daftarPegawai"
+                        optionLabel="nama_lengkap"
+                        class="w-full mb-3"
+                    />
                 </div>
             <!-- <Select
                 class="col-span-12 max-h-[46px]"
@@ -131,63 +129,58 @@
                 filter></Select> -->
 
                 <div class="col-span-12 w-full gap-1">
-                    <InputVuelidate
+                    <label class="max-h-6 col-span-12 mb-2" for="status">Status Kehadiran <span class="text-red-500">*</span></label>
+                    <Select
+                        input-id="status"
                         name="status"
-                        label="Status"
-                        :hasValidated="hasValidated">
-                        <Select
-                            id="status"
-                            v-model="dataStatus"
-                            placeholder="Pilih status kehadiran"
-                            :options="status"
-                            optionLabel="name"
-                            class="col-span-12 max-h-[46px]"
-                            :invalid="hasValidated && v$.dataStatus.$invalid" />
-                    </InputVuelidate>
+                        v-model="dataStatus"
+                        placeholder="Pilih status kehadiran"
+                        :options="status"
+                        optionLabel="name"
+                        class="w-full mb-3"
+                    />
                 </div>
                 <div class="col-span-6 w-full gap-1">
                     <InputVuelidate
                         name="jam_masuk"
                         label="Jam Masuk"
-                        :hasValidated="hasValidated">
+                        >
                         <DatePicker
                             timeOnly
-                            id="jam_masuk"
+                            input-id="jam_masuk"
                             v-model="jam_masuk"
                             placeholder="Pilih jam masuk"
                             class="col-span-12 max-h-[46px]"
-                            :invalid="hasValidated && v$.jam_masuk.$invalid" />
+                        />
                     </InputVuelidate>
                 </div>
                 <div class="col-span-6 w-full gap-1">
                     <InputVuelidate
                         name="jam_keluar"
                         label="Jam Keluar"
-                        :hasValidated="hasValidated">
+                    >
                         <DatePicker
                             timeOnly
-                            id="jam_keluar"
+                            input-id="jam_keluar"
                             v-model="jam_keluar"
                             placeholder="Pilih jam keluar"
                             class="col-span-12 max-h-[46px]"
-                            :invalid="hasValidated && v$.jam_keluar.$invalid" />
+                        />
                     </InputVuelidate>
                 </div>
                 <div class="col-span-12 w-full gap-1">
                     <InputVuelidate
                         name="tgl_kehadiran"
                         label="Tanggal Kehadiran"
-                        :hasValidated="hasValidated">
+                    >
                         <DatePicker
-                            id="tgl_kehadiran"
+                            input-id="tgl_kehadiran"
                             v-model="tgl_kehadiran"
                             placeholder="Pilih tanggal kehadiran"
                             :options="tgl_kehadiran"
                             optionLabel="name"
                             class="col-span-12 max-h-[46px]"
-                            :invalid="
-                                hasValidated && v$.tgl_kehadiran.$invalid
-                            " />
+                        />
                     </InputVuelidate>
                 </div>
                 <div class="col-span-12 flex justify-end gap-2">
@@ -196,7 +189,7 @@
                         label="Cancel"
                         severity="secondary"
                         @click="toggleVisible"></Button>
-                    <Button type="button" label="Save" @click="edit"></Button>
+                    <Button type="button" :label="!postOrEdit ? 'Edit' : 'Tambahkan'" @click="!postOrEdit ? edit(idKehadiran) : post()"></Button>
                 </div>
             </form>
         </template>
@@ -219,6 +212,8 @@
                 date: new Date(),
                 outline: false,
                 tanggal: "",
+                postOrEdit: false,
+                pesan: false,
                 loadingPegawai: true,
                 columns: [
                     { field: "nama_pegawai", header: "Nama Pegawai" },
@@ -264,6 +259,7 @@
             justMonth,
             justYear,
             formattedDate,
+            formatTimee,
             parseDate,
             async created(date) {
                 try {
@@ -288,83 +284,133 @@
 			async getId(id) {
 				try {
 					this.dataId = await getData(`/kehadiran/${id}`);
-					
 					// Map the response data to the form fields
 					this.pegawai = this.daftarPegawai.find(
 						(pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
-					) || null; // Match pegawai by id or set to null if not found
+					) || null; // Match pegawai by id or set to null if Edit found
 					this.dataStatus = this.status.find(
 						(item) => item.code === this.dataId.status
 					) || null; // Match status by code or set to null if not found
 					this.kode_kehadiran = this.dataId.kode_kehadiran;
 					this.hari = this.dataId.hari;
+                    this.idKehadiran = this.dataId.id_kehadiran
 
 					// Convert tgl_kehadiran to a Date object
 					this.tgl_kehadiran = this.parseDate(this.dataId.tgl_kehadiran);
 
 					// Parse jam_masuk and jam_keluar if necessary
 					this.jam_masuk = this.dataId.jam_masuk;
-					this.jam_keluar = this.dataId.jam_keluar;
+                    this.jam_keluar = this.dataId.jam_keluar;
 
 				} catch (error) {
 					console.error("Failed to fetch data:", error);
 				}
 			},
 
-            async edit() {
+            async edit(id) {
+                this.hasValidated = true
+                const data = {
+                    id_kehadiran: this.dataId.id_kehadiran,
+                    id_pegawai: this.pegawai.id_pegawai,
+                    status: this.dataStatus.code,
+                    kode_kehadiran: this.kode_kehadiran,
+                    hari: this.hari,
+                    tgl_kehadiran: this.formattedDate(this.tgl_kehadiran),
+                    jam_masuk: formatTimee(this.jam_masuk),
+                    jam_keluar: formatTimee(this.jam_keluar),
+                };
+                await axios.patch(`kehadiran/${id}`, data).then((res) => {
+                    console.log(res);
+                    this.created();
+                    this.$toast.add({
+                        severity: "success",
+                        summary: "Success",
+                        detail: res.data.message,
+                        life: 3000,
+                    });
+                    this.toggleVisible();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.$toast.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: err,
+                        life: 3000,
+                    });
+                    this.pesan = true
+                    this.toggleVisible();
+                });
+                this.hasValidated = false
+            },
+            async post(){
                 this.hasValidated = true;
-                if (!this.v$.$invalid) {
-                    const data = {
-                        id_kehadiran: this.dataId.id_kehadiran,
-                        id_pegawai: this.pegawai,
-                        status: this.dataStatus,
-                        kode_kehadiran: this.kode_kehadiran,
-                        hari: this.hari,
-                        tgl_kehadiran: this.tgl_kehadiran,
-                        jam_masuk: this.jam_masuk,
-                        jam_keluar: this.jam_keluar,
-                    };
-                    await axios
-                        .put("kehadiran", data)
-                        .then((res) => {
-                            console.log(res);
-                            this.created();
-                            this.$toast.add({
-                                severity: "success",
-                                summary: "Success",
-                                detail: res.data.message,
-                                life: 3000,
-                            });
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                            this.$toast.add({
-                                severity: "error",
-                                summary: "Error",
-                                detail: err,
-                                life: 3000,
-                            });
+                const data = {
+                    id_pegawai: this.pegawai.id_pegawai,
+                    status: this.dataStatus.code,
+                    kode_kehadiran: this.kode_kehadiran,
+                    hari: this.hari,
+                    tgl_kehadiran: this.formattedDate(this.tgl_kehadiran),
+                    jam_masuk: formatTimee(this.jam_masuk),
+                    jam_keluar: formatTimee(this.jam_keluar),
+                };
+                await axios
+                    .post("kehadiran", data)
+                    .then((res) => {
+                        console.log(res);
+                        this.created();
+                        this.$toast.add({
+                            severity: "success",
+                            summary: "Success",
+                            detail: res.data.message,
+                            life: 3000,
                         });
-                }
+                    })
+                    .catch((err) => {
+                        this.pesan = true
+                        console.log(err);
+                        this.$toast.add({
+                            severity: "error",
+                            summary: "Error",
+                            detail: err,
+                            life: 3000,
+                        });
+                    });
+
+                this.hasValidated = false
             },
             async getPegawai(id) {
                 this.dataId = await getData(`/pegawai/${id}`);
                 this.pegawai = this.daftarPegawai.find(
                     (pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
                 ) || null;
+                // Map the response data to the form fields
+                this.dataStatus = ''
+                this.kode_kehadiran = '';
+                this.hari = '';
+
+                // Convert tgl_kehadiran to a Date object
+                this.tgl_kehadiran = '';
+
+                // Parse jam_masuk and jam_keluar if necessary
+                this.jam_masuk = this.dataId.jam_masuk;
+                this.jam_keluar = this.dataId.jam_keluar;
             },
-            handleEdit(id, idPegawai) {
+            openForm(id, idPegawai) {
                 this.toggleVisible();
                 console.log(id)
                 if (id === 0) {
+                    this.postOrEdit = true
                     this.getPegawai(idPegawai)
                 } else {
+                    this.postOrEdit = false
                     this.getId(id);
                 }
                 // this.getJadwalKerja();
             },
             toggleVisible() {
                 this.visible = !this.visible;
+                this.pesan = false
             },
             // toggleOutline() {
             // 	this.outline = !this.outline
