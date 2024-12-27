@@ -20,7 +20,9 @@
                             </TabList>
                             <TabPanels>
                                 <TabPanel value="0">
-                                    <div v-if="infoAbsen">Kamu Telah Absen Masuk</div>
+                                    <div v-if="infoAbsen" class="text-center w-full mt-32 mb-32 font-bold text-2xl">
+                                        Kamu Telah Absen Masuk
+                                    </div>
                                     <QRCodeVue3 
                                         v-else
                                         :key="data"
@@ -50,7 +52,7 @@
                                     />
                                 </TabPanel>
                                 <TabPanel value="1">
-                                    <div v-if="infoAbsenKeluar">Kamu Telah Absen Keluar</div>
+                                    <div v-if="infoAbsenKeluar" class="text-center w-full mt-32 mb-32 font-bold text-2xl">Kamu Telah Absen Keluar</div>
                                     <QRCodeVue3 
                                         v-else
                                         :key="dataKeluar"

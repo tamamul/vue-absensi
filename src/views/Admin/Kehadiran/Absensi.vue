@@ -60,25 +60,6 @@
                         severity="primary"
                         @click="getDataKehadiran(date)"></Button>
                 </div>
-                <div class="flex mt-4 overflow-x-auto whitespace-nowrap gap-2">
-                    <Button
-                        v-for="item in daftarHari"
-                        :key="item.tanggal"
-                        type="button"
-                        :label="
-                            tahun +
-                            `/` +
-                            bulan +
-                            `/` +
-                            item.tanggal +
-                            ` ` +
-                            item.hari
-                        "
-                        severity="primary"
-                        @click="toggleOutline"
-                        class="flex-shrink-0"
-                        :outlined="outline" />
-                </div>
             </template>
             <template #content>
                 <TableDefault
@@ -87,16 +68,15 @@
                     id="id_kehadiran"
                     :dataLuar="data"
                     :deleteAble="false"
-                    @openEdit="handleEdit">
-                    <Column header="Waktu Kehadiran" field="hari">
+                    @openEdit="handleEdit"
+                    :cusAction = true
+                >
+                    <Column header="Waktu Kehadiran" field="tgl_kehadiran">
                         <template #body="slotProps">
-                            {{
-                                slotProps.data.hari +
-                                ", " +
-                                slotProps.data.tgl_kehadiran
-                            }}
+                            <td>{{ slotProps.data.tgl_kehadiran !== '-' ? slotProps.data.hari + ", " + slotProps.data.tgl_kehadiran : "-" }}</td>
                         </template>
                     </Column>
+
                 </TableDefault>
             </template>
         </Card>
@@ -208,8 +188,6 @@
 </template>
 
 <script>
-import { parseDate } from '@/utils/date';
-
     export default {
         name: "Absensi",
         inject: ["default"],
@@ -221,8 +199,6 @@ import { parseDate } from '@/utils/date';
                 data: [],
                 dataId: [],
                 daftarHari: [],
-                tahun: "",
-                bulan: "",
                 visible: false,
                 date: new Date(),
                 outline: false,
@@ -247,6 +223,7 @@ import { parseDate } from '@/utils/date';
                     { name: "Tidak Hadir", code: "Tidak Hadir" },
                 ],
                 pegawai: "",
+                dataEditPegawai: "",
                 daftarPegawai: null,
                 phPegawai: "Loading...",
                 kode_kehadiran: "",
@@ -270,11 +247,11 @@ import { parseDate } from '@/utils/date';
         methods: {
             justMonth,
             justYear,
+            formattedDate,
             parseDate,
-            getTanggalDanHari,
-            async created() {
+            async created(date) {
                 try {
-                    this.data = await getData("/kehadiran");
+                    this.data = !date ? await getData("/kehadiran") : await getData(`/kehadiran?tgl_kehadiran=${date}`);
                     this.isLoading = false;
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
@@ -354,9 +331,20 @@ import { parseDate } from '@/utils/date';
                         });
                 }
             },
+            async getPegawai() {
+                this.dataId = await getData(`/pegawai/${data}`);
+                this.pegawai = this.daftarPegawai.find(
+                    (pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
+                ) || null;
+            },
             handleEdit(id) {
                 this.toggleVisible();
-                this.getId(id);
+                console.log(id)
+                if (id === 0) {
+                    this.getPegawai(id)
+                } else {
+                    this.getId(id);
+                }
                 // this.getJadwalKerja();
             },
             toggleVisible() {
@@ -366,12 +354,7 @@ import { parseDate } from '@/utils/date';
             // 	this.outline = !this.outline
             // },
             getDataKehadiran(date) {
-                this.bulan = this.justMonth(date);
-                this.tahun = this.justYear(date);
-                this.daftarHari = this.getTanggalDanHari(
-                    this.bulan,
-                    this.tahun
-                );
+                this.created(this.formattedDate(date));
             },
             async postKodeAbsensi() {
                 console.log(this.kodeAbsensi);

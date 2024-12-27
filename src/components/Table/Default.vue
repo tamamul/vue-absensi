@@ -58,7 +58,13 @@
         <slot />
 
         <!-- Column UD -->
-        <Column header="Action" frozen alignFrozen="right" style="width: 100px">
+        <Column 
+            v-if="!cusAction" 
+            header="Action" 
+            frozen 
+            alignFrozen="right" 
+            style="width: 100px"
+        >
             <template #body="slotProps">
                 <TableActionStandard
                     :onEdit="handleEdit"
@@ -68,6 +74,7 @@
                 />
             </template>
         </Column>
+
     </DataTable>
 </template>
 
@@ -84,6 +91,10 @@ export default {
         idPegawai: String,
         dataLuar: Array,
         deleteAble: {
+            type: Boolean,
+            default: true,
+        },
+        cusAction: {
             type: Boolean,
             default: true,
         },

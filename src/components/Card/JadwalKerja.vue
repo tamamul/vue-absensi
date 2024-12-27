@@ -108,7 +108,7 @@
                 <div
                     class="col-span-12 w-full flex flex-col gap-2 mb-3"
                 >
-                    <p>Pilih Shift Kerja</p>
+                    <p>Pilih Jadwal Kerja</p>
                     <div v-for="item in data" :key="item.id_shift">
                         <p>Hari : {{ item.hari }}</p>
                         <Shift :api="`shift/${item.id_shift}`" />
@@ -131,7 +131,7 @@
     <Dialog
         v-model:visible="visibleShift"
         modal
-        header="Pilih Shift Kerja"
+        header="Pilih Jadwal Kerja"
         :style="{ width: '30rem' }"
     >
         <div class="flex flex-col gap-2 mb-3">

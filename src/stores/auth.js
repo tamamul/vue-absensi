@@ -37,8 +37,20 @@ export const useAuthStore = defineStore('auth', {
                 } else { 
                     router.push({ name: 'user-dashboard' });
                 }
+                this.$toast.add({
+                    severity: "error",
+                    summary: "Error",
+                    detail: `${res.response.data.message}`,
+                    life: 3000,
+                });
             } catch (err) {
                 console.log('Login failed:', err);
+                this.$toast.add({
+                    severity: "error",
+                    summary: "Login Gagal",
+                    detail: `${err.response.data.message}`,
+                    life: 3000,
+                });
             }
         },
 

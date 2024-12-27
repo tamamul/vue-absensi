@@ -11,7 +11,7 @@
 
 <script>
 export default {
-	name:'ShiftKerja',
+	name:'Jadwal',
 	data() {
 		return {
 		}

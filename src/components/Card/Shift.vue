@@ -2,7 +2,7 @@
     <Card class="col-span-12 xl:col-span-4 shadow-md">
         <template #title>
             <div class="flex justify-between">
-                <h3>Daftar Shift Kerja</h3>
+                <h3>Daftar Jadwal Kerja</h3>
                 <Button
                     icon="pi pi-plus-circle"
                     label="Tambah"
@@ -365,7 +365,7 @@ export default {
                 (this.toleransi_keterlambatan = 0),
                 (this.formIsLoading = false);
             this.visible = true;
-            this.dialogTitle = "Tambahkan Shift Kerja";
+            this.dialogTitle = "Tambahkan Jadwal Kerja";
         },
 
         async post() {
@@ -391,8 +391,8 @@ export default {
                     // console.log(res)
                     this.$toast.add({
                         severity: "success",
-                        summary: "Shift kerja sukses ditambahkan",
-                        detail: "Shift kerja telah di tambahkan",
+                        summary: "Jadwal kerja sukses ditambahkan",
+                        detail: "Jadwal kerja telah di tambahkan",
                         life: 3000,
                     });
                     this.getAllShift();
@@ -487,7 +487,7 @@ export default {
             // console.log(`Parent handling edit for shift id: ${id}`);
             this.formPost = false;
             this.visible = true;
-            this.dialogTitle = "Edit Shift Kerja";
+            this.dialogTitle = "Edit Jadwal Kerja";
 
             this.getShiftById(id);
         },
