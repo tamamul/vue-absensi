@@ -77,6 +77,22 @@
                         </template>
                     </Column>
 
+                    <Column header="Action"
+                        frozen 
+                        alignFrozen="right" 
+                        style="width: 100px"
+                    >
+                        <template #body="slotProps">
+                            <div class="flex gap-2 bg-white">
+                                <Button
+                                    icon="pi pi-pencil"
+                                    severity="info"
+                                    aria-label="Edit"
+                                    @click="handleEdit(slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
+                                />
+                            </div>
+                        </template>
+                    </Column>
                 </TableDefault>
             </template>
         </Card>
@@ -331,17 +347,17 @@
                         });
                 }
             },
-            async getPegawai() {
-                this.dataId = await getData(`/pegawai/${data}`);
+            async getPegawai(id) {
+                this.dataId = await getData(`/pegawai/${id}`);
                 this.pegawai = this.daftarPegawai.find(
                     (pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
                 ) || null;
             },
-            handleEdit(id) {
+            handleEdit(id, idPegawai) {
                 this.toggleVisible();
                 console.log(id)
                 if (id === 0) {
-                    this.getPegawai(id)
+                    this.getPegawai(idPegawai)
                 } else {
                     this.getId(id);
                 }
