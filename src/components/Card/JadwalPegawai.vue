@@ -20,7 +20,30 @@
                 :dataLuar="data"
                 @openEdit="handleEdit"
                 :deleteAble="false"
-            />
+            >
+                <Column
+                    header="Action"
+                    frozen
+                    alignFrozen="right"
+                    style="width: 100px"
+                >
+                    <template #body="slotProps">
+                        <div class="flex gap-2 bg-white">
+                            <Button
+                                icon="pi pi-pencil"
+                                severity="info"
+                                aria-label="Edit"
+                                @click="
+                                    handleEdit(
+                                        slotProps.data.id_pegawai,
+                                        slotProps.data.jadwal.id_jadwal
+                                    )
+                                "
+                            />
+                        </div>
+                    </template>
+                </Column>
+            </TableDefault>
         </template>
     </Card>
 
@@ -33,7 +56,12 @@
         <span class="text-surface-500 dark:text-surface-400 block mb-8"
             >Pilih pegawai dan jadwal kerja yang ingin diedit.</span
         >
-        <form class="">
+        <div class="grid grid-cols-12 gap-5 h-40 m-5" v-if="formIsLoading">
+            <div class="col-span-12 w-full flex justify-center items-center">
+                <ProgressSpinner />
+            </div>
+        </div>
+        <form class="" v-else>
             <InputVuelidate
                 name="nama_lengkap"
                 label="Pilih Pegawai"
@@ -41,6 +69,7 @@
             >
                 <Select
                     class="col-span-12 max-h-[46px]"
+                    :disabled="isEdit"
                     v-model="pegawai"
                     :options="daftarPegawai"
                     optionLabel="nama_lengkap"
@@ -51,7 +80,7 @@
             </InputVuelidate>
             <InputVuelidate
                 name="nama_jadwal"
-                label="Pilih Pegawai"
+                label="Pilih Jadwal Kerja"
                 :hasValidated="hasValidated"
             >
                 <Select
@@ -64,17 +93,16 @@
                     filter
                 ></Select>
             </InputVuelidate>
+            <div class="flex justify-end gap-2">
+                <Button
+                    type="button"
+                    label="Cancel"
+                    severity="secondary"
+                    @click="toggleJadwalPegawai"
+                ></Button>
+                <Button type="button" label="Save" @click="post"></Button>
+            </div>
         </form>
-
-        <div class="flex justify-end gap-2">
-            <Button
-                type="button"
-                label="Cancel"
-                severity="secondary"
-                @click="toggleJadwalPegawai"
-            ></Button>
-            <Button type="button" label="Save" @click="post"></Button>
-        </div>
     </Dialog>
 </template>
 
@@ -106,6 +134,8 @@ export default {
             hasValidated: false,
 
             dialogTitle: "",
+            isEdit: false,
+            formIsLoading: false,
         };
     },
     validations() {
@@ -126,13 +156,18 @@ export default {
         toggleJadwalPegawai() {
             this.visible = !this.visible;
         },
-        handleEdit(id) {
+        handleEdit(id_pegawai, id_jadwal) {
             this.toggleJadwalPegawai();
             this.dialogTitle = "Edit Jadwal Pegawai";
             this.getPegawaiAll();
             this.getJadwalKerja();
+            this.isEdit = true;
+            this.formIsLoading = true;
+            this.getJadwalPegawaiById(id_jadwal, id_pegawai);
         },
         openPost() {
+            this.isEdit = false;
+            this.phPegawai = "Pilih pegawai";
             this.toggleJadwalPegawai();
             this.getJadwalKerja();
             this.getPegawaiAll();
@@ -195,6 +230,22 @@ export default {
                 .catch((err) => {
                     console.log("Error:" + err);
                     this.phJadwalKerja = "Error";
+                });
+        },
+        async getJadwalPegawaiById(id_jadwal, id_pegawai) {
+            await axios
+                .get("/jadwal/pegawai/detail", {
+                    params: { id_jadwal, id_pegawai },
+                })
+                .then((res) => {
+                    this.phPegawai = res.data.data.nama_pegawai;
+                    this.formIsLoading = false;
+                    this.pegawai = res.data.data;
+                    this.jadwalKerja = res.data.data.jadwal;
+                    this.phJadwalKerja = res.data.data.jadwal.nama_jadwal;
+                })
+                .catch((err) => {
+                    console.log("Error:" + err);
                 });
         },
     },
