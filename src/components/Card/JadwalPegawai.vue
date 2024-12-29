@@ -20,6 +20,7 @@
                 :dataLuar="data"
                 @openEdit="handleEdit"
                 :deleteAble="false"
+                :cusAction = true
             >
                 <Column
                     header="Action"
@@ -48,7 +49,7 @@
     </Card>
 
     <Dialog
-        :visible="visible"
+        v-model:visible="visible"
         modal
         :header="dialogTitle"
         :style="{ width: '40rem' }"
@@ -162,7 +163,7 @@ export default {
             this.getPegawaiAll();
             this.getJadwalKerja();
             this.isEdit = true;
-            this.formIsLoading = true;
+            this.formIsLoading = false;
             this.getJadwalPegawaiById(id_jadwal, id_pegawai);
         },
         openPost() {

@@ -6,6 +6,8 @@
     </div>
 
     <div class="grid grid-cols-12 gap-5 m-5 mb-24 lg:mb-5" v-else>
+        <PageHeader title="Absensi" />
+
         <Card class="col-span-12 shadow-md">
             <template #title>
                 <div class="w-full text-center">Konfirmasi Absensi Pegawai</div>
@@ -43,8 +45,8 @@
         <Card class="col-span-12 shadow-md">
             <template #title>
                 Daftar Pegawai Telah Absen
-                <div class="mt-4 flex gap-3 items-center">
-                    <label for="date" class="font-semibold">
+                <div class="mt-4 flex items-center justify-start">
+                    <label for="date" class="font-semibold text-base mr-2">
                         Data Absen Tanggal :
                     </label>
                     <DatePicker
@@ -53,12 +55,13 @@
                         id="date"
                         view="date"
                         dateFormat="dd/mm/yy"
-                        placeholder="Pilih tanggal" />
-                    <Button
-                        type="button"
-                        label="Filter"
-                        severity="primary"
-                        @click="getDataKehadiran(date)"></Button>
+                        placeholder="Pilih tanggal"
+                    >
+                        <template #date="slotProps">
+                            <strong @click="getDataKehadiran(date)">{{ slotProps.date.day }}</strong>
+                        </template>
+                    </DatePicker>
+                    <ProgressSpinner style="width: 40px; height: 40px" v-show="loadingTable" strokeWidth="8" aria-label="Loading" />
                 </div>
             </template>
             <template #content>
@@ -197,6 +200,8 @@
 </template>
 
 <script>
+import { getData } from '@/utils/fetch';
+
     export default {
         name: "Absensi",
         inject: ["default"],
@@ -205,6 +210,7 @@
                 isLoading: false,
                 inputIsLoading: false,
                 kodeAbsensi: "",
+                loadingTable: false,
                 data: [],
                 dataId: [],
                 daftarHari: [],
@@ -264,7 +270,7 @@
             async created(date) {
                 try {
                     this.data = !date ? await getData("/kehadiran") : await getData(`/kehadiran?tgl_kehadiran=${date}`);
-                    this.isLoading = false;
+                    this.loadingTable = false;
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
                 }
@@ -412,14 +418,12 @@
                 this.visible = !this.visible;
                 this.pesan = false
             },
-            // toggleOutline() {
-            // 	this.outline = !this.outline
-            // },
             getDataKehadiran(date) {
+                this.loadingTable = !this.loadingTable;
+
                 this.created(this.formattedDate(date));
             },
             async postKodeAbsensi() {
-                console.log(this.kodeAbsensi);
                 const data = { token: this.kodeAbsensi };
                 await axios
                     .post("kehadiran/masuk/confirm", data)
@@ -446,7 +450,6 @@
                     });
             },
             async postKodeAbsensiKeluar() {
-                console.log(this.kodeAbsensi);
                 const data = { token: this.kodeAbsensi };
                 await axios
                     .post("kehadiran/keluar/confirm", data)

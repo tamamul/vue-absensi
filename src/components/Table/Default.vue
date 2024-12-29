@@ -94,20 +94,27 @@ export default {
             type: Boolean,
             default: true,
         },
+        refresh: {
+            type: Boolean,
+            default: false,
+        },
         cusAction: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     data() {
         return {
             data: [],
-            filters: { global: { value: null, matchMode: "contains" } },
             loading: true,
+            filters: { global: { value: null, matchMode: "contains" } },
         };
     },
     methods: {
         async created() {
+            if (this.refresh) {
+                this.loading = true;
+            }
             try {
                 this.data = await getData(this.api);
                 this.loading = false;

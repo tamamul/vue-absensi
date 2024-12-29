@@ -12,12 +12,6 @@
                             label="Tambah"
                             @click="openPost"
                         ></Button>
-                        <Button
-                            icon="pi pi-external-link"
-                            label="Export"
-                            @click="exportCSV($event)"
-                            severity="success"
-                        />
                     </div>
                 </div>
             </template>
@@ -32,7 +26,7 @@
                         v-model:filters="filters"
                         :value="pegawai"
                         paginator
-                        :rows="10"
+                        :rows="5"
                         :rowsPerPageOptions="[5, 10, 20, 50]"
                         scrollable
                         tableStyle="min-width: 50rem"

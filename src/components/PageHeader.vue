@@ -6,7 +6,12 @@
 export default {
 	name:'PageHeader',
 	props:{
-		title: String
-	}
+		title: String,
+	},
+	data() {
+		return {
+			home: "pi pi-home",
+		}
+	},
 }
 </script>

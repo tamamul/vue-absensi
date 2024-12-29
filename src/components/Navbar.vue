@@ -96,11 +96,6 @@ export default {
                     route: '/user/profile'
                 },
                 {
-                    label: 'Settings',
-                    icon: 'pi pi-cog',
-                    route: '/user/settings'
-                },
-                {
                     separator: true
                 },
                 {
@@ -117,11 +112,6 @@ export default {
                     label: 'Profile',
                     icon: 'pi pi-user',
                     route: '/admin/profile'
-                },
-                {
-                    label: 'Settings',
-                    icon: 'pi pi-cog',
-                    route: '/admin/settings'
                 },
                 {
                     separator: true

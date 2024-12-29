@@ -11,7 +11,7 @@
             </div>
         </template>
         <template #content>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 h-[535px] overflow-auto">
                 <div
                     v-if="loading"
                     class="col-span-12 w-full h-80 flex justify-center items-center"

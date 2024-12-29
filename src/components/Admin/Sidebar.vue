@@ -35,7 +35,7 @@ export default {
                 {
                     label: 'Kehadiran',
                     items: [
-                        { label: 'Konfirmasi Absensi', icon: 'pi pi-check-square', route: '/admin/kehadiran/absensi' },
+                        { label: 'Absensi', icon: 'pi pi-check-square', route: '/admin/kehadiran/absensi' },
                         { label: 'Jadwal', icon: 'pi pi-calendar-clock', route: '/admin/kehadiran/jadwal' },
                     ]
                 },
@@ -43,15 +43,8 @@ export default {
                     label: 'Perusahaan',
                     items: [
                         { label: 'Pegawai', icon: 'pi pi-users', route: '/admin/perusahaan/pegawai' },
-                        { label: 'Gaji',icon: 'pi pi-wallet',route: '/admin/perusahaan/gaji' },
-                        { label: 'Payroll',icon: 'pi pi-credit-card',route: '/admin/perusahaan/payroll' },
-                    ]
-                },
-                {
-                    label: 'Kerjaan',
-                    items: [
-                        { label: 'Workspaces', icon: 'pi pi-briefcase', route: '/admin/kerjaan/workspaces' },
-                        { label: 'Kanban', icon: 'pi pi-list', route: '/admin/kerjaan/kanban' },
+                        { label: 'Gaji',icon: 'pi pi-wallet', route: '/admin/perusahaan/gaji' },
+                        { label: 'Payroll',icon: 'pi pi-credit-card', route: '/admin/perusahaan/payroll' },
                     ]
                 },
             ],

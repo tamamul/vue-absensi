@@ -1,9 +1,10 @@
 <template>
     <div class="grid grid-cols-12 m-5 gap-5 mb-24 lg:mb-5">
+        <PageHeader title="Payroll" />
         <Card class="col-span-12 shadow-md">
             <template #title>
                 <div class="flex justify-between">
-                    <h3>Data Payroll Pegawai</h3>
+                    <h3>Daftar Payroll Pegawai</h3>
                     <div class="flex gap-2">
                         <Button
                             icon="pi pi-plus-circle"

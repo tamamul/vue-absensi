@@ -7,15 +7,31 @@
         <Sidebar v-else :sidebarToggle=sidebarToggle @toggleSidebar="callback" :dataRole="dataRole"></Sidebar>
 
         <!-- Content Area -->
-        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden h-full">
 
             <!-- Navbar -->
             <SkeletonNavbar v-if="isLoading" @toggleSidebar="callback" :dataRole="dataRole" :dataUser="dataUser"></SkeletonNavbar>
             <Navbar v-else @toggleSidebar="callback" :dataRole="dataRole" :dataUser="dataUser"></Navbar>
 
-            <!-- Main Content Area -->
-            <RouterView></RouterView>
+            <div class="h-full flex flex-col justify-between">
 
+                <!-- Main Content Area -->
+                <RouterView></RouterView>
+                
+                <div>
+                    <Divider type="solid" />
+
+                    <!-- Footer -->
+                    <footer class="pb-5 shadow-md">
+                        <p class="text-center text-gray-600 text-sm">
+                            &copy; {{ new Date().getFullYear() }} Celebes Digital. All rights reserved.
+                        </p>
+                    </footer>
+                </div>
+            </div>
+
+
+            <!-- Bottom Nav -->
             <SkeletonBottomNav v-if="isLoading"></SkeletonBottomNav>
             <BottomNav v-else :dataRole="dataRole" />
         </div>

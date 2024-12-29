@@ -6,19 +6,20 @@
 	</div>
 
     <div class="grid grid-cols-12 gap-5 m-5">
+        <PageHeader title="Dashboard" />
         <Card class="col-span-12 shadow-md">
             <template #title>
                 Card Admin Only
             </template>
             <template #content>
-                Nice ryan
+                Nice Ryan
             </template>
         </Card>
     </div>
-
 </template>
 
 <script>
+
 export default {
     name: 'AdminDashboard',
     inject: ['default'],
