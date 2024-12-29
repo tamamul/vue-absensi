@@ -113,6 +113,7 @@
                 <div class="col-span-12 w-full gap-1">
                     <label class="max-h-6 col-span-12 mb-2" for="pegawai">Pegawai <span class="text-red-500">*</span></label>
                     <Select
+                        disabled
                         input-id="pegawai"
                         name="pegawai"
                         v-model="pegawai"

@@ -2,7 +2,7 @@
     <Card class="col-span-12 shadow-md">
         <template #title>
             <div class="flex justify-between">
-                <h3>Daftar Jadwal Kerja</h3>
+                <h3>Daftar Jadwal Kantor</h3>
                 <Button
                     icon="pi pi-plus-circle"
                     label="Tambah"
@@ -27,7 +27,7 @@
                         }}
                     </template>
                 </Column>
-                <Column header="Menggunakan Shift" style="max-width: 400px">
+                <Column header="Menggunakan Jadwal Kerja" style="max-width: 400px">
                     <template #body="slotProps">
                         <div class="flex gap-2 flex-wrap">
                             <div

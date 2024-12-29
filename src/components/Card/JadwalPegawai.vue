@@ -156,6 +156,10 @@ export default {
         },
         toggleJadwalPegawai() {
             this.visible = !this.visible;
+            if (this.visible === true) {
+                this.loadingPegawai = true
+                this.loadingJadwalKerja = true
+            }
         },
         handleEdit(id_pegawai, id_jadwal) {
             this.toggleJadwalPegawai();
