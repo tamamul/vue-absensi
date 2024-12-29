@@ -331,7 +331,7 @@ export default {
         },
         async getShiftById(id) {
             await axios
-                .get(`shift/` + id)
+                .get(`shift/${id}`)
                 .then((res) => {
                     this.loading = false;
                     this.formIsLoading = false;
@@ -367,7 +367,6 @@ export default {
             this.visible = true;
             this.dialogTitle = "Tambahkan Jadwal Kerja";
         },
-
         async post() {
             this.btnIsLoading = true;
             this.hasValidated = true;

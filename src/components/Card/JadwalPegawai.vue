@@ -158,7 +158,9 @@ export default {
             this.visible = !this.visible;
             if (this.visible === true) {
                 this.loadingPegawai = true
-                this.loadingJadwalKerja = true
+                this.loadingJadwalKerja  = true
+                this.phPegawai = "Loading...";
+                this.phJadwalKerja = "Loading...";
             }
         },
         handleEdit(id_pegawai, id_jadwal) {
@@ -173,6 +175,7 @@ export default {
         openPost() {
             this.isEdit = false;
             this.phPegawai = "Pilih pegawai";
+            this.phJadwalKerja = "Pilih jadwal kerja";
             this.toggleJadwalPegawai();
             this.getJadwalKerja();
             this.getPegawaiAll();

@@ -6,6 +6,8 @@
 	</div>
 
 	<div v-else class="grid grid-cols-12 gap-5 m-5">
+        <PageHeader title="Absensi" />
+
 		<!-- Umum -->
 		<Card class="col-span-12 shadow-md">
 			<template #title>

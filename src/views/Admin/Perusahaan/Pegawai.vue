@@ -121,7 +121,6 @@
                             header="Mulai Kerja"
                             style="min-width: 150px"
                         />
-
                         <Column header="Action" frozen alignFrozen="right">
                             <template #body="slotProps">
                                 <div class="flex gap-2 bg-white">

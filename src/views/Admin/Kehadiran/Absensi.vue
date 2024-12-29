@@ -123,14 +123,6 @@
                         class="w-full mb-3"
                     />
                 </div>
-            <!-- <Select
-                class="col-span-12 max-h-[46px]"
-                v-model="pegawai"
-                :options="daftarPegawai"
-                optionLabel="nama_lengkap"
-                :loading="loadingPegawai"
-                :placeholder="phPegawai"
-                filter></Select> -->
 
                 <div class="col-span-12 w-full gap-1">
                     <label class="max-h-6 col-span-12 mb-2" for="status">Status Kehadiran <span class="text-red-500">*</span></label>

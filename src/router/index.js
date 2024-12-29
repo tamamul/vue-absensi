@@ -57,19 +57,19 @@ const routes = [
                 component: () => import("../views/Users/Profile.vue"),
             },
             {
-                path: "settings",
-                name: "user-settings",
-                component: () => import("../views/Users/Settings.vue"),
-            },
-            {
                 path: "qr-code",
                 name: "user-qr-code",
                 component: () => import("../views/Users/QrCode.vue"),
             },
             {
-                path: "gaji",
-                name: "user-gaji",
-                component: () => import("../views/Users/Gaji.vue"),
+                path: "histori-kehadiran",
+                name: "user-kehadiran",
+                component: () => import("../views/Users/HistoriKehadiran.vue"),
+            },
+            {
+                path: "payroll",
+                name: "user-payroll",
+                component: () => import("../views/Users/Payroll.vue"),
             },
         ],
     },
@@ -89,11 +89,6 @@ const routes = [
                 path: "profile",
                 name: "admin-profile",
                 component: () => import("../views/Admin/Profile.vue"),
-            },
-            {
-                path: "settings",
-                name: "admin-settings",
-                component: () => import("../views/Admin/Settings.vue"),
             },
             {
                 path: "perusahaan/pegawai",

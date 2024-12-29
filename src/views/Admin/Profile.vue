@@ -1,11 +1,13 @@
 <template>
+	
 	<div class="grid grid-cols-12 gap-5 h-dvh m-5" v-if="isLoading">
-        <div class="col-span-12 w-full flex justify-center items-center">
-            <ProgressSpinner />
+		<div class="col-span-12 w-full flex justify-center items-center">
+			<ProgressSpinner />
         </div>
 	</div>
-
+	
 	<div class="grid grid-cols-12 m-5 mb-24 lg:mb-5" v-else>
+		<PageHeader title="Profile" class="mb-5" />
 		<Card class="col-span-12 shadow-md">
 			<template #title>
 				<h2 class="mb-5">
@@ -38,7 +40,7 @@
 							<Tab value="1">Jadwal Kerja Umum</Tab>
 						</TabList>
 						<TabPanels>
-							<TabPanel value="0">
+							<TabPanel class="mt-5" value="0">
 								<form class="w-full flex gap-2">
 									<FloatLabel variant="in">
 										<Password 
@@ -48,7 +50,7 @@
 											inputId="password"
 											required 
 										/>
-										<label for="password">Password</label>
+										<label for="password">Password Lama</label>
 									</FloatLabel>
 									<FloatLabel variant="in">
 										<Password 
@@ -64,7 +66,7 @@
 								</form>
 							</TabPanel>
 
-							<TabPanel value="1">
+							<TabPanel class="mt-5" value="1">
 								<Button icon="pi pi-plus-circle" label="Tambah" @click="toggleJadwalKerja()"></Button>
 							</TabPanel>
 
@@ -81,6 +83,7 @@
 </template>
 
 <script>
+import PageHeader from '@/components/PageHeader.vue';
 import { useAuthStore } from '@/stores/auth';
 
 export default {

@@ -29,33 +29,33 @@ export default {
         }
     },
     methods: {
-        logout() {
-            axios.post('/logout', {}).then((response) => {
-                console.log(response);
-                localStorage.removeItem('token')
-                localStorage.removeItem('is_admin')
+        // logout() {
+        //     axios.post('/logout', {}).then((response) => {
+        //         console.log(response);
+        //         localStorage.removeItem('token')
+        //         localStorage.removeItem('is_admin')
 
-                this.$toast.add({
-                    severity: 'success',
-                    summary: 'Logout Berhasil',
-                    detail: 'Sukses melakukan logout',
-                    life: 5000
-                });
+        //         this.$toast.add({
+        //             severity: 'success',
+        //             summary: 'Logout Berhasil',
+        //             detail: 'Sukses melakukan logout',
+        //             life: 5000
+        //         });
 
-                router.push({name: 'login'})
-            }).catch((error) => {
-                console.log(error)
-                console.log(this.token)
+        //         router.push({name: 'login'})
+        //     }).catch((error) => {
+        //         console.log(error)
+        //         console.log(this.token)
 
-                this.$toast.add({
-                    severity: 'error',
-                    summary: 'Logout gagal',
-                    detail: 'Gagal melakukan logout',
-                    life: 5000
-                });
+        //         this.$toast.add({
+        //             severity: 'error',
+        //             summary: 'Logout gagal',
+        //             detail: 'Gagal melakukan logout',
+        //             life: 5000
+        //         });
 
-            });
-        },
+        //     });
+        // },
     },
     mounted() {
     },

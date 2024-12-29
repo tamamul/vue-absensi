@@ -33,8 +33,9 @@ export default {
                     items: [
                         { label: 'Dashboard', icon: 'pi pi-home', route: '/user/dashboard'},
                         { label: 'QR CODE', icon: 'pi pi-qrcode', route: '/user/qr-code' },
-                        { label: 'Jadwal Kerja', icon: 'pi pi-briefcase', route: '/user/jadwal-kerja' },
-                        { label: 'Gaji', icon: 'pi pi-wallet', route: '/user/gaji' },
+                        // { label: 'Jadwal Kerja', icon: 'pi pi-briefcase', route: '/user/jadwal-kerja' },
+                        { label: 'Histori Kehadiran', icon: 'pi pi-history', route: '/user/histori-kehadiran' },
+                        { label: 'Payroll', icon: 'pi pi-wallet', route: '/user/payroll' },
                     ]
                 },
             ],

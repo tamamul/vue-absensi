@@ -8,17 +8,10 @@
 
 		<CardJadwalKerja />
 	</div>
-
 </template>
 
 <script>
 export default {
 	name:'Jadwal',
-	data() {
-		return {
-		}
-	},
-	methods: {
-	},
 }
 </script>
