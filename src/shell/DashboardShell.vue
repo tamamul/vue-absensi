@@ -30,7 +30,6 @@
                 </div>
             </div>
 
-
             <!-- Bottom Nav -->
             <SkeletonBottomNav v-if="isLoading"></SkeletonBottomNav>
             <BottomNav v-else :dataRole="dataRole" />

@@ -174,6 +174,8 @@ export default {
         },
         openPost() {
             this.isEdit = false;
+            this.pegawai = null;
+            this.jadwalKerja = null;
             this.phPegawai = "Pilih pegawai";
             this.phJadwalKerja = "Pilih jadwal kerja";
             this.toggleJadwalPegawai();

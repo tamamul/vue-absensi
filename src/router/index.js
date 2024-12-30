@@ -14,7 +14,7 @@ const routes = [
         path: "/login",
         name: "login",
         component: () => import("../views/Login.vue"),
-    },
+    }, 
     // Reset Password
     {
         path: "/reset-password",

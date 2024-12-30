@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router'; 
+import Toast from "primevue/toast";
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -37,20 +38,8 @@ export const useAuthStore = defineStore('auth', {
                 } else { 
                     router.push({ name: 'user-dashboard' });
                 }
-                this.$toast.add({
-                    severity: "error",
-                    summary: "Error",
-                    detail: `${res.response.data.message}`,
-                    life: 3000,
-                });
             } catch (err) {
                 console.log('Login failed:', err);
-                this.$toast.add({
-                    severity: "error",
-                    summary: "Login Gagal",
-                    detail: `${err.response.data.message}`,
-                    life: 3000,
-                });
             }
         },
 
