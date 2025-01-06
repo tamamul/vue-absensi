@@ -73,35 +73,35 @@
                 </div>
 
                 <div
-                    class="col-span-12 flex justify-center overflow-x-auto mb-3 gap-2"
+                    class="col-span-12 h-12 flex justify-center overflow-x-auto mb-3 gap-2"
                 >
-                    <BtnJadwalKerja
-                        hari="Senin"
-                        @openShift="openShift('Senin')"
+                    <Button
+                        label="Senin"
+                        @click="openShift('Senin')"
                     />
-                    <BtnJadwalKerja
-                        hari="Selasa"
-                        @openShift="openShift('Selasa')"
+                    <Button
+                        label="Selasa"
+                        @click="openShift('Selasa')"
                     />
-                    <BtnJadwalKerja
-                        hari="Rabu"
-                        @openShift="openShift('Rabu')"
+                    <Button
+                        label="Rabu"
+                        @click="openShift('Rabu')"
                     />
-                    <BtnJadwalKerja
-                        hari="Kamis"
-                        @openShift="openShift('Kamis')"
+                    <Button
+                        label="Kamis"
+                        @click="openShift('Kamis')"
                     />
-                    <BtnJadwalKerja
-                        hari="Jum'at"
-                        @openShift="openShift('Jumat')"
+                    <Button
+                        label="Jum'at"
+                        @click="openShift('Jumat')"
                     />
-                    <BtnJadwalKerja
-                        hari="Sabtu"
-                        @openShift="openShift('Sabtu')"
+                    <Button
+                        label="Sabtu"
+                        @click="openShift('Sabtu')"
                     />
-                    <BtnJadwalKerja
-                        hari="Minggu"
-                        @openShift="openShift('Minggu')"
+                    <Button
+                        label="Minggu"
+                        @click="openShift('Minggu')"
                     />
                 </div>
 
