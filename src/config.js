@@ -1,5 +1,5 @@
 // Server: local, jsonServer, and ngrok
-const mode = 'local'
+const mode = 'main'
 
 const config = {
     main: {

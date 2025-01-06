@@ -197,7 +197,7 @@
                 />
             </InputVuelidate>
 
-            <InputVuelidate name="nik" label="Nik" :hasValidated="hasValidated">
+            <InputVuelidate name="nik" label="NIK" :hasValidated="hasValidated">
                 <InputText
                     v-model="nik"
                     id="nik"
