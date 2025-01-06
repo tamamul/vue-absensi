@@ -119,24 +119,24 @@ export default {
 					life: 5000,
 				});
 			}
-		}
+		},
 
 		async getUser() {
-            await this.authStore.getUser();
-            this.dataUser = this.authStore.authUser;
-            this.dataRole = this.authStore.userRole;
+			await this.authStore.getUser();
+				this.dataUser = this.authStore.authUser;
+				this.dataRole = this.authStore.userRole;
 
-			if (this.dataRole == 'admin') {
-				this.dashboard = 'AdminDashboard';
-			} else {
-				this.dashboard = 'UserDashboard';
-			}
-        },
-    },
-    async mounted() {
-        await this.getUser();
-        this.getToken();
-        this.isLoading = false;
-    }
+				if (this.dataRole == 'admin') {
+					this.dashboard = 'AdminDashboard';
+				} else {
+					this.dashboard = 'UserDashboard';
+				}
+		},
+	},
+	async mounted() {
+		await this.getUser();
+		this.getToken();
+		this.isLoading = false;
+	}
 }
 </script>
