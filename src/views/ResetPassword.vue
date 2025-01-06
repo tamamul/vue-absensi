@@ -2,7 +2,7 @@
 	<div class="flex w-full h-dvh items-center justify-center">
 		<Card class="col-span-12 shadow-md">
 			<template #title>
-				Reset Password
+				Masukkan Password Baru
 			</template>
 			<template #content>
 				<div class="flex flex-col gap-2">
@@ -10,26 +10,31 @@
 						<RouterLink :to="dashboard" v-show="token">
 							<Button label="Kembali ke Dashboard"></Button>
 						</RouterLink>
-						<RouterLink to="login" v-show="!token">
-							<Button label="Login"></Button>
-						</RouterLink>
 					</div>
 				</div>
 				<!-- Input -->
 				<form @submit="prevent" class="flex flex-col gap-2">					
-					<InputGroup>
+					<!-- <InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
 						</InputGroupAddon>
 						<Password class="border border-[#CBD5E1]" v-model="password" toggleMask placeholder="Password" :feedback="false" required />
-					</InputGroup>
+					</InputGroup> -->
+					<FloatLabel variant="in" class="w-full">
+						<Password class="w-full" v-model="password" toggleMask :feedback="false" inputId="pass" variant="filled" :invalid="passValid" required />
+						<label for="pass" class="w-full">Password</label>
+					</FloatLabel>
 
-					<InputGroup>
+					<FloatLabel variant="in" class="w-full">
+						<Password class="w-full" v-model="password_confirm" toggleMask :feedback="false" inputId="passcon" variant="filled" :invalid="passValid" required />
+						<label for="passcon" class="w-full">Ulang Password</label>
+					</FloatLabel>
+					<!-- <InputGroup>
 						<InputGroupAddon>
 							<i class="pi pi-lock"></i>
 						</InputGroupAddon>
 						<Password class="border border-[#CBD5E1]" v-model="password_confirm" toggleMask placeholder="Konfirmasi Password" :feedback="false" required />
-					</InputGroup>
+					</InputGroup> -->
 
 					<Button label="Kirim" @click="kirim" />
 				</form>
@@ -39,6 +44,8 @@
 </template>
 
 <script>
+import { useAuthStore } from '@/stores/auth';
+
 export default {
 	name:'ResetPassword',
 	inject:['default'],
@@ -50,6 +57,7 @@ export default {
 			password: '',
 			password_confirm: '',
 			dashboard: '',
+			passValid: false,
 			authStore: useAuthStore(),
             dataUser : 0,
             dataRole : 0,
@@ -73,6 +81,11 @@ export default {
 				email: (this.$route.query.email),
 				password: this.password,
 				password_confirmation: this.password_confirm,
+			}
+			if (this.password !== this.password_confirm) {
+				this.$toast.add({ severity: 'error', summary: 'Password Gagal diganti', detail: `Password tidak sama`, life: 5000 });
+				this.passValid = true
+				return
 			}
 			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data).then((res) => {
 				// console.log(res)
