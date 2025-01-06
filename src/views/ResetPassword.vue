@@ -77,25 +77,50 @@ export default {
 			localStorage.setItem('token', this.$route.query.token)
 		},
 		async kirim() {
+			if (this.password !== this.password_confirm) {
+				this.$toast.add({
+					severity: 'error',
+					summary: 'Password Gagal Diganti',
+					detail: 'Password dan konfirmasi password tidak cocok.',
+					life: 5000,
+				});
+				return; // Keluar dari fungsi jika password tidak cocok
+			}
+
 			const data = {
-				email: (this.$route.query.email),
+				email: this.$route.query.email,
 				password: this.password,
 				password_confirmation: this.password_confirm,
+			};
+
+			try {
+				// Kirim permintaan reset password
+				await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data);
+
+				this.$toast.add({
+					severity: 'success',
+					summary: 'Password Berhasil Diganti',
+					detail: 'Masuk dengan password baru.',
+					life: 5000,
+				});
+
+				// Login otomatis setelah reset password berhasil
+				await this.authStore.login({
+					email: this.$route.query.email,
+					password: this.password,
+				});
+
+			} catch (err) {
+				console.error(err);
+				this.$toast.add({
+					severity: 'error',
+					summary: 'Password Gagal Diganti',
+					detail: 'Silakan coba lagi.',
+					life: 5000,
+				});
 			}
-			if (this.password !== this.password_confirm) {
-				this.$toast.add({ severity: 'error', summary: 'Password Gagal diganti', detail: `Password tidak sama`, life: 5000 });
-				this.passValid = true
-				return
-			}
-			await axios.post(`/password-reset?token=${this.$route.query.token}&email=${this.$route.query.email}`, data).then((res) => {
-				// console.log(res)
-                this.$toast.add({ severity: 'success', summary: 'Password Berhasil diganti', detail: `Masuk dengan password baru `, life: 5000 });
-				router.push({name: this.dashboard})
-			}).catch((err) => {
-				console.log(err)
-                this.$toast.add({ severity: 'error', summary: 'Password Gagal diganti', detail: `Login dengan password lama `, life: 5000 });
-			})
-		},
+		}
+
 		async getUser() {
             await this.authStore.getUser();
             this.dataUser = this.authStore.authUser;
