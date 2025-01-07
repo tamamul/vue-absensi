@@ -77,13 +77,13 @@
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
 										<label class="font-semibold" for="jk">Jenis Kelamin</label>
-										<p>{{jk}}</p>
+										<p>{{jk == l ? 'Laki-laki' : 'Perempuan'}}</p>
 										<Divider />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
 										<label class="font-semibold" for="agama">Agama</label>
-										<p>{{agama}}</p>
+										<p class="first-letter:capitalize">{{agama}}</p>
 										<Divider />
 									</div>
 
