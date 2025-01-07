@@ -16,11 +16,11 @@
 				<div class="flex flex-col gap-5">
 					<div class="grid grid-cols-12 gap-2">
 						<div class="col-span-12 md:col-span-6 flex items-center gap-5">
-							<Image :src="avatar" :alt="user.nama_lengkap" class="w-32 border border-white shadow-md items-center justify-center rounded-full" />
+							<Image :src="avatar" :alt="nama_lengkap" class="w-32 border border-white shadow-md items-center justify-center rounded-full" />
 							<div>
-								<p class="text-xl font-bold">{{ user.nama_lengkap ?? 'Muh. Mahatma Arrayyan' }}</p>
-								<p class="text-xl">{{ user.jabatan ?? 'Frontend Dev' }}</p>
-								<p class="text-base font-light">{{ user.alamat ?? 'Jl. Pendidikan Blok B5 No.08' }}</p>
+								<p class="text-xl font-bold">{{ nama_lengkap ?? 'Admin' }}</p>
+								<p class="text-xl">{{ jabatan ?? 'HRD' }}</p>
+								<p class="text-base font-light">{{ alamat ?? 'Jl. Andi Djemma No. 38' }}</p>
 							</div>
 						</div>
 						<div class="col-span-12 md:col-span-6 flex items-center gap-3 justify-center">
@@ -40,52 +40,53 @@
 						<TabPanels>
 							<TabPanel value="0">
 								<form class="w-full grid grid-cols-12 gap-2">
-									<div class="col-span-12 mb-2">
+									<div class="col-span-12 mb-2 mt-5 ">
 										<h3 class="text-lg font-semibold">Informasi Pribadi</h3>
+										<small>Ganti Informasi Pribadi Hubungi Admin HRD</small>
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="nama_lengkap">Nama Lengkap <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="nama_lengkap">Nama Lengkap</label>
 										<InputText disabled id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_lengkap.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="nik">NIK <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="nik">NIK</label>
 										<InputText disabled v-model="nik" id="nik" :useGrouping="false" fluid class="col-span-12" :invalid="hasValidated && v$.nik.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="tempat_lahir">Tempat Lahir <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="tempat_lahir">Tempat Lahir</label>
 										<InputText disabled id="tempat_lahir" v-model="tempat_lahir" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tempat_lahir.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="tgl_lahir">Tanggal Lahir <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="tgl_lahir">Tanggal Lahir</label>
 										<DatePicker disabled inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="alamat">Alamat <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="alamat">Alamat</label>
 										<InputText disabled id="alamat" v-model="alamat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.alamat.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="jk">Jenis Kelamin <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="jk">Jenis Kelamin</label>
 										<Select disabled inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="agama">Agama <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="agama">Agama</label>
 										<Select disabled inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah</label>
 										<Select disabled inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="pendidikan">Pendidikan <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="pendidikan">Pendidikan</label>
 										<InputText disabled id="pendidikan" v-model="pendidikan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.pendidikan.$invalid" />
 									</div>
 
@@ -94,17 +95,17 @@
 										<h3 class="text-lg font-semibold">Kontak</h3>
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="email">Email</label>
 										<InputText disabled id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="no_telp">Nomor Telpon <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="no_telp">Nomor Telpon</label>
 										<InputText disabled id="no_telp" :useGrouping="false" fluid v-model="no_telp" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.no_telp.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="kontak_darurat">Kontak Darurat <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="kontak_darurat">Kontak Darurat</label>
 										<InputText disabled id="kontak_darurat" :useGrouping="false" fluid v-model="kontak_darurat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.kontak_darurat.$invalid" />
 									</div>
 
@@ -114,17 +115,17 @@
 									</div>
 
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="rekening">Rekening <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="rekening">Rekening</label>
 										<InputText disabled id="rekening" v-model="rekening" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.rekening.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="mulai_kerja">Mulai Kerja <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="mulai_kerja">Mulai Kerja</label>
 										<DatePicker disabled inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
 									</div>
 									
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="jabatan">Jabatan <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="jabatan">Jabatan</label>
 										<InputText disabled id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
 									</div>
 
@@ -137,15 +138,15 @@
 							<TabPanel value="1">
 								<form class="w-full grid grid-cols-12 gap-2">
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="email">Email <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="email">Email</label>
 										<InputTextid v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password">Password <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="password">Password</label>
 										<InputTextid v-model="password" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password.$invalid" />
 									</div>
 									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password_confirm">Konfirmasi Password <span class="text-red-500">*</span></label>
+										<label class="max-h-6 col-span-12" for="password_confirm">Konfirmasi Password</label>
 										<InputTextid v-model="password_confirm" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password_confirm.$invalid" />
 									</div>
 
@@ -175,7 +176,7 @@ export default {
 			isAdmin: 0,
 			authStore: useAuthStore(),
 			isLoading: true,
-			user: [],
+			user: useAuthStore().authUser,
 			editPegawaiData: [],
 			avatar: '',
             // Validation
@@ -254,9 +255,9 @@ export default {
 	methods: {
 		// async getPegawaiById(id) {
 		// 	await axios.get(`pegawai/${id}`, {
-		// 		headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
 		// 	}).then((res) => {
 		// 		const response = res.data.data
+		// 		console.log(response)
 		// 		this.editPegawaiData = response
 
         //         this.id_pegawai      = id
@@ -282,7 +283,8 @@ export default {
 				headers: {'Authorization': `Bearer ${localStorage.getItem('token')}` }
 			}).then((res) => {
 				const mainData = res.data.data
-				this.user = (mainData)
+				this.user = mainData
+				console.log(res.data.data.pegawai)
 				this.isAdmin    = mainData.is_admin ? true : false 
 
                 this.nama_lengkap    = mainData.pegawai.nama_lengkap
@@ -310,7 +312,9 @@ export default {
 		},
 	},
 	mounted() {
+		// getPegawai(this.$route.params.id)
 		this.isAdmin ? this.getUser() : this.isLoading = false
+		this.getUser()
 	},
 }
 </script>
