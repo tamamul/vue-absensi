@@ -39,74 +39,86 @@
 						</TabList>
 						<TabPanels>
 							<TabPanel value="0">
-								<form class="w-full grid grid-cols-12 gap-2">
+								<form class="w-full grid grid-cols-12 gap-5">
 									<div class="col-span-12 mb-2 mt-5 ">
+										<small>Ganti Data Pribadi Silahkan Hubungi Admin HRD</small>
 										<h3 class="text-lg font-semibold">Informasi Pribadi</h3>
-										<small>Ganti Informasi Pribadi Hubungi Admin HRD</small>
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="nama_lengkap">Nama Lengkap</label>
-										<InputText disabled id="nama_lengkap" v-model="nama_lengkap" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.nama_lengkap.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="nama_lengkap">Nama Lengkap</label>
+										<p>{{nama_lengkap}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="nik">NIK</label>
-										<InputText disabled v-model="nik" id="nik" :useGrouping="false" fluid class="col-span-12" :invalid="hasValidated && v$.nik.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="nik">NIK</label>
+										<p>{{nik}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="tempat_lahir">Tempat Lahir</label>
-										<InputText disabled id="tempat_lahir" v-model="tempat_lahir" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tempat_lahir.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="tempat_lahir">Tempat Lahir</label>
+										<p>{{tempat_lahir}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="tgl_lahir">Tanggal Lahir</label>
-										<DatePicker disabled inputId="tgl_lahir" v-model="tgl_lahir" Date dateFormat="yy-mm-dd" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.tgl_lahir.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="tgl_lahir">Tanggal Lahir</label>
+										<p>{{tgl_lahir}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="alamat">Alamat</label>
-										<InputText disabled id="alamat" v-model="alamat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.alamat.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="alamat">Alamat</label>
+										<p>{{alamat}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="jk">Jenis Kelamin</label>
-										<Select disabled inputId="jk" v-model="jk" :options="options.jenisKelamin" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jk.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="jk">Jenis Kelamin</label>
+										<p>{{jk}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="agama">Agama</label>
-										<Select disabled inputId="agama" v-model="agama" :options="options.agama" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.agama.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="agama">Agama</label>
+										<p>{{agama}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="gol_darah">Golongan Darah</label>
-										<Select disabled inputId="gol_darah" v-model="gol_darah" :options="options.golDarah" optionLabel="name" optionValue="code" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.gol_darah.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="gol_darah">Golongan Darah</label>
+										<p>{{gol_darah}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="pendidikan">Pendidikan</label>
-										<InputText disabled id="pendidikan" v-model="pendidikan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.pendidikan.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="pendidikan">Pendidikan</label>
+										<p>{{pendidikan}}</p>
+										<Divider />
 									</div>
 
 									<Divider class="col-span-12" />
 									<div class="col-span-12 mb-2">
 										<h3 class="text-lg font-semibold">Kontak</h3>
 									</div>
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="email">Email</label>
-										<InputText disabled id="email" v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="email">Email</label>
+										<p>{{email}}</p>
+										<Divider />
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="no_telp">Nomor Telpon</label>
-										<InputText disabled id="no_telp" :useGrouping="false" fluid v-model="no_telp" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.no_telp.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="no_telp">Nomor Telpon</label>
+										<p>{{no_telp}}</p>
+										<Divider />
 									</div>
 									
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="kontak_darurat">Kontak Darurat</label>
-										<InputText disabled id="kontak_darurat" :useGrouping="false" fluid v-model="kontak_darurat" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.kontak_darurat.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="kontak_darurat">Kontak Darurat</label>
+										<p>{{kontak_darurat}}</p>
+										<Divider />
 									</div>
 
 									<Divider class="col-span-12" />
@@ -114,40 +126,42 @@
 										<h3 class="text-lg font-semibold">Informasi Pekerjaan</h3>
 									</div>
 
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="rekening">Rekening</label>
-										<InputText disabled id="rekening" v-model="rekening" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.rekening.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="rekening">Rekening</label>
+										<p>{{rekening}}</p>
+										<Divider />
 									</div>
 									
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="mulai_kerja">Mulai Kerja</label>
-										<DatePicker disabled inputId="mulai_kerja" v-model="mulai_kerja" dateFormat="dd-mm-yy" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.mulai_kerja.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="mulai_kerja">Mulai Kerja</label>
+										<p>{{mulai_kerja}}</p>
+										<Divider />
 									</div>
 									
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="jabatan">Jabatan</label>
-										<InputText disabled id="jabatan" v-model="jabatan" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.jabatan.$invalid" />
-									</div>
-
-									<div class="col-span-12 flex gap-2">
-										<Button type="button" label="Simpan Perubahan" class="px-14 py-3" :loading="btnIsLoading" @click="editPegawai(id_pegawai)"></Button>
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="jabatan">Jabatan</label>
+										<p>{{jabatan}}</p>
+										<Divider />
 									</div>
 								</form>
 							</TabPanel>
 
 							<TabPanel value="1">
 								<form class="w-full grid grid-cols-12 gap-2">
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="email">Email</label>
-										<InputTextid v-model="email" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.email.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="email">Email</label>
+										<p>{{email}}</p>
+										<Divider />
 									</div>
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password">Password</label>
-										<InputTextid v-model="password" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="password">Password</label>
+										<p>{{password}}</p>
+										<Divider />
 									</div>
-									<div class="col-span-12 lg:col-span-6 xl:col-span-4 grid grid-cols-12 gap-1 justify-end">
-										<label class="max-h-6 col-span-12" for="password_confirm">Konfirmasi Password</label>
-										<InputTextid v-model="password_confirm" class="col-span-12 max-h-[46px]" :invalid="hasValidated && v$.password_confirm.$invalid" />
+									<div class="col-span-12 lg:col-span-6 xl:col-span-4 gap-1 justify-end">
+										<label class="font-semibold" for="password_confirm">Konfirmasi Password</label>
+										<p>{{password_confirm}}</p>
+										<Divider />
 									</div>
 
 									<!-- CP itu Change Password  -->
