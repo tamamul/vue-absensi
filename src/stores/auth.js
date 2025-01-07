@@ -2,13 +2,13 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router'; 
-import Toast from "primevue/toast";
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         authToken: localStorage.getItem('token') || null,
         authUser: null,
         userRole: null,
+        authLogin: false,
     }),
 
     actions: {
@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', {
                 const token = res.data.data.token;
                 localStorage.setItem('token', token);
                 this.authToken = token;
-
+                this.authLogin = true;
                 await this.getUser(); 
 
                 if (this.userRole === 1) { 
@@ -39,6 +39,7 @@ export const useAuthStore = defineStore('auth', {
                     router.push({ name: 'user-dashboard' });
                 }
             } catch (err) {
+                this.authLogin = false;
                 console.log('Login failed:', err);
             }
         },

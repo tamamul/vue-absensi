@@ -58,7 +58,12 @@
                         placeholder="Pilih tanggal"
                     >
                         <template #date="slotProps">
-                            <strong @click="getDataKehadiran(date)">{{ slotProps.date.day }}</strong>
+                            <button
+                                class="w-full h-full text-center bg-transparent border-none p-0 m-0"
+                                style="cursor: pointer;"
+                            >
+                                <strong>{{ slotProps.date.day }}</strong>
+                            </button>
                         </template>
                     </DatePicker>
                     <ProgressSpinner style="width: 40px; height: 40px" v-show="loadingTable" strokeWidth="8" aria-label="Loading" />
@@ -113,6 +118,7 @@
                 <div class="col-span-12 w-full gap-1">
                     <label class="max-h-6 col-span-12 mb-2" for="pegawai">Pegawai <span class="text-red-500">*</span></label>
                     <Select
+                        disabled
                         input-id="pegawai"
                         name="pegawai"
                         v-model="pegawai"
@@ -184,7 +190,7 @@
                         label="Cancel"
                         severity="secondary"
                         @click="toggleVisible"></Button>
-                    <Button type="button" :label="!postOrEdit ? 'Edit' : 'Tambahkan'" @click="!postOrEdit ? edit(idKehadiran) : post()"></Button>
+                    <Button type="button" :loading="dialogIsLoading" :label="!postOrEdit ? 'Edit' : 'Tambahkan'" @click="!postOrEdit ? edit(idKehadiran) : post()"></Button>
                 </div>
             </form>
         </template>
@@ -213,6 +219,7 @@ import { getData } from '@/utils/fetch';
                 postOrEdit: false,
                 pesan: false,
                 loadingPegawai: true,
+                dialogIsLoading: false,
                 columns: [
                     { field: "nama_pegawai", header: "Nama Pegawai" },
                     { field: "status", header: "Status" },
@@ -253,6 +260,12 @@ import { getData } from '@/utils/fetch';
                 jam_keluar: { required },
             };
         },
+        watch: {
+            date(newValue) {
+                console.log("Tanggal terbaru:", newValue);
+                this.created(newValue); 
+            },
+        },
         methods: {
             justMonth,
             justYear,
@@ -260,11 +273,15 @@ import { getData } from '@/utils/fetch';
             formatTimee,
             parseDate,
             async created(date) {
+                this.loadingTable = true
                 try {
                     this.data = !date ? await getData("/kehadiran") : await getData(`/kehadiran?tgl_kehadiran=${date}`);
                     this.loadingTable = false;
+                    console.log(this.data)
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
+                } finally {
+                    this.loadingTable = false
                 }
             },
             async getPegawaiAll() {
@@ -282,24 +299,20 @@ import { getData } from '@/utils/fetch';
 			async getId(id) {
 				try {
 					this.dataId = await getData(`/kehadiran/${id}`);
-					// Map the response data to the form fields
 					this.pegawai = this.daftarPegawai.find(
 						(pegawai) => pegawai.id_pegawai === this.dataId.id_pegawai
-					) || null; // Match pegawai by id or set to null if Edit found
+					) || null; 
 					this.dataStatus = this.status.find(
 						(item) => item.code === this.dataId.status
-					) || null; // Match status by code or set to null if not found
+					) || null; 
 					this.kode_kehadiran = this.dataId.kode_kehadiran;
 					this.hari = this.dataId.hari;
                     this.idKehadiran = this.dataId.id_kehadiran
 
-					// Convert tgl_kehadiran to a Date object
 					this.tgl_kehadiran = this.parseDate(this.dataId.tgl_kehadiran);
 
-					// Parse jam_masuk and jam_keluar if necessary
 					this.jam_masuk = this.dataId.jam_masuk;
                     this.jam_keluar = this.dataId.jam_keluar;
-
 				} catch (error) {
 					console.error("Failed to fetch data:", error);
 				}
@@ -343,6 +356,8 @@ import { getData } from '@/utils/fetch';
             },
             async post(){
                 this.hasValidated = true;
+
+                this.tgl_kehadiran = this.date
                 const data = {
                     id_pegawai: this.pegawai.id_pegawai,
                     status: this.dataStatus.code,
@@ -350,7 +365,7 @@ import { getData } from '@/utils/fetch';
                     hari: this.hari,
                     tgl_kehadiran: this.formattedDate(this.tgl_kehadiran),
                     jam_masuk: formatTimee(this.jam_masuk),
-                    jam_keluar: formatTimee(this.jam_keluar),
+                    jam_keluar: this.jam_keluar ? formatTimee(this.jam_keluar) : null,
                 };
                 await axios
                     .post("kehadiran", data)
@@ -396,8 +411,8 @@ import { getData } from '@/utils/fetch';
             },
             openForm(id, idPegawai) {
                 this.toggleVisible();
-                console.log(id)
-                if (id === 0) {
+                // console.log(id)
+                if (id == '-') {
                     this.postOrEdit = true
                     this.getPegawai(idPegawai)
                 } else {
@@ -409,11 +424,6 @@ import { getData } from '@/utils/fetch';
             toggleVisible() {
                 this.visible = !this.visible;
                 this.pesan = false
-            },
-            getDataKehadiran(date) {
-                this.loadingTable = !this.loadingTable;
-
-                this.created(this.formattedDate(date));
             },
             async postKodeAbsensi() {
                 const data = { token: this.kodeAbsensi };

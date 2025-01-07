@@ -84,12 +84,21 @@ export default {
             this.btnIsLoading = true;
             const data = { email: this.email, password: this.password };
             await this.authStore.login(data)
-            this.$toast.add({
-                severity: "success",
-                summary: "Login Berhasil",
-                detail: `Selamat datang di aplikasi absensi`,
-                life: 3000,
-            });
+            if (this.authStore.authLogin == false) {
+                this.$toast.add({
+                    severity: "error",
+                    summary: "Login Gagal",
+                    detail: `Pastikan password dan email benar`,
+                    life: 3000,
+                });
+            } else {
+                this.$toast.add({
+                    severity: "success",
+                    summary: "Login Berhasil",
+                    detail: `Selamat datang di aplikasi absensi`,
+                    life: 3000,
+                });
+            }
 
             // this.authStore.userRole == 1 ? router.push({ name: 'admin-dashboard' }) : router.push({ name: 'user-dashboard' })
             this.btnIsLoading = false;
