@@ -365,8 +365,12 @@ import { getData } from '@/utils/fetch';
                     hari: this.hari,
                     tgl_kehadiran: this.formattedDate(this.tgl_kehadiran),
                     jam_masuk: formatTimee(this.jam_masuk),
-                    jam_keluar: this.jam_keluar ? formatTimee(this.jam_keluar) : null,
                 };
+
+                if (this.jam_keluar) {
+                    data.jam_keluar = formatTimee(this.jam_keluar);
+                }
+
                 await axios
                     .post("kehadiran", data)
                     .then((res) => {
