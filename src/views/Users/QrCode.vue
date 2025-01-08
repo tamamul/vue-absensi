@@ -21,7 +21,7 @@
                             <TabPanels>
                                 <TabPanel value="0">
                                     <div v-if="infoAbsen" class="text-center w-full mt-32 mb-32 font-bold text-2xl">
-                                        Kamu Telah Absen Masuk
+                                        Sayang, kamu terlambat
                                     </div>
                                     <QRCodeVue3 
                                         v-else
