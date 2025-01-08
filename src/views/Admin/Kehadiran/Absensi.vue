@@ -113,6 +113,9 @@
                 </p>
                 <p v-show="pesan" class="col-span-12 font-semibold text-red-500">
                     Isi Semua Input Data!
+                    {{ jam_keluar }}
+                    {{ jam_masuk }}
+                    {{ status }}
                 </p>
 
                 <div class="col-span-12 w-full gap-1">
