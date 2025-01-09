@@ -78,11 +78,11 @@
                     :deleteAble="false"
                     :cusAction = true
                 >
-                    <Column header="Waktu Kehadiran" field="tgl_kehadiran">
+                    <!-- <Column header="Waktu Kehadiran" field="tgl_kehadiran">
                         <template #body="slotProps">
                             <td>{{ slotProps.data.tgl_kehadiran !== '-' ? slotProps.data.hari + ", " + slotProps.data.tgl_kehadiran : "-" }}</td>
                         </template>
-                    </Column>
+                    </Column> -->
 
                     <Column header="Action"
                         frozen 
@@ -96,6 +96,12 @@
                                     severity="info"
                                     aria-label="Edit"
                                     @click="openForm(slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
+                                />
+                                <Button
+                                    icon="pi pi-trash"
+                                    severity="danger"
+                                    aria-label="Delete"
+                                    @click="deleteAbsen($event, slotProps.data.id_kehadiran, slotProps.data.id_pegawai)"
                                 />
                             </div>
                         </template>
@@ -111,9 +117,7 @@
                 <p class="col-span-12 text-xl mb-6 font-semibold">
                     Edit Kehadiran Pegawai
                 </p>
-                <p v-show="pesan" class="col-span-12 font-semibold text-red-500">
-                    Isi Semua Input Data!
-                </p>
+                <p v-show="pesan" class="col-span-12 font-semibold text-red-500">Isi Semua Input Data!</p>
 
                 <div class="col-span-12 w-full gap-1">
                     <label class="max-h-6 col-span-12 mb-2" for="pegawai">Pegawai <span class="text-red-500">*</span></label>
@@ -272,6 +276,38 @@ import { getData } from '@/utils/fetch';
             formattedDate,
             formatTimee,
             parseDate,
+            deleteAbsen(event, id_kehadiran, id_pegawai) {
+                this.$confirm.require({
+                    target: event.currentTarget,
+                    message: 'Apakah anda yakin ingin menghapus data ini?',
+                    icon: 'pi pi-exclamation-triangle',
+                    rejectProps: {
+                        label: 'Cancel',
+                        severity: 'secondary',
+                        outlined: true
+                    },
+                    acceptProps: {
+                        label: 'Delete',
+                        severity: 'danger'
+                    },
+                    accept: () => {
+                        this.onDelete(id_kehadiran, id_pegawai);
+                    },
+                    reject: () => {
+                        this.$toast.add({ severity: 'info', summary: 'Data Tidak Dihapus', detail: 'Data tidak dihapus', life: 3000 });
+                    }
+                });
+            },
+            async onDelete(id_kehadiran, id_pegawai) {
+                try {
+                    const res = await axios.delete(`kehadiran/${id_kehadiran}`);
+                    this.$toast.add({ severity: 'success', summary: 'Success', detail: res.data.message, life: 3000 });
+                    this.created();
+                } catch (err) {
+                    console.log(err);
+                    this.$toast.add({ severity: 'error', summary: 'Error', detail: err.data.message, life: 3000 });
+                }
+            },
             async created(date) {
                 this.loadingTable = true
                 try {
