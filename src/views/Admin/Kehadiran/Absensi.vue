@@ -364,8 +364,12 @@ import { getData } from '@/utils/fetch';
                     hari: this.hari,
                     tgl_kehadiran: this.formattedDate(this.tgl_kehadiran),
                     jam_masuk: formatTimee(this.jam_masuk),
-                    jam_keluar: formatTimee(this.jam_keluar),
                 };
+
+                if (this.jam_keluar) {
+                    data.jam_keluar = formatTimee(this.jam_keluar);
+                }
+
                 await axios.patch(`kehadiran/${id}`, data).then((res) => {
                     console.log(res);
                     this.created();
