@@ -20,44 +20,36 @@
 
 <script>
 import router from '@/router'
+import { useAuthStore } from '@/stores/auth';
 
 export default {
     name:'Home',
     inject:['default'],
     data() {
         return {
+            authStore: useAuthStore(),
+            token: localStorage.getItem('token'),
         }
     },
     methods: {
-        // logout() {
-        //     axios.post('/logout', {}).then((response) => {
-        //         console.log(response);
-        //         localStorage.removeItem('token')
-        //         localStorage.removeItem('is_admin')
-
-        //         this.$toast.add({
-        //             severity: 'success',
-        //             summary: 'Logout Berhasil',
-        //             detail: 'Sukses melakukan logout',
-        //             life: 5000
-        //         });
-
-        //         router.push({name: 'login'})
-        //     }).catch((error) => {
-        //         console.log(error)
-        //         console.log(this.token)
-
-        //         this.$toast.add({
-        //             severity: 'error',
-        //             summary: 'Logout gagal',
-        //             detail: 'Gagal melakukan logout',
-        //             life: 5000
-        //         });
-
-        //     });
-        // },
+        async created() {
+            if (!this.authStore.authStore) {
+                await this.authStore.getUser();
+            }
+        },
+        async goToDashboard() {
+            if (this.token) {
+                if (this.authStore.userRole === 1) { 
+                    router.push({ name: 'admin-dashboard' });
+                } else { 
+                    router.push({ name: 'user-dashboard' });
+                }
+            }
+        }
     },
-    mounted() {
+    async mounted() {
+        await this.created();
+        await this.goToDashboard();
     },
 }
 </script>

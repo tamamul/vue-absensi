@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', {
                 this.authUser = res.data;
                 this.userRole = res.data.data.is_admin;
                 // console.log(this.authUser);
-                // console.log(this.userRole);
+                console.log(this.userRole);
             } catch (err) {
                 console.error('Error fetching user data:', err);
             }
