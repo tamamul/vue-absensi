@@ -266,8 +266,7 @@ import { getData } from '@/utils/fetch';
         },
         watch: {
             date(newValue) {
-                console.log("Tanggal terbaru:", newValue);
-                this.created(newValue); 
+                this.created(this.formattedDate(newValue)); 
             },
         },
         methods: {

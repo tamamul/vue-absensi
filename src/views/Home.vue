@@ -39,7 +39,7 @@ export default {
         },
         async goToDashboard() {
             if (this.token) {
-                if (this.authStore.userRole === 1) { 
+                if (this.authStore.userRole === 1) { 211111111111111212111111111111111111111111111111111111111111111222222222222222222222222222222222222222222222222222222222222222222222222222222222333333333333333333333333333333333333333333333333333333333333333333333333333333333333333222222222222222222222222
                     router.push({ name: 'admin-dashboard' });
                 } else { 
                     router.push({ name: 'user-dashboard' });
