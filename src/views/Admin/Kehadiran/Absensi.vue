@@ -217,6 +217,7 @@ import { getData } from '@/utils/fetch';
                 dataId: [],
                 daftarHari: [],
                 visible: false,
+                selectedTanggal: new Date(),
                 date: new Date(),
                 outline: false,
                 tanggal: "",
@@ -266,7 +267,8 @@ import { getData } from '@/utils/fetch';
         },
         watch: {
             date(newValue) {
-                this.created(this.formattedDate(newValue)); 
+                this.selectedTanggal = this.formattedDate(newValue)
+                this.created(this.selectedTanggal); 
             },
         },
         methods: {
@@ -371,7 +373,7 @@ import { getData } from '@/utils/fetch';
 
                 await axios.patch(`kehadiran/${id}`, data).then((res) => {
                     console.log(res);
-                    this.created();
+                    this.created(this.selectedTanggal);
                     this.$toast.add({
                         severity: "success",
                         summary: "Success",
