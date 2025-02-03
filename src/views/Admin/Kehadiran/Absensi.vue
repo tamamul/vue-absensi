@@ -45,28 +45,34 @@
         <Card class="col-span-12 shadow-md">
             <template #title>
                 Daftar Pegawai Telah Absen
-                <div class="mt-4 flex items-center justify-start">
-                    <label for="date" class="font-semibold text-base mr-2">
-                        Data Absen Tanggal :
-                    </label>
-                    <DatePicker
-                        v-model="date"
-                        name="date"
-                        id="date"
-                        view="date"
-                        dateFormat="dd/mm/yy"
-                        placeholder="Pilih tanggal"
-                    >
-                        <template #date="slotProps">
-                            <button
-                                class="w-full h-full text-center bg-transparent border-none p-0 m-0"
-                                style="cursor: pointer;"
-                            >
-                                <strong>{{ slotProps.date.day }}</strong>
-                            </button>
-                        </template>
-                    </DatePicker>
-                    <ProgressSpinner style="width: 40px; height: 40px" v-show="loadingTable" strokeWidth="8" aria-label="Loading" />
+                <div class="mt-4 flex justify-between">
+                    <div class="flex items-center gap-2">
+                        <label for="date" class="font-semibold text-base mr-2">
+                            Data Absen Tanggal :
+                        </label>
+                        <DatePicker
+                            v-model="date"
+                            name="date"
+                            id="date"
+                            view="date"
+                            dateFormat="dd/mm/yy"
+                            placeholder="Pilih tanggal"
+                        >
+                            <template #date="slotProps">
+                                <button
+                                    class="w-full h-full text-center bg-transparent border-none p-0 m-0"
+                                    style="cursor: pointer;"
+                                >
+                                    <strong>{{ slotProps.date.day }}</strong>
+                                </button>
+                            </template>
+                        </DatePicker>
+                        <ProgressSpinner style="width: 40px; height: 40px" v-show="loadingTable" strokeWidth="8" aria-label="Loading" />
+                    </div>
+
+                    <div>
+                        <Button type="button" label="Export" class="bg-green-500 border-green-500" @click="exportExcel(date)"></Button>
+                    </div>
                 </div>
             </template>
             <template #content>
@@ -199,6 +205,7 @@
             </form>
         </template>
     </Dialog>
+
 </template>
 
 <script>
@@ -252,6 +259,7 @@ import { getData } from '@/utils/fetch';
                 tgl_kehadiran: "",
                 jam_masuk: "",
                 jam_keluar: "",
+                extractVisible: false,
             };
         },
         validation() {
@@ -277,6 +285,37 @@ import { getData } from '@/utils/fetch';
             formattedDate,
             formatTimee,
             parseDate,
+            exToggle() {
+                this.extractVisible = !this.extractVisible
+            },  
+            exportExcel(date) {
+                this.$confirm.require({
+                    message: 'Export Data Kehadiran Bulan ' + this.justMonth(date) + ' Tahun ' + this.justYear(date) + '?',
+                    header: 'Danger Zone',
+                    icon: 'pi pi-info-circle',
+                    rejectProps: {
+                        label: 'Batalkan',
+                        severity: 'secondary',
+                        outlined: true
+                    },
+                    acceptProps: {
+                        label: 'Export',
+                        severity: 'success'
+                    },
+                    accept: () => {
+                        this.$toast.add({ severity: 'info', summary: 'Data berhasil di export', detail: 'Install data sekarang.', life: 3000 });
+                        const tahun = this.justYear(date);
+                        const bulan = this.justMonth(date);
+                        const exportUrl = `http://api-absensi.eventpro.id/api/kehadiran/export/${tahun}/${bulan}`;
+
+                        window.location.href = exportUrl;
+                    },
+                    reject: () => {}
+                });
+
+                console.log(this.justYear(date))
+                console.log(this.justMonth(date))
+            },
             deleteAbsen(event, id_kehadiran, id_pegawai) {
                 this.$confirm.require({
                     target: event.currentTarget,
