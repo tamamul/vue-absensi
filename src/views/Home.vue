@@ -1,29 +1,42 @@
 <template>
-    <Card>
-        <template #title>
-            Home Page
-        </template>
-        <template #content>
-            <div class="flex gap-2">
-                halo            
-                <RouterLink to="/dashboard">
-                    <Button label="dashboard"></Button>
-                </RouterLink>
-                <RouterLink to="/login">
-                    <Button label="login"></Button>
-                </RouterLink>
-                <Button label="logout" @click="logout()"></Button>
-            </div>
-        </template>
-    </Card>
+    <NavBar/>
+    <Hero/>
+    <About/>
+    <More/>
+    <Fitur/>
+    <Pricelist/>
+    <FAQ/>
+    <Kontak/>
+    <Footer/>
 </template>
 
 <script>
+import NavBar from '../components/LandingPage/NavBar.vue';
+import Hero from '../components/LandingPage/Hero.vue';
+import About from '../components/LandingPage/About.vue';
+import More from '../components/LandingPage/More.vue';
+import Fitur from '../components/LandingPage/Fitur.vue';
+import FAQ from '../components/LandingPage/FAQ.vue';
+import Kontak from '../components/LandingPage/Kontak.vue';
+import Footer from '../components/LandingPage/Footer.vue';
+import Pricelist from '@/components/LandingPage/Pricelist.vue';
+
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth';
 
 export default {
     name:'Home',
+    components: {
+        NavBar,
+        Hero,
+        About,
+        More,
+        Fitur,
+        FAQ,
+        Kontak,
+        Footer,
+        Pricelist,
+    },
     inject:['default'],
     data() {
         return {
@@ -39,7 +52,7 @@ export default {
         },
         async goToDashboard() {
             if (this.token) {
-                if (this.authStore.userRole === 1) { 211111111111111212111111111111111111111111111111111111111111111222222222222222222222222222222222222222222222222222222222222222222222222222222222333333333333333333333333333333333333333333333333333333333333333333333333333333333333333222222222222222222222222
+                if (this.authStore.userRole === 1) { 
                     router.push({ name: 'admin-dashboard' });
                 } else { 
                     router.push({ name: 'user-dashboard' });
