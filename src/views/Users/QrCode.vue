@@ -58,7 +58,7 @@
                                         :key="dataKeluar"
                                         :width="500"
                                         :height="500"
-                                        :value="dataKeluar"
+                                        value="https://bootcampclass2025.eventpro.id/"
                                         :qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
                                         :imageOptions="{ hideBackgroundDots: false, imageSize: 0.4, margin: 0 }"
                                         :dotsOptions="{
@@ -74,8 +74,8 @@
                                             },
                                         }"
                                         :backgroundOptions="{ color: '#ffffff' }"
-                                        :cornersSquareOptions="{ type: 'square', color: '#3B82F6' }"
-                                        :cornersDotOptions="{ type: undefined, color: '#3B82F6' }"
+                                        :cornersSquareOptions="{ type: 'square', color: '#000' }"
+                                        :cornersDotOptions="{ type: undefined, color: '#000' }"
                                         fileExt="png"
                                         myclass="my-qur flex justify-center"
                                         imgclass="img-qr"

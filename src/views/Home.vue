@@ -50,19 +50,10 @@ export default {
                 await this.authStore.getUser();
             }
         },
-        async goToDashboard() {
-            if (this.token) {
-                if (this.authStore.userRole === 1) { 
-                    router.push({ name: 'admin-dashboard' });
-                } else { 
-                    router.push({ name: 'user-dashboard' });
-                }
-            }
-        }
+
     },
     async mounted() {
         await this.created();
-        await this.goToDashboard();
     },
 }
 </script>
