@@ -1,0 +1,1 @@
+import{_ as e,o,c as n,t as s}from"./index-IT0w0-03.js";const a={name:"PageHeader",props:{title:String},data(){return{home:"pi pi-home"}}},c={class:"col-span-12 font-semibold text-2xl text-[#334155]"};function r(_,i,t,p,l,m){return o(),n("h2",c,s(t.title),1)}const f=e(a,[["render",r]]);export{f as _};
