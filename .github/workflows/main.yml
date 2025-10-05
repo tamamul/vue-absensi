@@ -26,10 +26,11 @@ jobs:
       - name: 🏗️ Build Vue project
         run: npm run build
 
-      - name: ⚙️ Install Capacitor CLI
-        run: npm install @capacitor/cli @capacitor/core
+      - name: ⚙️ Install Capacitor packages
+        run: |
+          npm install @capacitor/cli @capacitor/core @capacitor/android
 
-      - name: 📂 Copy build to Capacitor
+      - name: ⚙️ Initialize Capacitor project
         run: |
           npx cap init myapp com.example.myapp --web-dir=dist
           npx cap add android
